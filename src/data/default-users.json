@@ -1,0 +1,16 @@
+[
+  {
+    "id": "usr-101",
+    "name": "Avery Stone",
+    "email": "admin@commerce.test",
+    "password": "Commerce@123",
+    "role": "admin"
+  },
+  {
+    "id": "usr-102",
+    "name": "Riley Brooks",
+    "email": "operator@commerce.test",
+    "password": "Operator@123",
+    "role": "operator"
+  }
+]

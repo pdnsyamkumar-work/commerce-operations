@@ -1,0 +1,17 @@
+node_modules/
+
+# Common Node / Next.js ignores
+.env
+.env.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.next/
+dist/
+build/
+coverage/
+.vercel/
+.DS_Store
+.parcel-cache/
+.turbo/
+.cache/

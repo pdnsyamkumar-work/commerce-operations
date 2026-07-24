@@ -1,0 +1,134 @@
+[
+  {
+    "id": "prd-101",
+    "name": "Canvas Weekender Bag",
+    "category": "Travel",
+    "price": 84,
+    "stock": 12,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Canvas Bag", "color": "#d55d3f" },
+      { "label": "Travel", "color": "#0f172a" }
+    ]
+  },
+  {
+    "id": "prd-102",
+    "name": "Cloud Brew Mug",
+    "category": "Kitchen",
+    "price": 22,
+    "stock": 36,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Brew Mug", "color": "#23765d" },
+      { "label": "Kitchen", "color": "#92400e" }
+    ]
+  },
+  {
+    "id": "prd-103",
+    "name": "Signal Desk Lamp",
+    "category": "Home Office",
+    "price": 58,
+    "stock": 8,
+    "status": "Draft",
+    "imageBadges": [
+      { "label": "Desk Lamp", "color": "#475569" },
+      { "label": "Office", "color": "#7c3aed" }
+    ]
+  },
+  {
+    "id": "prd-104",
+    "name": "Metro Lunch Tote",
+    "category": "Kitchen",
+    "price": 34,
+    "stock": 18,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Lunch Tote", "color": "#ea580c" },
+      { "label": "Meal Kit", "color": "#0f766e" }
+    ]
+  },
+  {
+    "id": "prd-105",
+    "name": "Summit Water Bottle",
+    "category": "Travel",
+    "price": 29,
+    "stock": 42,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Bottle", "color": "#0284c7" },
+      { "label": "Summit", "color": "#16a34a" }
+    ]
+  },
+  {
+    "id": "prd-106",
+    "name": "Arc Monitor Stand",
+    "category": "Home Office",
+    "price": 76,
+    "stock": 14,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Stand", "color": "#334155" },
+      { "label": "Monitor", "color": "#4f46e5" }
+    ]
+  },
+  {
+    "id": "prd-107",
+    "name": "Harbor Ceramic Plate",
+    "category": "Kitchen",
+    "price": 18,
+    "stock": 64,
+    "status": "Draft",
+    "imageBadges": [
+      { "label": "Plate", "color": "#be123c" },
+      { "label": "Ceramic", "color": "#a16207" }
+    ]
+  },
+  {
+    "id": "prd-108",
+    "name": "Trail Packing Cube",
+    "category": "Travel",
+    "price": 26,
+    "stock": 7,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Packing", "color": "#059669" },
+      { "label": "Trail", "color": "#65a30d" }
+    ]
+  },
+  {
+    "id": "prd-109",
+    "name": "Focus Notebook Set",
+    "category": "Home Office",
+    "price": 19,
+    "stock": 33,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Notebook", "color": "#2563eb" },
+      { "label": "Focus", "color": "#9333ea" }
+    ]
+  },
+  {
+    "id": "prd-110",
+    "name": "Copper Pour Over Kit",
+    "category": "Kitchen",
+    "price": 68,
+    "stock": 11,
+    "status": "Draft",
+    "imageBadges": [
+      { "label": "Pour Over", "color": "#b45309" },
+      { "label": "Coffee", "color": "#78350f" }
+    ]
+  },
+  {
+    "id": "prd-111",
+    "name": "Nomad Cable Pouch",
+    "category": "Travel",
+    "price": 39,
+    "stock": 25,
+    "status": "Active",
+    "imageBadges": [
+      { "label": "Cable Pouch", "color": "#0e7490" },
+      { "label": "Nomad", "color": "#155e75" }
+    ]
+  }
+]
