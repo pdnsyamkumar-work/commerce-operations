@@ -7,7 +7,10 @@ import {
 } from "react";
 import type { Product } from "@/lib/store";
 import type { ProductDraft, ProductFormErrors } from "./types";
-import { validateProductDraft, type ProductFieldName } from "./product-validation";
+import {
+  validateProductDraft,
+  type ProductFieldName,
+} from "./product-validation";
 import { InlineError, StatusBadge, useClickOutside } from "./shared";
 
 const productsPerPage = 5;
@@ -54,7 +57,10 @@ type ProductsPageProps = {
   draft: ProductDraft;
   errors: ProductFormErrors;
   editingProductId: string | null;
-  onDraftChange: (patch: Partial<ProductDraft>, field?: ProductFieldName) => void;
+  onDraftChange: (
+    patch: Partial<ProductDraft>,
+    field?: ProductFieldName,
+  ) => void;
   onDraftFieldBlur: (field: ProductFieldName) => void;
   onSubmitProduct: (event: FormEvent<HTMLFormElement>) => void;
   onCancelEdit: () => void;
@@ -107,9 +113,7 @@ export function ProductsPage({
             product.category,
             product.productCode,
             product.status,
-          ].some(
-            (value) => value.toLowerCase().includes(query),
-          ),
+          ].some((value) => value.toLowerCase().includes(query)),
         )
       : products;
 
@@ -299,14 +303,14 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
-              className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
-              type="text"
-              inputMode="decimal"
-              placeholder="Example: 84"
-              value={draft.price}
-              onChange={(event) =>
-                onDraftChange(
-                  { price: event.target.value.replace(/[^0-9.]/g, "") },
+                className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
+                type="text"
+                inputMode="decimal"
+                placeholder="Example: 84"
+                value={draft.price}
+                onChange={(event) =>
+                  onDraftChange(
+                    { price: event.target.value.replace(/[^0-9.]/g, "") },
                     "price",
                   )
                 }
@@ -323,7 +327,7 @@ export function ProductsPage({
                 type="text"
                 inputMode="numeric"
                 placeholder="Example: 12"
-              value={draft.stock}
+                value={draft.stock}
                 onChange={(event) =>
                   onDraftChange(
                     { stock: event.target.value.replace(/[^0-9]/g, "") },
@@ -343,9 +347,12 @@ export function ProductsPage({
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>
-                onDraftChange({
-                  status: event.target.value as Product["status"],
-                }, "status")
+                onDraftChange(
+                  {
+                    status: event.target.value as Product["status"],
+                  },
+                  "status",
+                )
               }
               onBlur={() => onDraftFieldBlur("status")}
             >
@@ -1290,4 +1297,3 @@ function readImageFile(file: File) {
     reader.readAsDataURL(file);
   });
 }
-

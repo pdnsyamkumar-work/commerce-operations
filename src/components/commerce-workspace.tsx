@@ -525,9 +525,7 @@ export function CommerceWorkspace() {
       return nextBoard;
     });
     setDraggedTask(null);
-    notify(
-      `Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`,
-    );
+    notify(`Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`);
   }
 
   function submitPracticeReview() {
@@ -581,9 +579,7 @@ export function CommerceWorkspace() {
     setDraft(emptyDraft);
     setEditingProductId(null);
     setProductErrors({});
-    notify(
-      `${editingProductId ? "Updated" : "Created"} ${data.product.name}.`,
-    );
+    notify(`${editingProductId ? "Updated" : "Created"} ${data.product.name}.`);
     await refresh();
   }
 
@@ -972,7 +968,10 @@ export function CommerceWorkspace() {
                 {content.description}
               </p>
             </div>
-            <div className="grid min-w-[320px] gap-3 rounded-[1.5rem] bg-[color:var(--surface-strong)] p-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <div
+              data-testid="cart-info"
+              className="grid min-w-[320px] gap-3 rounded-[1.5rem] bg-[color:var(--surface-strong)] p-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3"
+            >
               <SummaryTile
                 label="Products"
                 value={products.length.toString()}
@@ -1192,7 +1191,12 @@ function SummaryTile({ label, value }: { label: string; value: string }) {
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
         {label}
       </p>
-      <p className="mt-2 text-2xl font-semibold">{value}</p>
+      <p
+        className="mt-2 text-2xl font-semibold"
+        data-testid={`${label.toLocaleLowerCase().replace(" ", "-")}-count`}
+      >
+        {value}
+      </p>
     </div>
   );
 }
@@ -1268,4 +1272,3 @@ function navIcon(item: CommerceNavItem) {
     </svg>
   );
 }
-

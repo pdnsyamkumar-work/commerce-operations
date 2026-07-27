@@ -302,7 +302,10 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   onChange={(event) => {
                     setEmail(event.target.value);
                     if (signInErrors.email) {
-                      setSignInErrors((current) => ({ ...current, email: undefined }));
+                      setSignInErrors((current) => ({
+                        ...current,
+                        email: undefined,
+                      }));
                     }
                   }}
                 />

@@ -28,7 +28,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "e2e/Pages/login-page.ts",
+    "e2e/testdata/login-data.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -101,16 +101,14 @@ function readDefaultProducts(): Product[] {
 }
 
 function readProducts() {
-  return readJsonFile<Product[]>(runtimeProductsPath, readDefaultProducts()).map(
-    normalizeProduct,
-  );
+  return readJsonFile<Product[]>(
+    runtimeProductsPath,
+    readDefaultProducts(),
+  ).map(normalizeProduct);
 }
 
 function writeProducts(products: Product[]) {
-  writeRuntimeFile(
-    runtimeProductsPath,
-    products.map(normalizeProduct),
-  );
+  writeRuntimeFile(runtimeProductsPath, products.map(normalizeProduct));
 }
 
 function readCartItems() {
