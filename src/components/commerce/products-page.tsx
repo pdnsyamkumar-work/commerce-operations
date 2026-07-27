@@ -7,7 +7,10 @@ import {
 } from "react";
 import type { Product } from "@/lib/store";
 import type { ProductDraft, ProductFormErrors } from "./types";
-import { validateProductDraft, type ProductFieldName } from "./product-validation";
+import {
+  validateProductDraft,
+  type ProductFieldName,
+} from "./product-validation";
 import { InlineError, StatusBadge, useClickOutside } from "./shared";
 
 const productsPerPage = 5;
@@ -54,7 +57,10 @@ type ProductsPageProps = {
   draft: ProductDraft;
   errors: ProductFormErrors;
   editingProductId: string | null;
-  onDraftChange: (patch: Partial<ProductDraft>, field?: ProductFieldName) => void;
+  onDraftChange: (
+    patch: Partial<ProductDraft>,
+    field?: ProductFieldName,
+  ) => void;
   onDraftFieldBlur: (field: ProductFieldName) => void;
   onSubmitProduct: (event: FormEvent<HTMLFormElement>) => void;
   onCancelEdit: () => void;
@@ -107,9 +113,7 @@ export function ProductsPage({
             product.category,
             product.productCode,
             product.status,
-          ].some(
-            (value) => value.toLowerCase().includes(query),
-          ),
+          ].some((value) => value.toLowerCase().includes(query)),
         )
       : products;
 
@@ -229,7 +233,10 @@ export function ProductsPage({
     <section className="grid gap-6 xl:grid-cols-[0.9fr_1.8fr]">
       <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold">
+          <h2
+            className="text-2xl font-semibold"
+            data-testid="heading-create-product"
+          >
             {isEditing ? "Edit product" : "Create product"}
           </h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
@@ -246,13 +253,18 @@ export function ProductsPage({
             <input
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
+              data-testid="input-field-product-name"
               value={draft.name}
               onChange={(event) =>
                 onDraftChange({ name: event.target.value }, "name")
               }
               onBlur={() => onDraftFieldBlur("name")}
             />
-            <InlineError id="product-name" message={errors.name} />
+            <InlineError
+              id="product-name"
+              message={errors.name}
+              testId="error-product-name"
+            />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
@@ -261,6 +273,7 @@ export function ProductsPage({
             <input
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
+              data-testid="input-field-product-code"
               value={draft.productCode}
               readOnly={isEditing}
               onChange={(event) =>
@@ -271,7 +284,11 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("productCode")}
             />
-            <InlineError id="product-code" message={errors.productCode} />
+            <InlineError
+              id="product-code"
+              message={errors.productCode}
+              testId="error-product-code"
+            />
             {isEditing && (
               <p className="text-xs font-normal text-[color:var(--muted)]">
                 Product code is locked after creation.
@@ -285,13 +302,18 @@ export function ProductsPage({
             <input
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Travel"
+              data-testid="input-field-product-category"
               value={draft.category}
               onChange={(event) =>
                 onDraftChange({ category: event.target.value }, "category")
               }
               onBlur={() => onDraftFieldBlur("category")}
             />
-            <InlineError id="category" message={errors.category} />
+            <InlineError
+              id="category"
+              message={errors.category}
+              testId="error-product-category"
+            />
           </label>
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
@@ -299,20 +321,25 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
-              className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
-              type="text"
-              inputMode="decimal"
-              placeholder="Example: 84"
-              value={draft.price}
-              onChange={(event) =>
-                onDraftChange(
-                  { price: event.target.value.replace(/[^0-9.]/g, "") },
+                className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
+                type="text"
+                inputMode="decimal"
+                placeholder="Example: 84"
+                data-testid="input-field-product-price"
+                value={draft.price}
+                onChange={(event) =>
+                  onDraftChange(
+                    { price: event.target.value.replace(/[^0-9.]/g, "") },
                     "price",
                   )
                 }
                 onBlur={() => onDraftFieldBlur("price")}
               />
-              <InlineError id="price" message={errors.price} />
+              <InlineError
+                id="price"
+                message={errors.price}
+                testId="error-product-price"
+              />
             </label>
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
               <span>
@@ -323,7 +350,8 @@ export function ProductsPage({
                 type="text"
                 inputMode="numeric"
                 placeholder="Example: 12"
-              value={draft.stock}
+                data-testid="input-field-product-stock"
+                value={draft.stock}
                 onChange={(event) =>
                   onDraftChange(
                     { stock: event.target.value.replace(/[^0-9]/g, "") },
@@ -332,7 +360,11 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("stock")}
               />
-              <InlineError id="stock" message={errors.stock} />
+              <InlineError
+                id="stock"
+                message={errors.stock}
+                testId="error-product-stock"
+              />
             </label>
           </div>
           <label className="grid gap-2 text-sm font-semibold">
@@ -341,24 +373,33 @@ export function ProductsPage({
             </span>
             <select
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
+              data-testid="dropdown-product-status"
               value={draft.status}
               onChange={(event) =>
-                onDraftChange({
-                  status: event.target.value as Product["status"],
-                }, "status")
+                onDraftChange(
+                  {
+                    status: event.target.value as Product["status"],
+                  },
+                  "status",
+                )
               }
               onBlur={() => onDraftFieldBlur("status")}
             >
               <option value="Active">Active</option>
               <option value="Draft">Draft</option>
             </select>
-            <InlineError id="product-status" message={errors.status} />
+            <InlineError
+              id="product-status"
+              message={errors.status}
+              testId="error-product-status"
+            />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
               Product images <span className="text-rose-600">*</span>
             </span>
             <span
+              data-testid="button-choose-files"
               className={`inline-flex items-center justify-center rounded-2xl border border-dashed px-4 py-3 font-semibold transition duration-200 ${isImageUploadDisabled ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400" : "cursor-pointer border-[color:var(--border)] bg-white text-slate-900 hover:bg-slate-100"}`}
             >
               {isImageUploadDisabled
@@ -376,6 +417,7 @@ export function ProductsPage({
             <InlineError
               id="product-images"
               message={imageLimitError || errors.images}
+              testId="error-product-files"
             />
             <p className="text-xs font-normal text-[color:var(--muted)]">
               Attach at least 1 image and up to {maxProductImages} images.
@@ -394,6 +436,7 @@ export function ProductsPage({
               className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-[color:var(--accent)] disabled:hover:shadow-sm"
               type="submit"
               disabled={isSubmitDisabled}
+              data-testid="button-create-product"
             >
               {isEditing ? "Save Product" : "Create Product"}
             </button>
@@ -1290,4 +1333,3 @@ function readImageFile(file: File) {
     reader.readAsDataURL(file);
   });
 }
-

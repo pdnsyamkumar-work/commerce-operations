@@ -35,7 +35,9 @@ export function CartPage({
     <section className="grid gap-6 xl:grid-cols-1">
       <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold">Cart</h2>
+          <h2 className="text-2xl font-semibold" data-testid="heading-cart">
+            Cart
+          </h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Add catalog items to the cart, adjust quantities, and remove items
             when needed.
@@ -47,11 +49,13 @@ export function CartPage({
             products={products}
             selectedLabel={selectedProduct?.name ?? "Choose product"}
             onSelect={onSelectedProductChange}
+            testId="cart-product-dropdown"
           />
           <button
             className="cursor-pointer rounded-full bg-slate-900 px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg"
             type="button"
             onClick={onAddToCart}
+            data-testid="button-add-selected-product"
           >
             Add Selected Product
           </button>
@@ -75,8 +79,16 @@ export function CartPage({
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h3 className="font-semibold">{item.name}</h3>
-                    <p className="text-sm text-[color:var(--muted)]">
+                    <h3
+                      className="font-semibold"
+                      data-testid={`product-${item.name}`}
+                    >
+                      {item.name}
+                    </h3>
+                    <p
+                      className="text-sm text-[color:var(--muted)]"
+                      data-testid={`price-${item.name}`}
+                    >
                       ${item.unitPrice} each &middot; {item.id}
                     </p>
                   </div>
@@ -85,6 +97,7 @@ export function CartPage({
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-slate-700 transition duration-200 hover:bg-slate-100 hover:text-slate-950"
                       type="button"
                       onClick={() => setViewedItem(item)}
+                      data-testid={`button-view-${item.name}`}
                     >
                       View
                     </button>
@@ -92,6 +105,7 @@ export function CartPage({
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-rose-700 transition duration-200 hover:bg-rose-50 hover:text-rose-800"
                       type="button"
                       onClick={() => onRemoveCartItem(item.id)}
+                      data-testid={`button-Remove-${item.name}`}
                     >
                       Remove
                     </button>
@@ -104,16 +118,18 @@ export function CartPage({
                     onClick={() =>
                       onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))
                     }
+                    data-testid={`button-decrement-${item.name}`}
                   >
                     -
                   </button>
-                  <span className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold">
+                  <span className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold" data-testid={`${item.name}-quantity`}>
                     {item.quantity}
                   </span>
                   <button
                     className="cursor-pointer rounded-full border border-[color:var(--border)] px-4 py-2 text-sm transition duration-200 hover:border-slate-400 hover:bg-slate-900 hover:text-white"
                     type="button"
                     onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                    data-testid={`button-increment-${item.name}`}
                   >
                     +
                   </button>
@@ -138,10 +154,12 @@ function ProductDropdown({
   products,
   selectedLabel,
   onSelect,
+  testId,
 }: {
   products: Product[];
   selectedLabel: string;
   onSelect: (id: string) => void;
+  testId?: string;
 }) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -154,9 +172,10 @@ function ProductDropdown({
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
+        data-testid={testId}
       >
         <span>{selectedLabel}</span>
-        <span>v</span>
+        <span data-testid="expand-option">v</span>
       </button>
       {open && (
         <div className="absolute left-0 z-40 mt-2 max-h-80 w-full overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl">
@@ -169,6 +188,7 @@ function ProductDropdown({
                 onSelect(product.id);
                 setOpen(false);
               }}
+              data-testid={`dropdown-option-${product.name}`}
             >
               <span className="font-semibold">{product.name}</span>
               <span className="ml-2 text-xs text-[color:var(--muted)]">
@@ -209,6 +229,7 @@ function CartItemDialog({
             <h2
               id="cart-item-dialog-title"
               className="mt-2 text-2xl font-semibold"
+              data-testid={`product-${item.name}`}
             >
               {item.name}
             </h2>
@@ -230,19 +251,20 @@ function CartItemDialog({
           />
         )}
         <div className="mt-5 grid gap-3 rounded-[1.25rem] bg-[color:var(--surface-strong)] p-4 text-sm">
-          <p>
-            <strong>Product code:</strong> {product?.productCode ?? item.productId}
+          <p data-testid={`${item.name}-productCode`}>
+            <strong>Product code:</strong>
+            {product?.productCode ?? item.productId}
           </p>
-          <p>
+          <p data-testid={`${item.name}-category`}>
             <strong>Category:</strong> {product?.category ?? "Unavailable"}
           </p>
-          <p>
+          <p data-testid={`${item.name}-quantity`}>
             <strong>Quantity:</strong> {item.quantity}
           </p>
-          <p>
+          <p data-testid={`${item.name}-unitPrice`}>
             <strong>Unit price:</strong> ${item.unitPrice}
           </p>
-          <p>
+          <p data-testid={`${item.name}-subtotal`}>
             <strong>Subtotal:</strong> ${subtotal}
           </p>
         </div>
@@ -251,6 +273,7 @@ function CartItemDialog({
             className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg"
             type="button"
             onClick={onClose}
+            data-testid={`close-button-${item.name}`}
           >
             Close
           </button>

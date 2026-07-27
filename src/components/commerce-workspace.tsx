@@ -265,6 +265,7 @@ export function CommerceWorkspace() {
   const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(false);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
   const toastTimerRef = useRef<number | null>(null);
+  
   const [profileDetails, setProfileDetails] = useState(defaultProfileDetails);
   useClickOutside(profileDropdownRef, () => setIsProfileOpen(false));
 
@@ -525,9 +526,7 @@ export function CommerceWorkspace() {
       return nextBoard;
     });
     setDraggedTask(null);
-    notify(
-      `Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`,
-    );
+    notify(`Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`);
   }
 
   function submitPracticeReview() {
@@ -581,9 +580,7 @@ export function CommerceWorkspace() {
     setDraft(emptyDraft);
     setEditingProductId(null);
     setProductErrors({});
-    notify(
-      `${editingProductId ? "Updated" : "Created"} ${data.product.name}.`,
-    );
+    notify(`${editingProductId ? "Updated" : "Created"} ${data.product.name}.`);
     await refresh();
   }
 
@@ -895,7 +892,9 @@ export function CommerceWorkspace() {
                 onClick={() => navigateToView(item)}
               >
                 <span className="text-lg">{navIcon(item)}</span>
-                {!isSideNavCollapsed && <span>{item}</span>}
+                {!isSideNavCollapsed && (
+                  <span data-testid={`nav-item-${item}`}>{item}</span>
+                )}
               </button>
             );
           })}
@@ -929,7 +928,7 @@ export function CommerceWorkspace() {
                 )}
               </span>
               <span>{user.name}</span>
-              <span>v</span>
+              <span data-testid="button-expand-or-close">v</span>
             </button>
             {isProfileOpen && (
               <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-2xl border border-[color:var(--border)] bg-white p-3 shadow-xl">
@@ -951,6 +950,7 @@ export function CommerceWorkspace() {
                   className="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-rose-700 transition duration-200 hover:bg-rose-50"
                   type="button"
                   onClick={signOut}
+                  data-testid="link-sign-out"
                 >
                   Sign Out
                 </button>
@@ -976,12 +976,18 @@ export function CommerceWorkspace() {
               <SummaryTile
                 label="Products"
                 value={products.length.toString()}
+                testId="summary-products-count"
               />
               <SummaryTile
                 label="Cart Items"
                 value={cartItems.length.toString()}
+                testId="summary-cart-items-count"
               />
-              <SummaryTile label="Cart Total" value={`$${cartTotal}`} />
+              <SummaryTile
+                label="Cart Total"
+                value={`$${cartTotal}`}
+                testId="summary-cart-total"
+              />
             </div>
           </div>
         </section>
@@ -1186,13 +1192,23 @@ function ExpandIcon() {
   );
 }
 
-function SummaryTile({ label, value }: { label: string; value: string }) {
+function SummaryTile({
+  label,
+  value,
+  testId,
+}: {
+  label: string;
+  value: string;
+  testId?: string;
+}) {
   return (
     <div>
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
         {label}
       </p>
-      <p className="mt-2 text-2xl font-semibold">{value}</p>
+      <p className="mt-2 text-2xl font-semibold" data-testid={testId}>
+        {value}
+      </p>
     </div>
   );
 }
@@ -1268,4 +1284,3 @@ function navIcon(item: CommerceNavItem) {
     </svg>
   );
 }
-

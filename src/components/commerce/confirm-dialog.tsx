@@ -51,6 +51,7 @@ export function ConfirmDialog({
             className="rounded-full bg-rose-700 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-rose-800 hover:shadow-lg"
             type="button"
             onClick={onConfirm}
+            data-testId={`button-${confirmLabel}`}
           >
             {confirmLabel}
           </button>
