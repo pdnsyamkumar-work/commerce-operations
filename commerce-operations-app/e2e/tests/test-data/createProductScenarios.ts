@@ -1,0 +1,113 @@
+import { createProductElements } from "../../utils/interfaces/createProductInterface";
+const generateProductCode = () => {
+  return `PRD-${Date.now()}`;
+};
+export const createProductAllScenarios: Record<string, createProductElements> =
+  {
+    Succssfull_Product_Creation: {
+      productName: "Bag",
+      productCode: generateProductCode(),
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Active",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_With_Duplicate_ProductCode: {
+      productName: "Bag",
+      productCode: "PRD-106",
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Active",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_Without_ProductName: {
+      productName: "",
+      productCode: "PRD-119",
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Draft",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_Without_ProductCode: {
+      productName: "ere",
+      productCode: " ",
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Draft",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_Without_Category: {
+      productName: "hjj",
+      productCode: "PRD-119",
+      category: "",
+      price: "212",
+      stock: "21",
+      status: "Draft",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_Without_Price: {
+      productName: "kdj",
+      productCode: "PRD-119",
+      category: "Home",
+      price: "",
+      stock: "21",
+      status: "Draft",
+      imagePaths: [
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+      ],
+    },
+    Product_Creation_With_ProductName_lessthan3Char: {
+      productName: "w",
+      productCode: "PRD-119",
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Draft",
+      imagePaths: [
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+      ],
+    },
+    Product_Creation_With_SpecialChars_InProductCode: {
+      productName: "wklq",
+      productCode: "PRD=119",
+      category: "Home",
+      price: "212",
+      stock: "21",
+      status: "Active",
+      imagePaths: [
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+      ],
+    },
+    Product_Creation_WithCategory_Lessthan_2Char: {
+      productName: "wkiiu",
+      productCode: "PRD-178",
+      category: "H",
+      price: "212",
+      stock: "21",
+      status: "Active",
+      imagePaths: ["C:\\Users\\caw-qa\\Downloads\\flower.jpeg"],
+    },
+    Product_Creation_With_MoreThan_6Images: {
+      productName: "wkiu",
+      productCode: "PRD-170",
+      category: "He",
+      price: "212",
+      stock: "21",
+      status: "Active",
+      imagePaths: [
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+        "C:\\Users\\caw-qa\\Downloads\\flower.jpeg",
+      ],
+    },
+  };
