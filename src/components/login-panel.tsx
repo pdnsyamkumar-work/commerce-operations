@@ -293,6 +293,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Email address <span className="text-rose-600">*</span>
                 </span>
                 <input
+                  data-testid="input-field-emailAddress"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -315,6 +316,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               <label className="grid gap-2 text-sm font-semibold">
                 <span>
                   Password <span className="text-rose-600">*</span>
+                  
                 </span>
                 <PasswordField
                   value={password}
@@ -327,6 +329,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               </label>
 
               <button
+              data-testid="btn-field-sign-in"
                 className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
@@ -496,6 +499,7 @@ function PasswordField({
   return (
     <div className="relative">
       <input
+       data-testid="input-field-password"
         className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-24 font-normal"
         type={showPassword ? "text" : "password"}
         value={value}

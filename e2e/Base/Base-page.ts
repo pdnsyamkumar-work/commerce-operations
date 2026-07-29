@@ -1,44 +1,49 @@
 //This is the Parent class
 
-import { Locator, Page } from "@playwright/test";
+import {Page } from "@playwright/test";
+import { TextFieldComponent } from "../Components/Text-Field-comp";
+import { ButtonComponent } from "../Components/Button-comp";
+import { Buttons } from "../enums/component_enums/labes_enums";
 
 export class BasePage {
-  protected page: Page;
+ protected readonly page: Page;
   protected readonly baseUrl = "http://localhost:3000/";
 
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly signInBtn: Locator;
-  readonly signUpBtn: Locator;
-  readonly signOutBtn: Locator;
-  readonly ProfileDropdown: Locator;
+  readonly textfield:TextFieldComponent
+ readonly button: ButtonComponent;
+
+
 
   constructor(page: Page) {
-    this.page = page;
-    this.emailInput = page.getByRole("textbox", { name: "email" });
-    this.passwordInput = page.getByLabel("Password *");
-    this.signInBtn = page.locator("//button[text()='Sign In']");
-    this.signUpBtn = page.getByRole("button", { name: "Sign up" });
-    this.signOutBtn = this.page.locator(
-      "//button[normalize-space()='Sign Out']",
-    );
-    this.ProfileDropdown = this.page.locator("header button").last();
+     this.page = page;
+    
+    //inputfiled component
+    this.textfield=new TextFieldComponent(page)
+
+    this.button=new ButtonComponent(page)
   }
+
 
   async navigate() {
     await this.page.goto(this.baseUrl);
   }
 
   async clickOnSignIn() {
-    await this.signInBtn.click();
+    await this.button.getButton(Buttons.SIGN_IN).click();
   }
 
   async signUpClick() {
-    await this.signUpBtn.click();
+    await this.button.getButton(Buttons.SIGN_UP).click();
   }
 
   async logout() {
-    await this.ProfileDropdown.click();
-    await this.signOutBtn.click();
+    await this.button.getButton(Buttons.PROFILE_DROPDOWN).click();
+    await this.button.getButton(Buttons.SIGN_OUT).click();
   }
 }
+
+
+
+
+
+

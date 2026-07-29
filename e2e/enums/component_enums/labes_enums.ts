@@ -1,3 +1,12 @@
-export enum Messages {
-  INVALID_EMAIL = "Please include an '@' in the email address.'{{email}}' is missing an '@'.",
+export enum Labels{
+  EMAIL_ADDRESS= "emailAddress",
+  PASSWORD="password"
+}
+
+export enum Buttons {
+  SIGN_IN = "sign-in",
+  SIGN_UP = "Sign-Up-btn",
+  SIGN_OUT = "sign-out",
+  FORGOT_PASSWORD = "Forgot-Password-btn",
+  PROFILE_DROPDOWN = "dropdown-profile",
 }

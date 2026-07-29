@@ -909,6 +909,7 @@ export function CommerceWorkspace() {
           </div>
           <div ref={profileDropdownRef} className="relative z-50">
             <button
+           data-testid="btn-field-dropdown-profile"
               className="flex items-center gap-3 rounded-full border border-[color:var(--border)] bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
               type="button"
               onClick={() => setIsProfileOpen((current) => !current)}
@@ -944,6 +945,7 @@ export function CommerceWorkspace() {
                   Profile
                 </button>
                 <button
+                data-testid="btn-field-sign-out"
                   className="w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-rose-700 transition duration-200 hover:bg-rose-50"
                   type="button"
                   onClick={signOut}

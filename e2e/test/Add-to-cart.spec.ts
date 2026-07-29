@@ -1,12 +1,10 @@
-import { test } from "../Fixtures/cart-fixture"
-import {expect } from "@playwright/test"
+import { test } from "../Fixtures/cart-fixture";
+import { expect } from "@playwright/test";
 //import carts from "../Pages/cart-page";
 import { cartData } from "../testdata/cart-data";
 
 test.describe("Cart Module", () => {
-
-
-  test("Verify user can add product to cart", async ({cartpage }) => {
+  test("Verify user can add product to cart", async ({ cartpage }) => {
     await test.step("Choose the product from the dropdown", async () => {
       await cartpage.choose_prod_frm_drpdwn(cartData.product2);
     });
@@ -16,7 +14,7 @@ test.describe("Cart Module", () => {
     });
   });
 
-  test("Remove the exsitng items present in the cart", async ({cartpage }) => {
+  test("Remove the exsitng items present in the cart", async ({ cartpage }) => {
     await test.step("Remove the Added product from the cart", async () => {
       await cartpage.choose_prod_frm_drpdwn(cartData.product2);
       await cartpage.click_Add_Prd_Btn();
@@ -41,7 +39,7 @@ test.describe("Cart Module", () => {
     });
   });
 
-  test("Veriy that prod qnty increae and decrease", async ({cartpage }) => {
+  test("Veriy that prod qnty increae and decrease", async ({ cartpage }) => {
     await test.step("Verify that add prod and increase the qnty", async () => {
       await cartpage.choose_prod_frm_drpdwn(cartData.product4);
       await cartpage.click_Add_Prd_Btn();
