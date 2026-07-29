@@ -1,28 +1,25 @@
 //This is the Parent class
 
-import {Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { TextFieldComponent } from "../Components/Text-Field-comp";
 import { ButtonComponent } from "../Components/Button-comp";
 import { Buttons } from "../enums/component_enums/labes_enums";
 
 export class BasePage {
- protected readonly page: Page;
+  protected readonly page: Page;
   protected readonly baseUrl = "http://localhost:3000/";
 
-  readonly textfield:TextFieldComponent
- readonly button: ButtonComponent;
-
-
+  readonly textfield: TextFieldComponent;
+  readonly button: ButtonComponent;
 
   constructor(page: Page) {
-     this.page = page;
-    
+    this.page = page;
+
     //inputfiled component
-    this.textfield=new TextFieldComponent(page)
+    this.textfield = new TextFieldComponent(page);
 
-    this.button=new ButtonComponent(page)
+    this.button = new ButtonComponent(page);
   }
-
 
   async navigate() {
     await this.page.goto(this.baseUrl);
@@ -41,9 +38,3 @@ export class BasePage {
     await this.button.getButton(Buttons.SIGN_OUT).click();
   }
 }
-
-
-
-
-
-

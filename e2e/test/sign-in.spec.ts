@@ -3,8 +3,6 @@ import { testData } from "../testdata/sign-in-data";
 import SignInPage from "../Pages/sign-in-page";
 import { Buttons } from "../enums/component_enums/labes_enums";
 
-
-
 test.describe("Sign In Module", () => {
   let signInPage: SignInPage; //let creates a variable.
 
@@ -23,7 +21,9 @@ test.describe("Sign In Module", () => {
     });
 
     await test.step("Verify the dashboard is displayed", async () => {
-      await expect(signInPage.button.getButton(Buttons.PROFILE_DROPDOWN)).toBeVisible();
+      await expect(
+        signInPage.button.getButton(Buttons.PROFILE_DROPDOWN),
+      ).toBeVisible();
     });
   });
 
@@ -33,8 +33,10 @@ test.describe("Sign In Module", () => {
     });
 
     await test.step("Logout from the application.", async () => {
-      await expect(signInPage.button.getButton(Buttons.PROFILE_DROPDOWN)).toBeVisible();
-      
+      await expect(
+        signInPage.button.getButton(Buttons.PROFILE_DROPDOWN),
+      ).toBeVisible();
+
       await signInPage.logout();
     });
 

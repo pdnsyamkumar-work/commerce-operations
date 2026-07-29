@@ -1,6 +1,6 @@
-export enum Labels{
-  EMAIL_ADDRESS= "emailAddress",
-  PASSWORD="password"
+export enum Labels {
+  EMAIL_ADDRESS = "emailAddress",
+  PASSWORD = "password",
 }
 
 export enum Buttons {
