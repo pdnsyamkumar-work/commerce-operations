@@ -1,5 +1,5 @@
 import { Page, expect} from "@playwright/test";
-import sign_in from "./sign-in-page";
+
 import { Signupdata } from "../utils/interfaces/signup.interface";
 import { BasePage } from "../Base/Base-page";
 import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
@@ -71,7 +71,7 @@ async multisignup(data: Signupdata[]) {
       console.log(`Validation displayed for ${user.work_email}`);
       continue;
     }
-    const userExistsLocator = this.userExistsError();
+    const userExistsLocator = this.page.getByText("User already exists.");
       if (await userExistsLocator.isVisible()) {
       console.log(`User already exists: ${user.work_email}`);
       continue;
@@ -84,37 +84,6 @@ async multisignup(data: Signupdata[]) {
       await this.logout();
     }
 
-
-
-  }
-
-
-
-
-
-}
-
-/*
-async verifySignupValidation(users: SignupData[]) {
-  for (const user of users) {
-    await this.navigate();
-
-    await this.clickSignUpTab();
-
-    await this.Signup(user);
-
-    await this.clickCreateAccount();
-
-    const errorLocator =
-      await this.getExpectedErrorLocator(user);
-
-    if (errorLocator) {
-      await expect(errorLocator).toBeVisible();
-
-      console.log(
-        `Validation displayed for: ${user.work_email}`
-      );
-    }
   }
 }
-*/
+}
