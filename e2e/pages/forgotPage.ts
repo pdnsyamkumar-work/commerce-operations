@@ -1,18 +1,20 @@
 import { Page, Locator } from "@playwright/test";
 import { forgotPassword } from "../interfaces/userData";
 import { BasePage } from "./basePage";
+import { Buttons } from "../enums/component-enum/buttons.enums";
+import { TextField } from "../enums/component-enum/text-field.enum";
 export class ForgotPage extends BasePage {
   constructor(page: Page) {
     super(page);
   }
   getForgotEmailTextbox(): Locator {
-    return this.page.getByTestId("input-field-forgot-password-work-email");
+    return this.field.getInputField(TextField.WORKEMAIL);
   }
   getForgotPage(): Locator {
-    return this.page.getByTestId("link-forgot-password");
+    return this.button.getButton(Buttons.FORGOT_LINK);
   }
   getResetBtn(): Locator {
-    return this.page.getByTestId("button-Send-Reset-Link");
+    return this.button.getButton(Buttons.RESET_BUTTON);
   }
   getEmailError(): Locator {
     return this.page.getByTestId("reset-email-error");
@@ -21,13 +23,16 @@ export class ForgotPage extends BasePage {
     return this.page.getByTestId("heading-reset-password");
   }
   async gotoforgotPassword() {
-    await this.clickElement(this.getForgotPage());
+    await this.button.getButton(Buttons.FORGOT_LINK).click();
+    // await this.clickElement(this.getForgotPage());
   }
   async forgotPassword(email: string) {
-    await this.fillField(this.getForgotEmailTextbox(), email);
+    await this.field.getInputField(TextField.WORKEMAIL).fill(email);
+    // await this.fillField(this.getForgotEmailTextbox(), email);
   }
   async clickresetBtn() {
-    await this.clickElement(this.getResetBtn());
+    await this.button.getButton(Buttons.RESET_BUTTON).click();
+    // await this.clickElement(this.getResetBtn());
   }
   getPasswordResetSuccessMessage(email: string) {
     return this.page.locator("p").filter({

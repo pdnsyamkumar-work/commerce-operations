@@ -253,7 +253,7 @@ export function ProductsPage({
             <input
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
-              data-testid="input-field-product-name"
+              data-testid="text-field-product-name"
               value={draft.name}
               onChange={(event) =>
                 onDraftChange({ name: event.target.value }, "name")
@@ -273,7 +273,7 @@ export function ProductsPage({
             <input
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
-              data-testid="input-field-product-code"
+              data-testid="text-field-product-code"
               value={draft.productCode}
               readOnly={isEditing}
               onChange={(event) =>
@@ -302,7 +302,7 @@ export function ProductsPage({
             <input
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Travel"
-              data-testid="input-field-product-category"
+              data-testid="text-field-category"
               value={draft.category}
               onChange={(event) =>
                 onDraftChange({ category: event.target.value }, "category")
@@ -325,7 +325,7 @@ export function ProductsPage({
                 type="text"
                 inputMode="decimal"
                 placeholder="Example: 84"
-                data-testid="input-field-product-price"
+                data-testid="text-field-price"
                 value={draft.price}
                 onChange={(event) =>
                   onDraftChange(
@@ -350,7 +350,7 @@ export function ProductsPage({
                 type="text"
                 inputMode="numeric"
                 placeholder="Example: 12"
-                data-testid="input-field-product-stock"
+                data-testid="text-field-stock"
                 value={draft.stock}
                 onChange={(event) =>
                   onDraftChange(
@@ -373,7 +373,7 @@ export function ProductsPage({
             </span>
             <select
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
-              data-testid="dropdown-product-status"
+              data-testid="dropdown-status"
               value={draft.status}
               onChange={(event) =>
                 onDraftChange(
@@ -445,6 +445,7 @@ export function ProductsPage({
                 className="rounded-full border border-[color:var(--border)] bg-white px-5 py-3 font-semibold text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
                 type="button"
                 onClick={onCancelEdit}
+                data-testid="button-cancel-edit"
               >
                 Cancel Edit
               </button>

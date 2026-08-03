@@ -1,13 +1,24 @@
 import { Page, Locator } from "@playwright/test";
+import { ButtonComponent } from "../components/button.component";
+import { TextFieldComponent } from "../components/text-field.component";
+import { DropdownComponent } from "../components/dropdown.component";
+import { FileUploadComponent } from "../components/fileupload.component";
 
 export class BasePage {
-  readonly page: Page;
+  readonly button: ButtonComponent;
+  readonly field: TextFieldComponent;
+  readonly dropdown: DropdownComponent;
+  readonly uploadfile: FileUploadComponent;
 
-  constructor(page: Page) {
-    this.page = page;
+  constructor(readonly page: Page) {
+    this.button = new ButtonComponent(page);
+    this.field = new TextFieldComponent(page);
+    this.dropdown = new DropdownComponent(page);
+    this.uploadfile = new FileUploadComponent(page);
   }
 
-  getNavItem = (itemName: string) => this.page.getByTestId(`nav-item-${itemName}`);
+  getNavItem = (itemName: string) =>
+    this.page.getByTestId(`nav-item-${itemName}`);
 
   async goto(url: string) {
     await this.page.goto(url);
@@ -21,14 +32,20 @@ export class BasePage {
     await locator.fill(value);
   }
 
- 
-
   async waitForPageLoad() {
     await this.page.waitForLoadState("networkidle");
   }
   async setFiles(locator: Locator, files: string[]) {
     await locator.setInputFiles(files);
   }
+  async uploadFile(locator: Locator, file: string | string[]): Promise<void> {
+    const [upload] = await Promise.all([
+      this.page.waitForEvent("filechooser"),
+      locator.click(),
+    ]);
+    await upload.setFiles(file);
+  }
+
   async selectDropdownOption(
     dropdown: Locator,
     optionText: string,

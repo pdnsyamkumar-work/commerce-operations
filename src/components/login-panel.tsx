@@ -271,7 +271,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-in" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-in")}
-              data-testid="link-signin"
+              data-testid="button-link-signin"
             >
               Sign in
             </button>
@@ -279,7 +279,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-up" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-up")}
-              data-testid="link-signup"
+              data-testid="button-link-signup"
             >
               Sign up
             </button>
@@ -287,7 +287,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "forgot-password" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("forgot-password")}
-              data-testid="link-forgot-password"
+              data-testid="button-link-forgot-password"
             >
               Forgot password
             </button>
@@ -315,7 +315,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <input
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
-                  data-testid="input-field-signin-email"
+                  data-testid="text-field-email-address"
                   inputMode="email"
                   autoComplete="email"
                   spellCheck={false}
@@ -342,7 +342,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
-                  testId="input-field-signin-password"
+                  testId="text-field-password"
                   value={password}
                   showPassword={showLoginPassword}
                   onChange={setPassword}
@@ -387,7 +387,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <input
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="name"
-                  data-testid="input-field-signup-fullname"
+                  data-testid="text-field-fullname"
                   value={signUpName}
                   onChange={(event) => setSignUpName(event.target.value)}
                 />
@@ -407,7 +407,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   inputMode="email"
                   autoComplete="email"
                   spellCheck={false}
-                  data-testid="input-field-signup-work-email"
+                  data-testid="text-field-work-email"
                   value={signUpEmail}
                   onChange={(event) => setSignUpEmail(event.target.value)}
                 />
@@ -424,7 +424,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <input
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="organization"
-                  data-testid="input-field-signup-company-name"
+                  data-testid="text-field-company"
                   value={storeName}
                   onChange={(event) => setStoreName(event.target.value)}
                 />
@@ -439,7 +439,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
-                  testId="input-field-signup-password"
+                  testId="text-field-password"
                   value={signUpPassword}
                   showPassword={showSignUpPassword}
                   onChange={setSignUpPassword}
@@ -458,7 +458,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Confirm password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
-                  testId="input-field-signup-confirm-password"
+                  testId="text-field-confirm-password"
                   value={confirmPassword}
                   showPassword={showConfirmPassword}
                   onChange={setConfirmPassword}
@@ -510,7 +510,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   inputMode="email"
                   autoComplete="email"
                   spellCheck={false}
-                  data-testid="input-field-forgot-password-work-email"
+                  data-testid="text-field-work-email"
                   value={resetEmail}
                   onChange={(event) => setResetEmail(event.target.value)}
                 />
@@ -567,6 +567,7 @@ function PasswordField({
         type="button"
         aria-label={showPassword ? "Hide password" : "Show password"}
         onClick={onToggleVisibility}
+        datat-testid="button-view"
       >
         {showPassword ? "Hide" : "View"}
       </button>

@@ -1,7 +1,7 @@
 import { signupData } from "../interfaces/userData";
 import { signinData } from "../interfaces/userData";
 import { ProductData } from "../interfaces/userData";
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
 export const userSignupData: Record<string, signupData> = {
   validData: {
@@ -239,7 +239,7 @@ export const productData: Record<string, ProductData> = {
     expected: "You can upload only 6 more images. Maximum 6 images allowed.",
   },
   duplicateProduct: {
-     productName: "Samsung S25",
+    productName: "Samsung S25",
     productCode: "SS25001",
     category: "Electronics",
     price: "89999",
@@ -249,13 +249,13 @@ export const productData: Record<string, ProductData> = {
     expected: "A product with this code already exists.",
   },
 };
-export const  cartData:Record<string, {itemName:string,price:string}> = {
- product1:{
-  itemName:"Metro Lunch Tote",
-  price:"34"
- },
- product2:{
-  itemName:"Canvas Weekender Bag",
-  price:"84"
- }
-}
+export const cartData: Record<string, { itemName: string; price: string }> = {
+  product1: {
+    itemName: "Metro Lunch Tote",
+    price: "34",
+  },
+  product2: {
+    itemName: "Canvas Weekender Bag",
+    price: "84",
+  },
+};

@@ -1,27 +1,32 @@
 import { Page, Locator } from "@playwright/test";
 import { ProductData } from "../interfaces/userData";
 import { BasePage } from "./basePage";
+import { Buttons, MenuItems } from "../enums/component-enum/buttons.enums";
+import { TextField } from "../enums/component-enum/text-field.enum";
+import { Dropdown } from "../enums/component-enum/dropdown.enum";
+import { FileUploadComponent } from "../components/fileupload.component";
+import { FileUpload } from "../enums/component-enum/fileupload.enum";
 export class createProduct extends BasePage {
   constructor(page: Page) {
     super(page);
   }
   getProductPageLink(): Locator {
-    return this.page.getByTestId(`nav-item-Products`);
+    return this.button.getMenuItem(MenuItems.PRODUCTS);
   }
   getProductNameField(): Locator {
-    return this.page.getByTestId("input-field-product-name");
+    return this.field.getInputField(TextField.PRODUCT_NAME);
   }
   getProductCodeField(): Locator {
-    return this.page.getByTestId("input-field-product-code");
+    return this.field.getInputField(TextField.PRODUCT_CODE);
   }
   getCategoryField(): Locator {
-    return this.page.getByTestId("input-field-product-category");
+    return this.field.getInputField(TextField.CATEGORY);
   }
   getPriceField(): Locator {
-    return this.page.getByTestId("input-field-product-price");
+    return this.field.getInputField(TextField.PRICE);
   }
   getStockField(): Locator {
-    return this.page.getByTestId("input-field-product-stock");
+    return this.field.getInputField(TextField.STOCK);
   }
   getStatusDropdown(): Locator {
     return this.page.getByTestId("dropdown-product-status");
@@ -30,7 +35,7 @@ export class createProduct extends BasePage {
     return this.page.getByTestId("button-choose-files");
   }
   getCreateProductBtn(): Locator {
-    return this.page.getByTestId("button-create-product");
+    return this.button.getButton(Buttons.CREATE_PRODUCT);
   }
   getProductHeading(): Locator {
     return this.page.getByTestId("heading-create-product");
@@ -58,19 +63,40 @@ export class createProduct extends BasePage {
   }
 
   async navigateToProductsPage() {
-    await this.clickElement(this.getProductPageLink());
+    await this.button.getMenuItem(MenuItems.PRODUCTS).click();
+    // await this.clickElement(this.getProductPageLink());
     // await this.productsLink.click();
   }
   async fillCreateProductForm(data: ProductData) {
-    await this.fillField(this.getProductNameField(), data.productName);
-    await this.fillField(this.getProductCodeField(), data.productCode);
-    await this.fillField(this.getCategoryField(), data.category);
-    await this.fillField(this.getPriceField(), data.price);
-    await this.fillField(this.getStockField(), data.stock);
-    await this.selectDropdownOption(this.getStatusDropdown(), data.status);
-    await this.setFiles(this.getChooseFiles(), data.images);
+    await this.field
+      .getInputField(TextField.PRODUCT_NAME)
+      .fill(data.productName);
+    await this.field
+      .getInputField(TextField.PRODUCT_CODE)
+      .fill(data.productCode);
+    await this.field.getInputField(TextField.CATEGORY).fill(data.category);
+    await this.field.getInputField(TextField.PRICE).fill(data.price);
+    await this.field.getInputField(TextField.STOCK).fill(data.stock);
+    await this.dropdown.getDropdown(Dropdown.STATUS).selectOption(data.status);
+
+    // await this.selectDropdownOption(this.getStatusDropdown(), data.status);
+    await this.uploadfile
+      .getFileUploadButton(FileUpload.CHOOSE_FILES)
+      .setInputFiles(data.images);
+
+    // await this.uploadFile(this.button.getButton(Buttons.CHOOSE_FILES),data.images)
+
+    //   await this.fillField(this.getProductNameField(), data.productName);
+    //   await this.fillField(this.getProductCodeField(), data.productCode);
+    //   await this.fillField(this.getCategoryField(), data.category);
+    //   await this.fillField(this.getPriceField(), data.price);
+    //   await this.fillField(this.getStockField(), data.stock);
+    //   await this.selectDropdownOption(this.getStatusDropdown(), data.status);
+    //   await this.setFiles(this.getChooseFiles(), data.images);
   }
+
   async clickOnCreateProduct() {
-    await this.clickElement(this.getCreateProductBtn());
+    await this.button.getButton(Buttons.CREATE_PRODUCT).click();
+    // await this.clickElement(this.getCreateProductBtn());
   }
 }

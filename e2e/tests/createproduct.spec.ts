@@ -3,7 +3,7 @@ import { SigninPage } from "../pages/signinPage";
 import { createProduct } from "../pages/createProduct";
 import { productData } from "../testdata/userData";
 import { userSigninData } from "../testdata/userData";
-import {CartPage} from "../pages/CartPage";
+import { CartPage } from "../pages/CartPage";
 let createProducts: createProduct;
 let login: SigninPage;
 let cart: CartPage;
@@ -47,8 +47,9 @@ test.describe("create product", () => {
     );
     await cart.clickOnCartIcon();
     await cart.clickElement(cart.getDropdownField());
-    await expect(cart.getDropdownOption(productData.validProduct.productName)).toBeVisible();
-
+    await expect(
+      cart.getDropdownOption(productData.validProduct.productName),
+    ).toBeVisible();
   });
   test("create product with draft product", async () => {
     await createProducts.fillCreateProductForm(productData.draftProduct);

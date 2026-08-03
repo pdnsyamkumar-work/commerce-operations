@@ -49,7 +49,7 @@ export function CartPage({
             products={products}
             selectedLabel={selectedProduct?.name ?? "Choose product"}
             onSelect={onSelectedProductChange}
-            testId="cart-product-dropdown"
+            testId="dropdown-cart-product"
           />
           <button
             className="cursor-pointer rounded-full bg-slate-900 px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg"
@@ -122,7 +122,10 @@ export function CartPage({
                   >
                     -
                   </button>
-                  <span className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold" data-testid={`${item.name}-quantity`}>
+                  <span
+                    className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold"
+                    data-testid={`${item.name}-quantity`}
+                  >
                     {item.quantity}
                   </span>
                   <button

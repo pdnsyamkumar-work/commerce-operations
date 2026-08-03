@@ -265,7 +265,7 @@ export function CommerceWorkspace() {
   const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(false);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
   const toastTimerRef = useRef<number | null>(null);
-  
+
   const [profileDetails, setProfileDetails] = useState(defaultProfileDetails);
   useClickOutside(profileDropdownRef, () => setIsProfileOpen(false));
 
@@ -890,11 +890,10 @@ export function CommerceWorkspace() {
                 className={`flex items-center rounded-full px-4 py-3 text-left text-sm font-semibold transition duration-200 ${isSideNavCollapsed ? "justify-center" : "gap-3"} ${active ? "bg-[color:var(--accent)] text-white shadow-sm" : "text-slate-600 hover:bg-[color:var(--surface-strong)]"}`}
                 type="button"
                 onClick={() => navigateToView(item)}
+                data-testid={`menu-item-${item}`}
               >
                 <span className="text-lg">{navIcon(item)}</span>
-                {!isSideNavCollapsed && (
-                  <span data-testid={`nav-item-${item}`}>{item}</span>
-                )}
+                {!isSideNavCollapsed && <span>{item}</span>}
               </button>
             );
           })}
