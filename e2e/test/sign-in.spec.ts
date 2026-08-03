@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { testData } from "../testdata/sign-in-data";
 import SignInPage from "../Pages/sign-in-page";
-import { Buttons } from "../enums/component_enums/labes_enums";
+import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
+import { ErrorMessage } from "../Components/Error_message_comp";
 
 test.describe("Sign In Module", () => {
   let signInPage: SignInPage; //let creates a variable.
@@ -51,7 +52,7 @@ test.describe("Sign In Module", () => {
     });
 
     await test.step("Verify the invalid credentials message.", async () => {
-      await expect(signInPage.invalidMsg).toBeVisible();
+      await expect(signInPage.errormessage.getErrorMessage(ErrorField.LOGIN_ERROR)).toBeVisible();
     });
   });
 });

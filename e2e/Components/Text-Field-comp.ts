@@ -5,5 +5,6 @@ export class TextFieldComponent {
 
   getInputFiled = (labelName: string): Locator => {
     return this.page.getByTestId(`input-field-${labelName}`);
+                                            
   };
 }

@@ -1,119 +1,97 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Page, expect} from "@playwright/test";
 import sign_in from "./sign-in-page";
 import { Signupdata } from "../utils/interfaces/signup.interface";
-import { use } from "react";
+import { BasePage } from "../Base/Base-page";
+import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
+import { TextFiled } from "../enums/component_enums/labes_enums";
 
-export default class SignUp {
-  constructor(private page: Page) {}
+export default class SignUp extends BasePage {
 
-  //Locators
-  sign_up = () => this.page.locator("//button[normalize-space()='Sign up']");
-  fullName = () => this.page.getByLabel("Full name ");
-  email = () => this.page.locator("//input[@inputmode='email']");
-  companyName = () => this.page.getByText("Store or company name");
-  password = () => this.page.locator("//input[@type='password']").nth(0);
-  confirmPassword = () => this.page.locator("//input[@type='password']").nth(1);
-  create_acnt_btn = () =>
-    this.page.locator("//button[text()='Create Account']");
-  profileDropdown = () => this.page.locator("header button").last();
-  signOutBtn = () =>
-    this.page.locator("//button[normalize-space()='Sign Out']");
-
-  //Validation  locators
-  first_name_error = () =>
-    this.page.locator("//p[text()='Full name is required.']");
-  email_error = () =>
-    this.page.locator("//p[text()='Work email is required.']");
-  companyName_error = () =>
-    this.page.locator("//p[text()='Store or company name is required.']");
-  pwd_error = () => this.page.locator("//p[text()='Password is required.']");
-  confirm_pwd_error = () =>
-    this.page.locator("//p[text()='Confirm password is required.']");
-  userExistsError = () =>
-    this.page.locator("//p[contains(text(),'already exists')]");
-
-  // Navigate to Login Page.
-  async navigate() {
-    await this.page.goto("http://localhost:3000/");
+  constructor(page: Page) {
+    super(page);  
   }
 
   //click on signuptab
 
   async clickSignUpTab() {
-    await this.sign_up().click();
+    await this.button.getButton(Buttons.SIGN_UP).click();
   }
 
   //signup using provided credentials.
 
   async fillSignupDetails(data: Signupdata) {
-    await this.fullName().fill(data.full_name);
-    await this.email().fill(data.work_email);
-    await this.companyName().fill(data.companyName);
-    await this.password().fill(data.password);
-    await this.confirmPassword().fill(data.confirmPassword);
+    await this.textfield.getInputFiled(TextFiled.FULL_NAME).fill(data.full_name);
+    await this.textfield.getInputFiled(TextFiled.WORK_EMAIL).fill(data.work_email);
+    await this.textfield.getInputFiled(TextFiled.COMPANY_NAME).fill(data.companyName);
+    await this.textfield.getInputFiled(TextFiled.SIGN_UP_PASSWORD).fill(data.password);
+    await this.textfield.getInputFiled(TextFiled.CONFIRM_PASSWORD).fill(data.confirmPassword);
   }
 
   //After filling detals need to clik On create button
   async clickCreateAccount() {
-    await this.create_acnt_btn().click();
-  }
-
-  //Logout from application.
-  async logout() {
-    await this.profileDropdown().click();
-    await this.signOutBtn().click();
+    await this.button.getButton(Buttons.CREATE_ACCOUNT).click();
   }
 
   async getExpectedErrorLocator(data: Signupdata) {
     if (data.full_name.trim() === "") {
-      return this.first_name_error();
+      return this.errormessage.getErrorMessage(ErrorField.FULL_NAME);
+      
     }
 
     if (data.work_email.trim() === "") {
-      return this.email_error();
+     return this.errormessage.getErrorMessage(ErrorField.EMAIL_ADDRESS);
     }
 
     if (data.companyName.trim() === "") {
-      return this.companyName_error();
+      return this.errormessage.getErrorMessage(ErrorField.COMPANY_NAME);
     }
 
     if (data.password.trim() === "") {
-      return this.pwd_error();
+      return this.errormessage.getErrorMessage(ErrorField.PASSWORD);
     }
 
     if (data.confirmPassword.trim() === "") {
-      return this.confirm_pwd_error();
+      return this.errormessage.getErrorMessage(ErrorField.CONFIRM_PASSWORD);
     }
 
     return null;
   }
 
-  async multisignup(data: Signupdata[]) {
-    for (const users of data) {
-      await this.navigate();
-      await this.clickSignUpTab();
-      await this.fillSignupDetails(users);
-      await this.clickCreateAccount();
-      const errorLocator = await this.getExpectedErrorLocator(users);
+  
+async multisignup(data: Signupdata[]) {
+  for (const user of data) {
+    await this.navigate();
+    await this.clickSignUpTab();
+    await this.fillSignupDetails(user);
+    await this.clickCreateAccount();
 
-      if (errorLocator) {
-        await expect(errorLocator).toBeVisible();
-        const errorText = await errorLocator.innerText();
-        console.log(
-          `Validation displayed for ${users.work_email}: ${errorText}`,
-        );
-        continue;
-      } else if (await this.userExistsError().isVisible()) {
-        await expect(this.userExistsError()).toBeVisible();
-        console.log(`User already exists: ${users.work_email}`);
-        continue;
-      } else {
-        await expect(this.profileDropdown()).toBeVisible();
-        console.log(`Account created successfully: ${users.work_email}`);
-        await this.logout();
-      }
+    const errorLocator = await this.getExpectedErrorLocator(user);
+
+    if (errorLocator) {
+      console.log(`Validation displayed for ${user.work_email}`);
+      continue;
     }
+    const userExistsLocator = this.userExistsError();
+      if (await userExistsLocator.isVisible()) {
+      console.log(`User already exists: ${user.work_email}`);
+      continue;
+    }
+    const profileDropdown = this.button.getButton(Buttons.PROFILE_DROPDOWN);
+
+    if(await profileDropdown.isVisible())
+    {
+      console.log(`Account created successfully: ${user.work_email}`);
+      await this.logout();
+    }
+
+
+
   }
+
+
+
+
+
 }
 
 /*

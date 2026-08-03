@@ -18,13 +18,15 @@ type ForgotPasswordErrors = Partial<Record<"email", string>>;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function InlineError({ id, message }: { id: string; message?: string }) {
+function InlineError({ id, message, dataTestId, }: { id: string; message?: string , dataTestId?: string;}) {
   if (!message) {
     return null;
   }
 
   return (
-    <p id={id} className="text-sm font-medium text-rose-700" role="alert">
+    <p id={id} 
+     data-testid={dataTestId}
+    className="text-sm font-medium text-rose-700" role="alert">
       {message}
     </p>
   );
@@ -261,6 +263,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               Sign in
             </button>
             <button
+            data-testid="btn-field-Sign-up"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-up" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-up")}
@@ -268,6 +271,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               Sign up
             </button>
             <button
+            data-testid="btn-field-Forgot-pwd"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "forgot-password" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("forgot-password")}
@@ -310,7 +314,9 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                     }
                   }}
                 />
-                <InlineError id="sign-in-email" message={signInErrors.email} />
+                <InlineError id="sign-in-email" 
+                dataTestId="error-field-emailAddress"
+                message={signInErrors.email} />
               </label>
 
               <label className="grid gap-2 text-sm font-semibold">
@@ -318,6 +324,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
+                 dataTestId="password"
                   value={password}
                   showPassword={showLoginPassword}
                   onChange={setPassword}
@@ -357,18 +364,22 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Full name <span className="text-rose-600">*</span>
                 </span>
                 <input
+                 data-testid="input-field-fullName"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="name"
                   value={signUpName}
                   onChange={(event) => setSignUpName(event.target.value)}
                 />
-                <InlineError id="sign-up-name" message={signUpErrors.name} />
+                <InlineError id="sign-up-name" 
+                dataTestId="error-field-fullName"
+                message={signUpErrors.name} />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
                 <span>
                   Work email <span className="text-rose-600">*</span>
                 </span>
                 <input
+                 data-testid="input-field-emailAddress"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -377,25 +388,31 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   value={signUpEmail}
                   onChange={(event) => setSignUpEmail(event.target.value)}
                 />
-                <InlineError id="sign-up-email" message={signUpErrors.email} />
+                <InlineError id="sign-up-email"
+                 dataTestId="error-field-emailAddress"
+                 message={signUpErrors.email} />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
                 <span>
                   Store or company name <span className="text-rose-600">*</span>
                 </span>
                 <input
+                 data-testid="input-field-companyName"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="organization"
                   value={storeName}
                   onChange={(event) => setStoreName(event.target.value)}
                 />
-                <InlineError id="sign-up-store" message={signUpErrors.store} />
+                <InlineError id="sign-up-store"
+                 dataTestId="error-field-companyName"
+                 message={signUpErrors.store} />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
                 <span>
                   Password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
+                 dataTestId="password"
                   value={signUpPassword}
                   showPassword={showSignUpPassword}
                   onChange={setSignUpPassword}
@@ -405,6 +422,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 />
                 <InlineError
                   id="sign-up-password"
+                  dataTestId="error-field-password"
                   message={signUpErrors.password}
                 />
               </label>
@@ -413,6 +431,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Confirm password <span className="text-rose-600">*</span>
                 </span>
                 <PasswordField
+                dataTestId="confirmPassword"
                   value={confirmPassword}
                   showPassword={showConfirmPassword}
                   onChange={setConfirmPassword}
@@ -422,10 +441,12 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 />
                 <InlineError
                   id="sign-up-confirm-password"
+                  dataTestId="error-field-confirmPassword"
                   message={signUpErrors.confirmPassword}
                 />
               </label>
               <button
+               data-testid="btn-field-create-account"
                 className="rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
@@ -462,6 +483,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 />
                 <InlineError
                   id="reset-email"
+                  dataTestId="error-field-emailAddress"
                   message={forgotPasswordErrors.email}
                 />
               </label>
@@ -475,7 +497,9 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
             </form>
           )}
 
-          <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
+          <p 
+          data-testid="error-field-invalid-email-or-password"
+          className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
             {message}
           </p>
         </div>
@@ -489,16 +513,18 @@ function PasswordField({
   showPassword,
   onChange,
   onToggleVisibility,
+  dataTestId,
 }: {
   value: string;
   showPassword: boolean;
   onChange: (value: string) => void;
   onToggleVisibility: () => void;
+  dataTestId: string;
 }) {
   return (
     <div className="relative">
       <input
-        data-testid="input-field-password"
+       data-testid={`input-field-${dataTestId}`}
         className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-24 font-normal"
         type={showPassword ? "text" : "password"}
         value={value}
