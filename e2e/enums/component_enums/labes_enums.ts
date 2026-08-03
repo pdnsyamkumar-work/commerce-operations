@@ -2,11 +2,11 @@ export enum TextFiled {
   //Sign in
   EMAIL_ADDRESS = "emailAddress",
   PASSWORD = "password",
-  
-//  // Sign Up
-  FULL_NAME="fullName",
-  WORK_EMAIL="emailAddress",
-  COMPANY_NAME="companyName",
+
+  //  // Sign Up
+  FULL_NAME = "fullName",
+  WORK_EMAIL = "emailAddress",
+  COMPANY_NAME = "companyName",
   SIGN_UP_PASSWORD = "password",
   CONFIRM_PASSWORD = "confirmPassword",
 }
@@ -17,7 +17,7 @@ export enum Buttons {
   SIGN_OUT = "sign-out",
   FORGOT_PASSWORD = "Forgot-pwd",
   PROFILE_DROPDOWN = "dropdown-profile",
-  CREATE_ACCOUNT="create-account"
+  CREATE_ACCOUNT = "create-account",
 }
 
 export enum ErrorField {
@@ -26,5 +26,5 @@ export enum ErrorField {
   COMPANY_NAME = "companyName",
   PASSWORD = "password",
   CONFIRM_PASSWORD = "confirmPassword",
-  LOGIN_ERROR ="invalid-email-or-password"
+  LOGIN_ERROR = "invalid-email-or-password",
 }

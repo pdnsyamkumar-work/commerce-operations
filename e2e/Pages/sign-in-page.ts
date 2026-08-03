@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BasePage } from "../Base/Base-page";
 import { SignInData } from "../utils/interfaces/sign_in.interface";
-import {TextFiled } from "../enums/component_enums/labes_enums";
+import { TextFiled } from "../enums/component_enums/labes_enums";
 import { ErrorField } from "../enums/component_enums/labes_enums";
 
 export default class SignInPage extends BasePage {
@@ -16,7 +16,9 @@ export default class SignInPage extends BasePage {
   }
 
   async fillSignInDetails(data: SignInData) {
-    await this.textfield.getInputFiled(TextFiled.EMAIL_ADDRESS).fill(data.email);
+    await this.textfield
+      .getInputFiled(TextFiled.EMAIL_ADDRESS)
+      .fill(data.email);
     await this.textfield.getInputFiled(TextFiled.PASSWORD).fill(data.password);
   }
 

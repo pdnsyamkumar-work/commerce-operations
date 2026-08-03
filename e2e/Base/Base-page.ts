@@ -12,8 +12,7 @@ export class BasePage {
 
   readonly textfield: TextFieldComponent;
   readonly button: ButtonComponent;
-  readonly errormessage:ErrorMessage
-  
+  readonly errormessage: ErrorMessage;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,7 +22,7 @@ export class BasePage {
 
     this.button = new ButtonComponent(page);
 
-    this.errormessage=new ErrorMessage(page);
+    this.errormessage = new ErrorMessage(page);
   }
 
   async navigate() {

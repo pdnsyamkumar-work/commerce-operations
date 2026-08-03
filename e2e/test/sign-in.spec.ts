@@ -52,7 +52,9 @@ test.describe("Sign In Module", () => {
     });
 
     await test.step("Verify the invalid credentials message.", async () => {
-      await expect(signInPage.errormessage.getErrorMessage(ErrorField.LOGIN_ERROR)).toBeVisible();
+      await expect(
+        signInPage.errormessage.getErrorMessage(ErrorField.LOGIN_ERROR),
+      ).toBeVisible();
     });
   });
 });
