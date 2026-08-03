@@ -87,7 +87,6 @@ export default class SignUp extends BasePage {
 
       if (await profileDropdown.isVisible()) {
         console.log(`Account created successfully: ${user.work_email}`);
-        await this.logout();
       }
     }
   }

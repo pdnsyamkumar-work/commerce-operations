@@ -40,5 +40,6 @@ export class BasePage {
   async logout() {
     await this.button.getButton(Buttons.PROFILE_DROPDOWN).click();
     await this.button.getButton(Buttons.SIGN_OUT).click();
+    await this.button.getButton(Buttons.SIGN_IN).waitFor({ state: "visible" });
   }
 }
