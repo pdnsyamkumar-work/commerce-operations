@@ -904,7 +904,7 @@ export function CommerceWorkspace() {
       <section className="flex min-w-0 flex-1 flex-col gap-6 px-5 py-6 sm:px-8 lg:px-10">
         <header className="relative z-40 flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-4 shadow-sm backdrop-blur lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+            <p data-testid="Commerce Admin Title" className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
               Commerce Admin
             </p>
             <p className="mt-1 text-sm text-[color:var(--muted)]">

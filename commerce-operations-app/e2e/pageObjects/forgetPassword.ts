@@ -9,11 +9,11 @@ export class forgetPassword extends BasePage {
     this.page.getByRole("button", { name: "Forgot password" });
   readonly getWorkEmail = () => this.page.getByTestId("input-field-email");
   readonly getSendResetLink = () =>
-    this.page.getByTestId("send-reset-link-button");
+    this.page.getByTestId("button-send-reset-link");
   readonly getSuccessMsg = () =>
     this.page.getByText(
       "Password reset instructions were sent to admin@commerce.test.",
-    );
+    ).first();
   readonly getErrorMsg = () => this.page.getByText("Work email is required.");
 
   async clickOnForgetPassword() {

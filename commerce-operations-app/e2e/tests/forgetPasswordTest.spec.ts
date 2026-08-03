@@ -9,7 +9,7 @@ test.describe("ForgetPassword test cases", () => {
     await page.goto("http://localhost:3000/");
   });
 
-  test("Forget password sccess flow", async () => {
+  test("Forget password sccess flow", async ({page}) => {
     const user = forgetpassword.success;
     await forgetpasswordCls.clickOnForgetPassword();
     await forgetpasswordCls.enterEmail(user.email);

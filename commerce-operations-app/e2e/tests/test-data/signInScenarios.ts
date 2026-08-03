@@ -17,7 +17,7 @@ export const loginScenarios: Record<string, invalidLoginCredentials> = {
     password: "Commerce@123",
   },
   Empty_Email_password: {
-    email: " ",
-    password: " ",
+    email: "    ",
+    password: "   ",
   },
 };

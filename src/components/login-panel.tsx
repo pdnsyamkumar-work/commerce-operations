@@ -24,7 +24,7 @@ function InlineError({ id, message }: { id: string; message?: string }) {
   }
 
   return (
-    <p id={id} className="text-sm font-medium text-rose-700" role="alert">
+    <p  data-testid="Email-Error" id={id} className="text-sm font-medium text-rose-700" role="alert">
       {message}
     </p>
   );
@@ -254,6 +254,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
         <div className="grid gap-5 p-8 lg:p-10">
           <div className="flex flex-wrap gap-2 rounded-full bg-[color:var(--surface-strong)] p-1">
             <button
+              data-testid="nav-button-SignIn"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-in" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-in")}
@@ -261,6 +262,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               Sign in
             </button>
             <button
+              data-testid="nav-button-SignUp"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-up" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-up")}
@@ -293,6 +295,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Email address <span className="text-rose-600">*</span>
                 </span>
                 <input
+                  data-testid = "input-field-emailAddress"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -324,6 +327,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               </label>
 
               <button
+                data-testid="button-Sign-In"
                 className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
@@ -372,7 +376,8 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   value={signUpEmail}
                   onChange={(event) => setSignUpEmail(event.target.value)}
                 />
-                <InlineError id="sign-up-email" message={signUpErrors.email} />
+                 
+                <InlineError data-testid="Email-error" id="sign-up-email" message={signUpErrors.email} />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
                 <span>
@@ -462,6 +467,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               </label>
 
               <button
+                data-testid="button-send-reset-link"
                 className="rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)]"
                 type="submit"
               >
@@ -493,6 +499,7 @@ function PasswordField({
   return (
     <div className="relative">
       <input
+        data-testid="input-field-password"
         className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-24 font-normal"
         type={showPassword ? "text" : "password"}
         value={value}
