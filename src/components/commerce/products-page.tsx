@@ -257,7 +257,20 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("name")}
             />
-            <InlineError id="product-name" message={errors.name} />
+            <InlineError id="product-name" message={errors.name} 
+              dataTestId={
+    errors.name === "Product name is required."
+      ? "error-field-product-name-required"
+      : errors.name === "Product name must be at least 3 characters."
+        ? "error-field-product-name-min"
+        : errors.name === "Product name should not exceed more than 100 characters."
+          ? "error-field-product-name-max"
+          : errors.name ===
+              "Product name may contain letters, numbers, spaces, &, apostrophes, or hyphens."
+            ? "error-field-product-name-char"
+            : undefined
+  }
+            />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
@@ -277,7 +290,19 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("productCode")}
             />
-            <InlineError id="product-code" message={errors.productCode} />
+            <InlineError id="product-code" message={errors.productCode} 
+               dataTestId={
+    errors.productCode === "Product code is required."
+      ? "error-field-product-code-required"
+      : errors.productCode?.includes("at most")
+        ? "error-field-product-code-max"
+        : errors.productCode ===
+            "Product code may contain letters, numbers, and hyphens only."
+          ? "error-field-product-code-char"
+          : undefined
+  }
+
+            />
             {isEditing && (
               <p className="text-xs font-normal text-[color:var(--muted)]">
                 Product code is locked after creation.
@@ -298,7 +323,21 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("category")}
             />
-            <InlineError id="category" message={errors.category} />
+            <InlineError id="category" message={errors.category}
+               dataTestId={
+    errors.category === "Category is required."
+      ? "error-field-category-required"
+      : errors.category === "Category must be at least 2 characters."
+        ? "error-field-category-min"
+        : errors.category?.includes("at most")
+          ? "error-field-category-max"
+          : errors.category ===
+              "Category may contain letters and spaces only."
+            ? "error-field-category-char"
+            : undefined
+  }
+
+             />
           </label>
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
@@ -320,7 +359,19 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("price")}
               />
-              <InlineError id="price" message={errors.price} />
+              <InlineError id="price" message={errors.price}
+                 dataTestId={
+    errors.price === "Price is required."
+      ? "error-field-price-required"
+      : errors.price?.includes("at most 7 characters")
+        ? "error-field-price-max"
+        : errors.price === "Price must be at least 1."
+          ? "error-field-price-min"
+          : errors.price === "Price must be at most 99,999."
+            ? "error-field-price-value-max"
+            : undefined
+  }
+               />
             </label>
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
               <span>
@@ -341,7 +392,20 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("stock")}
               />
-              <InlineError id="stock" message={errors.stock} />
+              <InlineError id="stock" message={errors.stock}
+                dataTestId={
+    errors.stock === "Stock is required."
+      ? "error-field-stock-required"
+      : errors.stock?.includes("at most 5 characters")
+        ? "error-field-stock-max"
+        : errors.stock ===
+            "Stock must be a whole number greater than or equal to 0."
+          ? "error-field-stock-invalid"
+          : errors.stock === "Stock must be at most 10,000 units."
+            ? "error-field-stock-value-max"
+            : undefined
+  }
+               />
             </label>
           </div>
           <label className="grid gap-2 text-sm font-semibold">
@@ -365,7 +429,9 @@ export function ProductsPage({
               <option value="Active">Active</option>
               <option value="Draft">Draft</option>
             </select>
-            <InlineError id="product-status" message={errors.status} />
+            <InlineError id="product-status" message={errors.status}
+             dataTestId="error-field-status"
+             />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
@@ -391,6 +457,11 @@ export function ProductsPage({
             <InlineError
               id="product-images"
               message={imageLimitError || errors.images}
+                 dataTestId={
+    imageLimitError
+      ? "error-field-product-images-limit"
+      : "error-field-product-images-required"
+  }
             />
             <p className="text-xs font-normal text-[color:var(--muted)]">
               Attach at least 1 image and up to {maxProductImages} images.
