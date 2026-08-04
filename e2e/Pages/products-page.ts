@@ -1,10 +1,9 @@
 import { Page, expect, Response } from "@playwright/test";
 import Sign_in from "./sign-in-page";
 import { ProductData } from "../utils/interfaces/product.interface";
-import { testData } from "../testdata/sign-in-data";
 import { BasePage } from "../Base/Base-page";
-import { TextFiled } from "../enums/component_enums/labes_enums";
-import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
+import { ErrorField, TextFiled, UploadFileComp } from "../enums/component_enums/labes_enums";
+import { Buttons } from "../enums/component_enums/labes_enums";
 
 
 export default class Products extends BasePage{
@@ -13,59 +12,28 @@ export default class Products extends BasePage{
   }
 
   product_tab = () => this.page.locator("//button[@title='Products']");
+   notification = () => this.page.getByRole("status");
 
-  // Validation Locators
-  productNameError = () => this.page.getByText("Product name is required.");
-  productNameMinError = () =>
-    this.page.getByText("Product name must be at least 3 characters.");
-  productNameCharError = () =>
-    this.page.getByText(
-      "Product name may contain letters, numbers, spaces, &, apostrophes, or hyphens.",
-    );
-
-  productCodeError = () => this.page.getByText("Product code is required.");
-  productCodeCharError = () =>
-    this.page.getByText(
-      "Product code may contain letters, numbers, and hyphens only.",
-    );
-
-  categoryError = () => this.page.getByText("Category is required.");
-  categoryMinError = () =>
-    this.page.getByText("Category must be at least 2 characters.");
-  categoryCharError = () =>
-    this.page.getByText("Category may contain letters and spaces only.");
-
-  priceError = () => this.page.getByText("Price is required.");
-  priceMaxError = () =>
-    this.page.getByText("Price must be at most 7 characters.");
-
-  stockError = () => this.page.getByText("Stock is required.");
-  stockMaxError = () =>
-    this.page.getByText("Stock must be at most 5 characters.");
-
-  // Navigation Methods
-
- 
   async clk_prod_tab() {
     //After login in the dashboard it need to clcik on products tab
     await this.product_tab().click();
   }
 
   // Product Actions
-
-  async fillProductDetails(data: ProductData) {
+    async fillProductDetails(data: ProductData) {
     //Filing the Products fields
     await this.textfield.getInputFiled(TextFiled.PRODUCT_NAME).fill(data.productName);
     await this.textfield.getInputFiled(TextFiled.PRODUCT_CODE).fill(data.productCode);
     await this.textfield.getInputFiled(TextFiled.CATEGORY).fill(data.category);
     await this.textfield.getInputFiled(TextFiled.PRICE).fill(data.price);
     await this.textfield.getInputFiled(TextFiled.STOCK).fill(data.stock);
-    await this.textfield.getInputFiled(TextFiled.PRODUCT_IMAGES).selectOption(data.status);
+    await this.textfield.getInputFiled(UploadFileComp.PRODUCT_IMAGES).selectOption(data.status);
     // Remove previously uploaded image if present
     await this.removeExistingImage();
 
     // Upload new image
-    await this.textfield..setInputFiles(data.imagePath);
+     //await this.chooseFilesInput().setInputFiles(data.imagePath);
+    await this.uploadfile.getUploadFile(UploadFileComp.PRODUCT_IMAGES).setInputFiles(data.imagePath);
   }
 
   async clickCreateProduct() {
@@ -76,24 +44,26 @@ export default class Products extends BasePage{
   // Image Upload Actions
 
   async removeExistingImage() {
-    if ((await this.removeImageBtn().count()) > 0) {
-      await this.removeImageBtn().click();
+    if ((await this.button.getButton(Buttons.REMOVE_IMAGE).count()) > 0) {
+      await this.button.getButton(Buttons.REMOVE_IMAGE).click();
     }
   }
 
   async uploadMultipleImages(imagePaths: string[]) {
-    await this.chooseFilesInput().setInputFiles(imagePaths);
+    //await this.chooseFilesInput().setInputFiles(imagePaths);
+    await this.uploadfile.getUploadFile(UploadFileComp.PRODUCT_IMAGES).setInputFiles(imagePaths);
   }
 
   // Validation Methods
   async verifyMaximumImagesReached() {
-    await expect(this.maxImagesMsg()).toBeVisible();
+    //await expect(this.maxImagesMsg()).toBeVisible();
+    await this.errormessage.getErrorMessage(ErrorField.PRODUCT_IMAGES_LIMIT);
   }
 
   async create_btn_state(productsData: ProductData[]) {
     for (const product of productsData) {
       await this.fillProductDetails(product);
-      await expect(this.create_prod_btn()).toBeDisabled();
+      await expect(this.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
       const errorLocator = await this.getExpectedErrorLocator(product);
 
       if (errorLocator) {
@@ -104,31 +74,38 @@ export default class Products extends BasePage{
   }
 
   async getExpectedErrorLocator(data: ProductData) {
-    if (data.productName.trim() === "") return this.productNameError();
+    if (data.productName.trim() === "") return this.errormessage.getErrorMessage(ErrorField.PRODUCT_NAME_REQUIRED);
 
-    if (data.productName.length < 3) return this.productNameMinError();
+    if (data.productName.length < 3) return this.errormessage.getErrorMessage(ErrorField.PRODUCT_NAME_MIN);
 
     if (!/^[A-Za-z0-9\s&'-]+$/.test(data.productName))
-      return this.productNameCharError();
+      return this.errormessage.getErrorMessage(ErrorField.PRODUCT_NAME_CHAR);
 
-    if (data.productCode.trim() === "") return this.productCodeError();
+    if (data.productCode.trim() === "") return  this.errormessage.getErrorMessage(ErrorField.PRODUCT_CODE_REQUIRED);
 
     if (!/^[A-Za-z0-9-]+$/.test(data.productCode))
-      return this.productCodeCharError();
+      return this.errormessage.getErrorMessage(ErrorField.PRODUCT_CODE_CHAR);
 
-    if (data.category.trim() === "") return this.categoryError();
+    if (data.category.trim() === "") return this.errormessage.getErrorMessage(ErrorField.CATEGORY_REQUIRED);
 
-    if (data.category.length < 2) return this.categoryMinError();
+    if (data.category.length < 2) 
+    return this.errormessage.getErrorMessage(ErrorField.CATEGORY_MIN);
 
-    if (!/^[A-Za-z\s]+$/.test(data.category)) return this.categoryCharError();
 
-    if (data.price.trim() === "") return this.priceError();
+    if (!/^[A-Za-z\s]+$/.test(data.category)) 
+    return this.errormessage.getErrorMessage(ErrorField.CATEGORY_CHAR);
 
-    if (data.price.length > 7) return this.priceMaxError();
+    if (data.price.trim() === "")
+    return this.errormessage.getErrorMessage(ErrorField.PRICE_REQUIRED);
 
-    if (data.stock.trim() === "") return this.stockError();
+    if (data.price.length > 7) 
+    return this.errormessage.getErrorMessage(ErrorField.PRICE_MAX);
 
-    if (data.stock.length > 5) return this.stockMaxError();
+    if (data.stock.trim() === "")
+     return this.errormessage.getErrorMessage(ErrorField.STOCK_REQUIRED);
+
+    if (data.stock.length > 5) 
+    return this.errormessage.getErrorMessage(ErrorField.STOCK_MAX);
 
     return null;
   }

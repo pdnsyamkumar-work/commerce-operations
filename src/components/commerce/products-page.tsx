@@ -261,13 +261,13 @@ export function ProductsPage({
               dataTestId={
     errors.name === "Product name is required."
       ? "error-field-product-name-required"
-      : errors.name === "Product name must be at least 3 characters."
-        ? "error-field-product-name-min"
+      : errors.name === "Product_name error"
+        ? "error-field-Product name must be at least 3 characters."
         : errors.name === "Product name should not exceed more than 100 characters."
-          ? "error-field-product-name-max"
+          ? "error-field-product-name-should not exceed more than 100 characters."
           : errors.name ===
               "Product name may contain letters, numbers, spaces, &, apostrophes, or hyphens."
-            ? "error-field-product-name-char"
+            ? "error-field-product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens."
             : undefined
   }
             />
@@ -295,10 +295,10 @@ export function ProductsPage({
     errors.productCode === "Product code is required."
       ? "error-field-product-code-required"
       : errors.productCode?.includes("at most")
-        ? "error-field-product-code-max"
+        ? "error-field-Product code must be at most 20 characters"
         : errors.productCode ===
             "Product code may contain letters, numbers, and hyphens only."
-          ? "error-field-product-code-char"
+          ? "error-field-Product code may contain letters, numbers, and hyphens only"
           : undefined
   }
 
@@ -328,12 +328,12 @@ export function ProductsPage({
     errors.category === "Category is required."
       ? "error-field-category-required"
       : errors.category === "Category must be at least 2 characters."
-        ? "error-field-category-min"
+        ? "error-field-Category must be at least 2 characters"
         : errors.category?.includes("at most")
-          ? "error-field-category-max"
+          ? "error-field-Category must be at most 40 characters"
           : errors.category ===
               "Category may contain letters and spaces only."
-            ? "error-field-category-char"
+            ? "error-field-Category may contain letters and spaces only"
             : undefined
   }
 
@@ -364,11 +364,11 @@ export function ProductsPage({
     errors.price === "Price is required."
       ? "error-field-price-required"
       : errors.price?.includes("at most 7 characters")
-        ? "error-field-price-max"
+        ? "error-field-Price must be at most 7 characters"
         : errors.price === "Price must be at least 1."
-          ? "error-field-price-min"
+          ? "error-field-price-must be at least 1"
           : errors.price === "Price must be at most 99,999."
-            ? "error-field-price-value-max"
+            ? "error-field-Price must be at most 99,999."
             : undefined
   }
                />
@@ -397,7 +397,7 @@ export function ProductsPage({
     errors.stock === "Stock is required."
       ? "error-field-stock-required"
       : errors.stock?.includes("at most 5 characters")
-        ? "error-field-stock-max"
+        ? "error-field-stock at most 5 characters"
         : errors.stock ===
             "Stock must be a whole number greater than or equal to 0."
           ? "error-field-stock-invalid"
@@ -689,6 +689,7 @@ function ImageAttachmentList({
             />
           </button>
           <button
+          data-testid={`btn-field-remove-image-${index}`}
             className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white transition hover:bg-rose-700"
             type="button"
             aria-label="Remove image"

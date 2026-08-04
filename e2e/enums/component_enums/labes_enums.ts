@@ -1,3 +1,5 @@
+
+
 export enum TextFiled {
   //Sign in
   EMAIL_ADDRESS = "emailAddress",
@@ -17,7 +19,10 @@ export enum TextFiled {
   PRICE="price",
   STOCK="stock",
   STATUS="status",
-  PRODUCT_IMAGES="product-images"
+}
+
+export enum UploadFileComp{
+   PRODUCT_IMAGES="product-images"
 }
 
 export enum Buttons {
@@ -29,7 +34,8 @@ export enum Buttons {
   CREATE_ACCOUNT = "create-account",
 
   //Create Product
-  CREATE_PRODUCT="create-product"
+  CREATE_PRODUCT="create-product",
+  REMOVE_IMAGE = "remove-image",
 }
 
 export enum ErrorField {
@@ -43,26 +49,27 @@ export enum ErrorField {
 
   //Add Product Inline Error Messages
   PRODUCT_NAME_REQUIRED = "product-name-required",
-  PRODUCT_NAME_MIN = "product-name-min",
-  PRODUCT_NAME_MAX = "product-name-max",
-  PRODUCT_NAME_CHAR = "product-name-char",
+  PRODUCT_NAME_MIN = "Product name must be at least 3 characters.",
+  PRODUCT_NAME_MAX = "product-name-should not exceed more than 100 characters.",
+  PRODUCT_NAME_CHAR = "product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens.",
+
 
   PRODUCT_CODE_REQUIRED = "product-code-required",
-  PRODUCT_CODE_MAX = "product-code-max",
-  PRODUCT_CODE_CHAR = "product-code-char",
+  PRODUCT_CODE_MAX = "Product code must be at most 20 characters",
+  PRODUCT_CODE_CHAR = "Product code may contain letters, numbers, and hyphens only",
 
   CATEGORY_REQUIRED = "category-required",
-  CATEGORY_MIN = "category-min",
-  CATEGORY_MAX = "category-max",
-  CATEGORY_CHAR = "category-char",
+  CATEGORY_MIN = "Category must be at least 2 characters",
+  CATEGORY_MAX = "Category must be at most 40 characters",
+  CATEGORY_CHAR = "Category may contain letters and spaces only",
 
   PRICE_REQUIRED = "price-required",
-  PRICE_MAX = "price-max",
-  PRICE_MIN = "price-min",
-  PRICE_VALUE_MAX = "price-value-max",
+  PRICE_MAX = "Price must be at most 7 characters",
+  PRICE_MIN = "price-must be at least 1",
+  PRICE_VALUE_MAX = "Price must be at most 99,999.",
 
   STOCK_REQUIRED = "stock-required",
-  STOCK_MAX = "stock-max",
+  STOCK_MAX = "stock at most 5 characters",
   STOCK_INVALID = "stock-invalid",
   STOCK_VALUE_MAX = "stock-value-max",
 
