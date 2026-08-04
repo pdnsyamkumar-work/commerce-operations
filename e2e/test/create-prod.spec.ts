@@ -6,14 +6,17 @@ import {
   multipleProductsData,
   negativeProductsData,
 } from "../testdata/products-data";
+import SignInPage from "../Pages/sign-in-page";
 
 test.describe("Products Module", () => {
   let products: Products;
+  let signInPage: SignInPage;
 
   test.beforeEach(async ({ page }) => {
     products = new Products(page);
-
-    await products.login_navig_toproducts();
+     signInPage = new SignInPage(page);
+    await test.step("Launch the application", async () => {
+      await signInPage.navigate();
   });
 
   test("Verify user can create a product successfully with valid data", async () => {

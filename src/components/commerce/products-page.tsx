@@ -248,6 +248,7 @@ export function ProductsPage({
               Product name <span className="text-rose-600">*</span>
             </span>
             <input
+             data-testid="input-field-product-name"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
               value={draft.name}
@@ -263,6 +264,7 @@ export function ProductsPage({
               Product code <span className="text-rose-600">*</span>
             </span>
             <input
+             data-testid="input-field-product-code"
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
               value={draft.productCode}
@@ -287,6 +289,7 @@ export function ProductsPage({
               Category <span className="text-rose-600">*</span>
             </span>
             <input
+              data-testid="input-field-category"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Travel"
               value={draft.category}
@@ -303,6 +306,7 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
+                data-testid="input-field-price"
                 className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                 type="text"
                 inputMode="decimal"
@@ -323,6 +327,7 @@ export function ProductsPage({
                 Stock <span className="text-rose-600">*</span>
               </span>
               <input
+                data-testid="input-field-stock"
                 className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                 type="text"
                 inputMode="numeric"
@@ -344,6 +349,7 @@ export function ProductsPage({
               Status <span className="text-rose-600">*</span>
             </span>
             <select
+             data-testid="dropdown-field-status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>
@@ -366,6 +372,7 @@ export function ProductsPage({
               Product images <span className="text-rose-600">*</span>
             </span>
             <span
+             data-testid="upload-field-product-images"
               className={`inline-flex items-center justify-center rounded-2xl border border-dashed px-4 py-3 font-semibold transition duration-200 ${isImageUploadDisabled ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400" : "cursor-pointer border-[color:var(--border)] bg-white text-slate-900 hover:bg-slate-100"}`}
             >
               {isImageUploadDisabled
@@ -373,6 +380,7 @@ export function ProductsPage({
                 : "Choose files"}
             </span>
             <input
+            data-testid="upload-input-product-images"
               className="sr-only"
               type="file"
               accept="image/*"
@@ -398,6 +406,7 @@ export function ProductsPage({
 
           <div className="flex flex-wrap gap-3">
             <button
+            data-testid="btn-field-create-product"
               className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-[color:var(--accent)] disabled:hover:shadow-sm"
               type="submit"
               disabled={isSubmitDisabled}

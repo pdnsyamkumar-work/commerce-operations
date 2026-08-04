@@ -9,6 +9,15 @@ export enum TextFiled {
   COMPANY_NAME = "companyName",
   SIGN_UP_PASSWORD = "password",
   CONFIRM_PASSWORD = "confirmPassword",
+
+  //Create Product 
+  PRODUCT_NAME="product-name",
+  PRODUCT_CODE="product-code",
+  CATEGORY="category",
+  PRICE="price",
+  STOCK="stock",
+  STATUS="status",
+  PRODUCT_IMAGES="product-images"
 }
 
 export enum Buttons {
@@ -18,6 +27,9 @@ export enum Buttons {
   FORGOT_PASSWORD = "Forgot-pwd",
   PROFILE_DROPDOWN = "dropdown-profile",
   CREATE_ACCOUNT = "create-account",
+
+  //Create Product
+  CREATE_PRODUCT="create-product"
 }
 
 export enum ErrorField {

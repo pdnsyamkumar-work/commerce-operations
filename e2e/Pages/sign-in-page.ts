@@ -16,9 +16,7 @@ export default class SignInPage extends BasePage {
   }
 
   async fillSignInDetails(data: SignInData) {
-    await this.textfield
-      .getInputFiled(TextFiled.EMAIL_ADDRESS)
-      .fill(data.email);
+    await this.textfield.getInputFiled(TextFiled.EMAIL_ADDRESS).fill(data.email);
     await this.textfield.getInputFiled(TextFiled.PASSWORD).fill(data.password);
   }
 
