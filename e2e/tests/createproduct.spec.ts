@@ -1,38 +1,20 @@
-import { test, expect } from "@playwright/test";
-import { SigninPage } from "../pages/signinPage";
-import { createProduct } from "../pages/createProduct";
+import { test, expect } from "../fixtures/base.fixtures";
+import { CartPage } from "../pages/CartPage";
 import { productData } from "../testdata/userData";
 import { userSigninData } from "../testdata/userData";
-import { CartPage } from "../pages/CartPage";
-let createProducts: createProduct;
-let login: SigninPage;
-let cart: CartPage;
 
 test.describe("create product", () => {
-  test.beforeEach("go to products page", async ({ page }) => {
-    createProducts = new createProduct(page);
-    login = new SigninPage(page);
-    cart = new CartPage(page);
-    await page.goto("http://localhost:3000/");
-    await login.gotosignin();
-    await login.signin(userSigninData.validData);
-    await login.clicksignIn();
-    await expect(login.getDashboardHeading()).toBeVisible();
+  test("create product with valid data", async ({ products, cart }) => {
+    await products.fillCreateProductForm(productData.validProduct);
+    await expect(products.getCreateProductBtn()).toBeEnabled();
 
-    await createProducts.navigateToProductsPage();
-    await expect(createProducts.getProductHeading()).toBeVisible();
-  });
-  test("create product with valid data", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.validProduct);
-    await expect(createProducts.getCreateProductBtn()).toBeEnabled();
-
-    const createProductResponse = page.waitForResponse(
+    const createProductResponse = products.page.waitForResponse(
       (response) =>
         response.url().includes("/api/products") &&
         response.request().method() === "POST",
     );
 
-    await createProducts.clickOnCreateProduct();
+    await products.clickOnCreateProduct();
     const response = await createProductResponse;
 
     expect(response.status()).toBe(201);
@@ -51,59 +33,59 @@ test.describe("create product", () => {
       cart.getDropdownOption(productData.validProduct.productName),
     ).toBeVisible();
   });
-  test("create product with draft product", async () => {
-    await createProducts.fillCreateProductForm(productData.draftProduct);
-    await expect(createProducts.getCreateProductBtn()).toBeEnabled();
-    await createProducts.clickOnCreateProduct();
+  test("create product with draft product", async ({ products }) => {
+    await products.fillCreateProductForm(productData.draftProduct);
+    await expect(products.getCreateProductBtn()).toBeEnabled();
+    await products.clickOnCreateProduct();
   });
-  test("create product without product name", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.emptyProductName);
-    await expect(createProducts.getProductNameError()).toHaveText(
+  test("create product without product name", async ({ products }) => {
+    await products.fillCreateProductForm(productData.emptyProductName);
+    await expect(products.getProductNameError()).toHaveText(
       productData.emptyProductName.expected,
     );
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
-  test("create product without product code", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.emptyProductCode);
-    await expect(createProducts.getProductCodeError()).toHaveText(
+  test("create product without product code", async ({ products }) => {
+    await products.fillCreateProductForm(productData.emptyProductCode);
+    await expect(products.getProductCodeError()).toHaveText(
       productData.emptyProductCode.expected,
     );
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
-  test("create product without category", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.emptyCategory);
-    await expect(createProducts.getCategoryError()).toHaveText(
+  test("create product without category", async ({ products }) => {
+    await products.fillCreateProductForm(productData.emptyCategory);
+    await expect(products.getCategoryError()).toHaveText(
       productData.emptyCategory.expected,
     );
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
-  test("create product without price", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.emptyPrice);
-    await expect(createProducts.getPriceError()).toHaveText(
+  test("create product without price", async ({ products }) => {
+    await products.fillCreateProductForm(productData.emptyPrice);
+    await expect(products.getPriceError()).toHaveText(
       productData.emptyPrice.expected,
     );
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
-  test("create product without stock", async () => {
-    await createProducts.fillCreateProductForm(productData.emptyStock);
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+  test("create product without stock", async ({ products }) => {
+    await products.fillCreateProductForm(productData.emptyStock);
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
-  test("create product without image", async () => {
-    await createProducts.fillCreateProductForm(productData.noImages);
+  test("create product without image", async ({ products }) => {
+    await products.fillCreateProductForm(productData.noImages);
 
-    await expect(createProducts.getCreateProductBtn()).not.toBeEnabled();
+    await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
 
-  test("create product with 7 images", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.maxImages);
-    await expect(createProducts.getProductImagesError()).toHaveText(
+  test("create product with 7 images", async ({ products }) => {
+    await products.fillCreateProductForm(productData.maxImages);
+    await expect(products.getProductImagesError()).toHaveText(
       productData.maxImages.expected,
     );
   });
-  test("create product with duplicate data", async ({ page }) => {
-    await createProducts.fillCreateProductForm(productData.duplicateProduct);
-    await createProducts.clickOnCreateProduct();
-    await expect(createProducts.getProductCodeError()).toHaveText(
+  test("create product with duplicate data", async ({ products }) => {
+    await products.fillCreateProductForm(productData.duplicateProduct);
+    await products.clickOnCreateProduct();
+    await expect(products.getProductCodeError()).toHaveText(
       productData.duplicateProduct.expected,
     );
   }); //

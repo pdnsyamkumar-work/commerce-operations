@@ -533,6 +533,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
 
           <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
             {message}
+            data-testid="error-form"
           </p>
         </div>
       </section>
@@ -567,7 +568,7 @@ function PasswordField({
         type="button"
         aria-label={showPassword ? "Hide password" : "Show password"}
         onClick={onToggleVisibility}
-        datat-testid="button-view"
+        data-testid="button-view"
       >
         {showPassword ? "Hide" : "View"}
       </button>

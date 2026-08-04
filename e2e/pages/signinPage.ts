@@ -3,12 +3,15 @@ import { signinData } from "../interfaces/userData";
 import { BasePage } from "./basePage";
 import { Buttons, MenuItems } from "../enums/component-enum/buttons.enums";
 import { TextField } from "../enums/component-enum/text-field.enum";
+import { ErrorField } from "../enums/component-enum/error.enum";
 export class SigninPage extends BasePage {
-  readonly invalidCredentialsError: Locator;
-
+ 
   constructor(page: Page) {
     super(page);
-    this.invalidCredentialsError = page.getByText("Invalid email or password.");
+  
+  }
+  getInvalidCredentialsError(): Locator {
+    return this.error.getError(ErrorField.FORM);
   }
   getSigninLink(): Locator {
     return this.button.getButton(Buttons.SIGNIN_lINK);
@@ -26,7 +29,7 @@ export class SigninPage extends BasePage {
     return this.button.getMenuItem(MenuItems.DASHBOARD);
   }
   getEmailError(): Locator {
-    return this.page.getByTestId("signin-email-error");
+    return this.error.getError(ErrorField.EMAIL)
   }
 
   async gotosignin() {
