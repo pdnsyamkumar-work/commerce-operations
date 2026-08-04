@@ -248,7 +248,7 @@ export function ProductsPage({
               Product name <span className="text-rose-600">*</span>
             </span>
             <input
-             data-testid="input-field-product-name"
+              data-testid="input-field-product-name"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
               value={draft.name}
@@ -257,19 +257,22 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("name")}
             />
-            <InlineError id="product-name" message={errors.name} 
+            <InlineError
+              id="product-name"
+              message={errors.name}
               dataTestId={
-    errors.name === "Product name is required."
-      ? "error-field-product-name-required"
-      : errors.name === "Product_name error"
-        ? "error-field-Product name must be at least 3 characters."
-        : errors.name === "Product name should not exceed more than 100 characters."
-          ? "error-field-product-name-should not exceed more than 100 characters."
-          : errors.name ===
-              "Product name may contain letters, numbers, spaces, &, apostrophes, or hyphens."
-            ? "error-field-product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens."
-            : undefined
-  }
+                errors.name === "Product name is required."
+                  ? "error-field-product-name-required"
+                  : errors.name === "Product_name error"
+                    ? "error-field-Product name must be at least 3 characters."
+                    : errors.name ===
+                        "Product name should not exceed more than 100 characters."
+                      ? "error-field-product-name-should not exceed more than 100 characters."
+                      : errors.name ===
+                          "Product name may contain letters, numbers, spaces, &, apostrophes, or hyphens."
+                        ? "error-field-product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens."
+                        : undefined
+              }
             />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
@@ -277,7 +280,7 @@ export function ProductsPage({
               Product code <span className="text-rose-600">*</span>
             </span>
             <input
-             data-testid="input-field-product-code"
+              data-testid="input-field-product-code"
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
               value={draft.productCode}
@@ -290,18 +293,19 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("productCode")}
             />
-            <InlineError id="product-code" message={errors.productCode} 
-               dataTestId={
-    errors.productCode === "Product code is required."
-      ? "error-field-product-code-required"
-      : errors.productCode?.includes("at most")
-        ? "error-field-Product code must be at most 20 characters"
-        : errors.productCode ===
-            "Product code may contain letters, numbers, and hyphens only."
-          ? "error-field-Product code may contain letters, numbers, and hyphens only"
-          : undefined
-  }
-
+            <InlineError
+              id="product-code"
+              message={errors.productCode}
+              dataTestId={
+                errors.productCode === "Product code is required."
+                  ? "error-field-product-code-required"
+                  : errors.productCode?.includes("at most")
+                    ? "error-field-Product code must be at most 20 characters"
+                    : errors.productCode ===
+                        "Product code may contain letters, numbers, and hyphens only."
+                      ? "error-field-Product code may contain letters, numbers, and hyphens only"
+                      : undefined
+              }
             />
             {isEditing && (
               <p className="text-xs font-normal text-[color:var(--muted)]">
@@ -323,21 +327,23 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("category")}
             />
-            <InlineError id="category" message={errors.category}
-               dataTestId={
-    errors.category === "Category is required."
-      ? "error-field-category-required"
-      : errors.category === "Category must be at least 2 characters."
-        ? "error-field-Category must be at least 2 characters"
-        : errors.category?.includes("at most")
-          ? "error-field-Category must be at most 40 characters"
-          : errors.category ===
-              "Category may contain letters and spaces only."
-            ? "error-field-Category may contain letters and spaces only"
-            : undefined
-  }
-
-             />
+            <InlineError
+              id="category"
+              message={errors.category}
+              dataTestId={
+                errors.category === "Category is required."
+                  ? "error-field-category-required"
+                  : errors.category ===
+                      "Category must be at least 2 characters."
+                    ? "error-field-Category must be at least 2 characters"
+                    : errors.category?.includes("at most")
+                      ? "error-field-Category must be at most 40 characters"
+                      : errors.category ===
+                          "Category may contain letters and spaces only."
+                        ? "error-field-Category may contain letters and spaces only"
+                        : undefined
+              }
+            />
           </label>
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
@@ -359,19 +365,21 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("price")}
               />
-              <InlineError id="price" message={errors.price}
-                 dataTestId={
-    errors.price === "Price is required."
-      ? "error-field-price-required"
-      : errors.price?.includes("at most 7 characters")
-        ? "error-field-Price must be at most 7 characters"
-        : errors.price === "Price must be at least 1."
-          ? "error-field-price-must be at least 1"
-          : errors.price === "Price must be at most 99,999."
-            ? "error-field-Price must be at most 99,999."
-            : undefined
-  }
-               />
+              <InlineError
+                id="price"
+                message={errors.price}
+                dataTestId={
+                  errors.price === "Price is required."
+                    ? "error-field-price-required"
+                    : errors.price?.includes("at most 7 characters")
+                      ? "error-field-Price must be at most 7 characters"
+                      : errors.price === "Price must be at least 1."
+                        ? "error-field-price-must be at least 1"
+                        : errors.price === "Price must be at most 99,999."
+                          ? "error-field-Price must be at most 99,999."
+                          : undefined
+                }
+              />
             </label>
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
               <span>
@@ -392,20 +400,22 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("stock")}
               />
-              <InlineError id="stock" message={errors.stock}
+              <InlineError
+                id="stock"
+                message={errors.stock}
                 dataTestId={
-    errors.stock === "Stock is required."
-      ? "error-field-stock-required"
-      : errors.stock?.includes("at most 5 characters")
-        ? "error-field-stock at most 5 characters"
-        : errors.stock ===
-            "Stock must be a whole number greater than or equal to 0."
-          ? "error-field-stock-invalid"
-          : errors.stock === "Stock must be at most 10,000 units."
-            ? "error-field-stock-value-max"
-            : undefined
-  }
-               />
+                  errors.stock === "Stock is required."
+                    ? "error-field-stock-required"
+                    : errors.stock?.includes("at most 5 characters")
+                      ? "error-field-stock at most 5 characters"
+                      : errors.stock ===
+                          "Stock must be a whole number greater than or equal to 0."
+                        ? "error-field-stock-invalid"
+                        : errors.stock === "Stock must be at most 10,000 units."
+                          ? "error-field-stock-value-max"
+                          : undefined
+                }
+              />
             </label>
           </div>
           <label className="grid gap-2 text-sm font-semibold">
@@ -413,7 +423,7 @@ export function ProductsPage({
               Status <span className="text-rose-600">*</span>
             </span>
             <select
-             data-testid="dropdown-field-status"
+              data-testid="dropdown-field-status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>
@@ -429,16 +439,18 @@ export function ProductsPage({
               <option value="Active">Active</option>
               <option value="Draft">Draft</option>
             </select>
-            <InlineError id="product-status" message={errors.status}
-             dataTestId="error-field-status"
-             />
+            <InlineError
+              id="product-status"
+              message={errors.status}
+              dataTestId="error-field-status"
+            />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
               Product images <span className="text-rose-600">*</span>
             </span>
             <span
-             data-testid="upload-field-product-images"
+              data-testid="upload-field-product-images"
               className={`inline-flex items-center justify-center rounded-2xl border border-dashed px-4 py-3 font-semibold transition duration-200 ${isImageUploadDisabled ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400" : "cursor-pointer border-[color:var(--border)] bg-white text-slate-900 hover:bg-slate-100"}`}
             >
               {isImageUploadDisabled
@@ -446,7 +458,7 @@ export function ProductsPage({
                 : "Choose files"}
             </span>
             <input
-            data-testid="upload-input-product-images"
+              data-testid="upload-input-product-images"
               className="sr-only"
               type="file"
               accept="image/*"
@@ -457,11 +469,11 @@ export function ProductsPage({
             <InlineError
               id="product-images"
               message={imageLimitError || errors.images}
-                 dataTestId={
-    imageLimitError
-      ? "error-field-product-images-limit"
-      : "error-field-product-images-required"
-  }
+              dataTestId={
+                imageLimitError
+                  ? "error-field-product-images-limit"
+                  : "error-field-product-images-required"
+              }
             />
             <p className="text-xs font-normal text-[color:var(--muted)]">
               Attach at least 1 image and up to {maxProductImages} images.
@@ -477,7 +489,7 @@ export function ProductsPage({
 
           <div className="flex flex-wrap gap-3">
             <button
-            data-testid="btn-field-create-product"
+              data-testid="btn-field-create-product"
               className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-[color:var(--accent)] disabled:hover:shadow-sm"
               type="submit"
               disabled={isSubmitDisabled}
@@ -689,7 +701,7 @@ function ImageAttachmentList({
             />
           </button>
           <button
-          data-testid={`btn-field-remove-image-${index}`}
+            data-testid={`btn-field-remove-image-${index}`}
             className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-slate-950 text-xs font-bold text-white transition hover:bg-rose-700"
             type="button"
             aria-label="Remove image"

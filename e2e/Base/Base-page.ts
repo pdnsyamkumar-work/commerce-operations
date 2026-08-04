@@ -14,7 +14,7 @@ export class BasePage {
   readonly textfield: TextFieldComponent;
   readonly button: ButtonComponent;
   readonly errormessage: ErrorMessage;
-  readonly uploadfile:UploadFileComp
+  readonly uploadfile: UploadFileComp;
 
   constructor(page: Page) {
     this.page = page;
@@ -26,7 +26,7 @@ export class BasePage {
 
     this.errormessage = new ErrorMessage(page);
 
-    this.uploadfile=new UploadFileComp(page);
+    this.uploadfile = new UploadFileComp(page);
   }
 
   async navigate() {

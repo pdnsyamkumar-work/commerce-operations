@@ -54,16 +54,26 @@ export function StatusBadge({ status }: { status: Product["status"] }) {
   );
 }
 
-export function InlineError({ id, message,dataTestId }: { id: string; message?: string,dataTestId?: string; }) {
+export function InlineError({
+  id,
+  message,
+  dataTestId,
+}: {
+  id: string;
+  message?: string;
+  dataTestId?: string;
+}) {
   if (!message) {
     return null;
   }
 
-  return (  
-    <p 
-    id={id}
-    data-testid={dataTestId}
-    className="text-sm font-medium text-rose-700" role="alert">
+  return (
+    <p
+      id={id}
+      data-testid={dataTestId}
+      className="text-sm font-medium text-rose-700"
+      role="alert"
+    >
       {message}
     </p>
   );

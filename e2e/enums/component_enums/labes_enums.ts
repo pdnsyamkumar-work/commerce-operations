@@ -1,5 +1,3 @@
-
-
 export enum TextFiled {
   //Sign in
   EMAIL_ADDRESS = "emailAddress",
@@ -12,17 +10,17 @@ export enum TextFiled {
   SIGN_UP_PASSWORD = "password",
   CONFIRM_PASSWORD = "confirmPassword",
 
-  //Create Product 
-  PRODUCT_NAME="product-name",
-  PRODUCT_CODE="product-code",
-  CATEGORY="category",
-  PRICE="price",
-  STOCK="stock",
-  STATUS="status",
+  //Create Product
+  PRODUCT_NAME = "product-name",
+  PRODUCT_CODE = "product-code",
+  CATEGORY = "category",
+  PRICE = "price",
+  STOCK = "stock",
+  STATUS = "status",
 }
 
-export enum UploadFileComp{
-   PRODUCT_IMAGES="product-images"
+export enum UploadFileComp {
+  PRODUCT_IMAGES = "product-images",
 }
 
 export enum Buttons {
@@ -34,7 +32,7 @@ export enum Buttons {
   CREATE_ACCOUNT = "create-account",
 
   //Create Product
-  CREATE_PRODUCT="create-product",
+  CREATE_PRODUCT = "create-product",
   REMOVE_IMAGE = "remove-image",
 }
 
@@ -46,13 +44,11 @@ export enum ErrorField {
   CONFIRM_PASSWORD = "confirmPassword",
   LOGIN_ERROR = "invalid-email-or-password",
 
-
   //Add Product Inline Error Messages
   PRODUCT_NAME_REQUIRED = "product-name-required",
   PRODUCT_NAME_MIN = "Product name must be at least 3 characters.",
   PRODUCT_NAME_MAX = "product-name-should not exceed more than 100 characters.",
   PRODUCT_NAME_CHAR = "product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens.",
-
 
   PRODUCT_CODE_REQUIRED = "product-code-required",
   PRODUCT_CODE_MAX = "Product code must be at most 20 characters",
@@ -73,10 +69,8 @@ export enum ErrorField {
   STOCK_INVALID = "stock-invalid",
   STOCK_VALUE_MAX = "stock-value-max",
 
-   STATUS_REQUIRED = "status",
+  STATUS_REQUIRED = "status",
 
   PRODUCT_IMAGES_REQUIRED = "product-images-required",
   PRODUCT_IMAGES_LIMIT = "product-images-limit",
-
-
 }
