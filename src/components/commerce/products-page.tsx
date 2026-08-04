@@ -423,7 +423,7 @@ export function ProductsPage({
               Status <span className="text-rose-600">*</span>
             </span>
             <select
-              data-testid="dropdown-field-status"
+              data-testid="dropdown-field-product_status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>

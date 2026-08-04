@@ -7,6 +7,8 @@ import {
   negativeProductsData,
 } from "../testdata/products-data";
 import SignInPage from "../Pages/sign-in-page";
+import { Buttons } from "../enums/component_enums/labes_enums";
+import { testData as signInTestData } from "../testdata/sign-in-data";
 
 test.describe("Products Module", () => {
   let products: Products;
@@ -14,9 +16,14 @@ test.describe("Products Module", () => {
 
   test.beforeEach(async ({ page }) => {
     products = new Products(page);
-     signInPage = new SignInPage(page);
+    signInPage = new SignInPage(page);
     await test.step("Launch the application", async () => {
       await signInPage.navigate();
+      await signInPage.login(signInTestData.adminUser);
+    });
+    await test.step("Navigate to Products page", async () => {
+      await products.clk_prod_tab();
+    });
   });
 
   test("Verify user can create a product successfully with valid data", async () => {
@@ -40,6 +47,4 @@ test.describe("Products Module", () => {
   test("Verify Create Product button remains disabled and validation messages are displayed for invalid product details", async () => {
     await products.create_btn_state(negativeProductsData);
   });
-
-
-  });
+});

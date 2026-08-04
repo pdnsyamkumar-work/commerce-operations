@@ -16,7 +16,11 @@ export enum TextFiled {
   CATEGORY = "category",
   PRICE = "price",
   STOCK = "stock",
-  STATUS = "status",
+  STATUS = "product_status",
+}
+export enum DropDownComp {
+  STATUS = "product_status",
+  PRODUCT_IMAGES = "product-images",
 }
 
 export enum UploadFileComp {

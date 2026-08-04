@@ -6,6 +6,7 @@ import { ButtonComponent } from "../Components/Button-comp";
 import { Buttons } from "../enums/component_enums/labes_enums";
 import { ErrorMessage } from "../Components/Error_message_comp";
 import { UploadFileComp } from "../Components/Upload-comp";
+import { DropDownComp } from "../Components/Dropdown-comp";
 
 export class BasePage {
   protected readonly page: Page;
@@ -15,6 +16,7 @@ export class BasePage {
   readonly button: ButtonComponent;
   readonly errormessage: ErrorMessage;
   readonly uploadfile: UploadFileComp;
+  readonly dropdown: DropDownComp;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,6 +29,7 @@ export class BasePage {
     this.errormessage = new ErrorMessage(page);
 
     this.uploadfile = new UploadFileComp(page);
+    this.dropdown = new DropDownComp(page);
   }
 
   async navigate() {
