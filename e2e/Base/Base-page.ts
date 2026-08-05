@@ -5,8 +5,10 @@ import { TextFieldComponent } from "../Components/Text-Field-comp";
 import { ButtonComponent } from "../Components/Button-comp";
 import { Buttons } from "../enums/component_enums/labes_enums";
 import { ErrorMessage } from "../Components/Error_message_comp";
-import { UploadFileComp } from "../Components/Upload-comp";
-import { DropDownComp } from "../Components/Dropdown-comp";
+import { UploadFileCompent } from "../Components/Upload-comp";
+import { DropDownCompent } from "../Components/Dropdown-comp";
+
+
 
 export class BasePage {
   protected readonly page: Page;
@@ -15,8 +17,8 @@ export class BasePage {
   readonly textfield: TextFieldComponent;
   readonly button: ButtonComponent;
   readonly errormessage: ErrorMessage;
-  readonly uploadfile: UploadFileComp;
-  readonly dropdown: DropDownComp;
+  readonly uploadfile: UploadFileCompent;
+  readonly dropdown: DropDownCompent;
 
   constructor(page: Page) {
     this.page = page;
@@ -28,8 +30,8 @@ export class BasePage {
 
     this.errormessage = new ErrorMessage(page);
 
-    this.uploadfile = new UploadFileComp(page);
-    this.dropdown = new DropDownComp(page);
+    this.uploadfile = new UploadFileCompent(page);
+    this.dropdown = new DropDownCompent(page);
   }
 
   async navigate() {
