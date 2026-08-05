@@ -10,7 +10,7 @@ import { DropDownComp } from "../Components/Dropdown-comp";
 
 export class BasePage {
   protected readonly page: Page;
-  protected readonly baseUrl = "http://localhost:3000/";
+  protected readonly baseUrl = "http://localhost:3000/"; // FEEDBACK : Remove this and add in playwright.config.ts file
 
   readonly textfield: TextFieldComponent;
   readonly button: ButtonComponent;

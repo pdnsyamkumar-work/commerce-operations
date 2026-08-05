@@ -1,3 +1,5 @@
+// FEEDBACK : Create seperate component based enum files
+
 export enum TextFiled {
   //Sign in
   EMAIL_ADDRESS = "emailAddress",
@@ -5,7 +7,7 @@ export enum TextFiled {
 
   //  // Sign Up
   FULL_NAME = "fullName",
-  WORK_EMAIL = "emailAddress",
+  WORK_EMAIL = "emailAddress", // FEEDBACK: Remove duplicate enum values
   COMPANY_NAME = "companyName",
   SIGN_UP_PASSWORD = "password",
   CONFIRM_PASSWORD = "confirmPassword",
