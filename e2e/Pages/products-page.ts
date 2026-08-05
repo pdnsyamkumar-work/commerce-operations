@@ -35,12 +35,9 @@ export default class Products extends BasePage {
     await this.textfield.getInputFiled(TextFiled.CATEGORY).fill(data.category);
     await this.textfield.getInputFiled(TextFiled.PRICE).fill(data.price);
     await this.textfield.getInputFiled(TextFiled.STOCK).fill(data.stock);
-    await this.dropdown
-      .getDropdown(DropDownComp.STATUS)
-      .selectOption(data.status);
+    await this.dropdown.getDropdown(DropDownComp.STATUS).selectOption(data.status);
     await this.uploadfile
-      .getUploadFile(UploadFileComp.PRODUCT_IMAGES)
-      .setInputFiles(data.imagePath);
+      .getUploadFile(UploadFileComp.PRODUCT_IMAGES).setInputFiles(data.imagePath);
 
     // Remove previously uploaded image if present
     await this.removeExistingImage();

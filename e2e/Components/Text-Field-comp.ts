@@ -1,11 +1,12 @@
 import { Page, Locator } from "@playwright/test";
+import { TextFiled } from "../enums/component_enums/labes_enums";
 
 export class TextFieldComponent {
   constructor(private readonly page: Page) { }
 
   // FEEDBACK : use enums as inputs instead of strings
 
-  getInputFiled = (labelName: string): Locator => {
+  getInputFiled = (labelName: TextFiled): Locator => {
     return this.page.getByTestId(`input-field-${labelName}`);
   };
 }
