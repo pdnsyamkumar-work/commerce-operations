@@ -3,7 +3,7 @@
 export enum TextFiled {
   //Sign in
   EMAIL_ADDRESS = "emailAddress",
-  PASSWORD = "password",
+  SIGIN_PASSWORD = "sign-password",
 
   //  // Sign Up
   FULL_NAME = "fullName",
