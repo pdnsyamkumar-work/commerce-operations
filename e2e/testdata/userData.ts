@@ -24,8 +24,8 @@ export const userSignupData: Record<string, signupData> = {
     fullName: "Bharath Reddy",
     email: "",
     companyName: "ABC Pvt Ltd",
-    password: "Bharath@12",
-    confirmPassword: "Test@123",
+    password: "Bharath@123",
+    confirmPassword: "Bharath@123",
     expected: "Work email is required.",
   },
 

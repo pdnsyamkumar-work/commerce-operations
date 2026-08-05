@@ -11,7 +11,7 @@ export class SigninPage extends BasePage {
   
   }
   getInvalidCredentialsError(): Locator {
-    return this.error.getError(ErrorField.FORM);
+    return this.page.getByTestId("form-error");
   }
   getSigninLink(): Locator {
     return this.button.getButton(Buttons.SIGNIN_lINK);
@@ -29,7 +29,7 @@ export class SigninPage extends BasePage {
     return this.button.getMenuItem(MenuItems.DASHBOARD);
   }
   getEmailError(): Locator {
-    return this.error.getError(ErrorField.EMAIL)
+    return this.page.getByTestId("inline-error");
   }
 
   async gotosignin() {

@@ -16,7 +16,7 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
   signinPage: async ({ page }, use) => {
     const signinPage = new SigninPage(page);
-    await signinPage.goto("http://localhost:3000/");
+    await signinPage.launchWeb();
     await signinPage.gotosignin();
     await use(signinPage);
   },

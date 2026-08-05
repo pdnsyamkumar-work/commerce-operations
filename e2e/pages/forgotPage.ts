@@ -17,7 +17,7 @@ export class ForgotPage extends BasePage {
     return this.button.getButton(Buttons.RESET_BUTTON);
   }
   getEmailError(): Locator {
-    return this.page.getByTestId("reset-email-error");
+    return this.page.getByTestId("inline-error");
   }
   getResetHeading(): Locator {
     return this.page.getByTestId("heading-reset-password");

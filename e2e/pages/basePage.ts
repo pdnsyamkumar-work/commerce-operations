@@ -3,21 +3,21 @@ import { ButtonComponent } from "../components/button.component";
 import { TextFieldComponent } from "../components/text-field.component";
 import { DropdownComponent } from "../components/dropdown.component";
 import { FileUploadComponent } from "../components/fileupload.component";
-import { ErrorComponent } from "../components/Error.component";
+// import { ErrorComponent } from "../components/Error.component";
 
 export class BasePage {
   readonly button: ButtonComponent;
   readonly field: TextFieldComponent;
   readonly dropdown: DropdownComponent;
   readonly uploadfile: FileUploadComponent;
-  readonly error: ErrorComponent;
+  // readonly error: ErrorComponent;
 
   constructor(readonly page: Page) {
     this.button = new ButtonComponent(page);
     this.field = new TextFieldComponent(page);
     this.dropdown = new DropdownComponent(page);
     this.uploadfile = new FileUploadComponent(page);
-    this.error = new ErrorComponent(page);
+    // this.error = new ErrorComponent(page);
   }
 
   getNavItem = (itemName: string) =>
@@ -26,7 +26,9 @@ export class BasePage {
   async goto(url: string) {
     await this.page.goto(url);
   }
-
+async launchWeb(){
+  await this.page.goto("http://localhost:3000/");
+}
   async clickElement(locator: Locator) {
     await locator.click();
   }

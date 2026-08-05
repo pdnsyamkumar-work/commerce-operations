@@ -31,23 +31,23 @@ export class SignupPage extends BasePage {
     return this.button.getButton(Buttons.SIGNUP_LINK);
   }
   getEmailError(): Locator {
-    return this.page.getByTestId("signup-email-error");
+    return this.page.getByTestId("inline-error");
   }
   getDashboardHeading(): Locator {
     return this.button.getMenuItem(MenuItems.DASHBOARD);
   }
 
   getFullNameError(): Locator {
-    return this.page.getByTestId("signup-name-error");
+    return this.page.getByTestId("inline-error");
   }
   getCompanyError(): Locator {
-    return this.page.getByTestId("signup-store-error");
+    return this.page.getByTestId("inline-error");
   }
   getPasswordError(): Locator {
-    return this.page.getByTestId("signup-password-error");
+    return this.page.getByTestId("inline-error");
   }
   getCnfPasswordError(): Locator {
-    return this.page.getByTestId("signup-confirm-password-error");
+    return this.page.getByTestId("inline-error");
   }
 
   async gotosignup() {

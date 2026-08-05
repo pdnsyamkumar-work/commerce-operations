@@ -1,0 +1,24 @@
+export enum InlineError{
+    EMAIL_REQUIRED="Email address is required.",
+    NAME_REQUIRED="Full name is required.",
+    COMPANY_REQUIRED="Store or company name is required.",
+    PASSWORD_REQUIRED="Password is required.",
+    CONFIRM_PASSWORD_REQUIRED="Confirm password is required.",
+    WORK_EMAIL_REQUIRED="Work email is required.",
+    VALID_EMAIL="Enter a valid email address.",
+    INVALID_CREDENTIALS="Invalid email or password.",
+    VALID_WORK_EMAIL="Enter a valid work email address.",
+    PRODUCT_NAME_REQUIRED="Product name is required.",
+    PRODUCT_PRICE_REQUIRED="Price is required.",
+    PRODUCT_CODE_REQUIRED="Product code is required.",
+    CATEGORY_REQUIRED="Category is required.",
+    STOCK_REQUIRED="Stock is required.",
+    MAXIMUM_IMAGE="You can upload only 6 more images. Maximum 6 images allowed.",
+    PRODUCT_CODE_ERROR="A product with this code already exists.",
+    PASSWORD_TOO_SHORT="Password must be at least 8 characters long.",
+    PASSWORD_MISMATCH="Passwords do not match.",
+    USER_ALREADY_EXISTS="A user with this email already exists",
+    
+
+
+}

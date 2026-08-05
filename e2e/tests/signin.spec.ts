@@ -1,7 +1,8 @@
 import { test, expect } from "../fixtures/base.fixtures";
 import { SigninPage } from "../pages/signinPage";
 import { userSigninData } from "../testdata/userData";
-let signin: SigninPage;
+import { InlineError } from "../enums/component-enum/InlineError.enum";
+
 test.describe("verify login", () => {
   test("verify with valid data", async ({ signinPage }) => {
     await signinPage.signin(userSigninData.validData);
@@ -12,28 +13,28 @@ test.describe("verify login", () => {
     await signinPage.signin(userSigninData.invalidEmail);
     await signinPage.clicksignIn();
     await expect(signinPage.getEmailError()).toHaveText(
-      userSigninData.invalidEmail.expected,
+      InlineError.VALID_EMAIL,
     );
   });
   test("verify with empty email", async ({ signinPage }) => {
     await signinPage.signin(userSigninData.emptyEmail);
     await signinPage.clicksignIn();
     await expect(signinPage.getEmailError()).toHaveText(
-      userSigninData.emptyEmail.expected,
+      InlineError.EMAIL_REQUIRED,
     );
   });
   test("verify with empty password", async ({ signinPage }) => {
     await signinPage.signin(userSigninData.emptyPassword);
     await signinPage.clicksignIn();
-    await expect(signinPage.getInvalidCredentialsError).toHaveText(
-      userSigninData.emptyPassword.expected,
+    await expect(signinPage.getInvalidCredentialsError()).toHaveText(
+      InlineError.INVALID_CREDENTIALS,
     );
   });
   test("verify with invalid credentials", async ({ signinPage }) => {
     await signinPage.signin(userSigninData.invalidCredentials);
     await signinPage.clicksignIn();
-    await expect(signinPage.getInvalidCredentialsError).toHaveText(
-      userSigninData.invalidCredentials.expected,
+    await expect(signinPage.getInvalidCredentialsError()).toHaveText(
+      InlineError.INVALID_CREDENTIALS,
     );
   });
 });

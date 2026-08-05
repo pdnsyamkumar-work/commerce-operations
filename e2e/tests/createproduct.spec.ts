@@ -2,6 +2,7 @@ import { test, expect } from "../fixtures/base.fixtures";
 import { CartPage } from "../pages/CartPage";
 import { productData } from "../testdata/userData";
 import { userSigninData } from "../testdata/userData";
+import {InlineError} from "../enums/component-enum/InlineError.enum";
 
 test.describe("create product", () => {
   test("create product with valid data", async ({ products, cart }) => {
@@ -41,28 +42,28 @@ test.describe("create product", () => {
   test("create product without product name", async ({ products }) => {
     await products.fillCreateProductForm(productData.emptyProductName);
     await expect(products.getProductNameError()).toHaveText(
-      productData.emptyProductName.expected,
+      InlineError.PRODUCT_NAME_REQUIRED
     );
     await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
   test("create product without product code", async ({ products }) => {
     await products.fillCreateProductForm(productData.emptyProductCode);
     await expect(products.getProductCodeError()).toHaveText(
-      productData.emptyProductCode.expected,
+      InlineError.PRODUCT_CODE_REQUIRED,
     );
     await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
   test("create product without category", async ({ products }) => {
     await products.fillCreateProductForm(productData.emptyCategory);
     await expect(products.getCategoryError()).toHaveText(
-      productData.emptyCategory.expected,
+      InlineError.CATEGORY_REQUIRED,
     );
     await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
   test("create product without price", async ({ products }) => {
     await products.fillCreateProductForm(productData.emptyPrice);
     await expect(products.getPriceError()).toHaveText(
-      productData.emptyPrice.expected,
+      InlineError.PRODUCT_PRICE_REQUIRED,
     );
     await expect(products.getCreateProductBtn()).not.toBeEnabled();
   });
@@ -79,14 +80,14 @@ test.describe("create product", () => {
   test("create product with 7 images", async ({ products }) => {
     await products.fillCreateProductForm(productData.maxImages);
     await expect(products.getProductImagesError()).toHaveText(
-      productData.maxImages.expected,
+  InlineError.MAXIMUM_IMAGE,
     );
   });
   test("create product with duplicate data", async ({ products }) => {
     await products.fillCreateProductForm(productData.duplicateProduct);
     await products.clickOnCreateProduct();
     await expect(products.getProductCodeError()).toHaveText(
-      productData.duplicateProduct.expected,
+      InlineError.PRODUCT_CODE_ERROR,
     );
   }); //
 });

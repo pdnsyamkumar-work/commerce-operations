@@ -333,7 +333,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-in-email"
                   message={signInErrors.email}
-                  testId="signin-email-error"
+                  testId="inline-error"
                 />
               </label>
 
@@ -394,7 +394,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-up-name"
                   message={signUpErrors.name}
-                  testId="signup-name-error"
+                  testId="inline-error"
                 />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
@@ -414,7 +414,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-up-email"
                   message={signUpErrors.email}
-                  testId="signup-email-error"
+                  testId="inline-error"
                 />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
@@ -431,7 +431,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-up-store"
                   message={signUpErrors.store}
-                  testId="signup-store-error"
+                  testId="inline-error"
                 />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
@@ -450,7 +450,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-up-password"
                   message={signUpErrors.password}
-                  testId="signup-password-error"
+                  testId="inline-error"
                 />
               </label>
               <label className="grid gap-2 text-sm font-semibold">
@@ -469,7 +469,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="sign-up-confirm-password"
                   message={signUpErrors.confirmPassword}
-                  testId="signup-confirm-password-error"
+                  testId="inline-error"
                 />
               </label>
               <button
@@ -517,7 +517,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 <InlineError
                   id="reset-email"
                   message={forgotPasswordErrors.email}
-                  testId="reset-email-error"
+                  testId="inline-error"
                 />
               </label>
 
@@ -531,9 +531,9 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
             </form>
           )}
 
-          <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
+          <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]"   data-testid="form-error">
             {message}
-            data-testid="error-form"
+          
           </p>
         </div>
       </section>
