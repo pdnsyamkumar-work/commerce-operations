@@ -1,82 +1,82 @@
-// FEEDBACK : Create seperate component based enum files
+// // FEEDBACK : Create seperate component based enum files
 
-export enum TextFiled {
-  //Sign in
-  EMAIL_ADDRESS = "emailAddress",
-  SIGIN_PASSWORD = "sign-password",
+// export enum TextFiled {
+//   //Sign in
+//   EMAIL_ADDRESS = "emailAddress",
+//   SIGIN_PASSWORD = "sign-password",
 
-  //  // Sign Up
-  FULL_NAME = "fullName",
-  WORK_EMAIL = "emailAddress", // FEEDBACK: Remove duplicate enum values
-  COMPANY_NAME = "companyName",
-  SIGN_UP_PASSWORD = "password",
-  CONFIRM_PASSWORD = "confirmPassword",
+//   //  // Sign Up
+//   FULL_NAME = "fullName",
+//   WORK_EMAIL = "emailAddress", // FEEDBACK: Remove duplicate enum values
+//   COMPANY_NAME = "companyName",
+//   SIGN_UP_PASSWORD = "password",
+//   CONFIRM_PASSWORD = "confirmPassword",
 
-  //Create Product
-  PRODUCT_NAME = "product-name",
-  PRODUCT_CODE = "product-code",
-  CATEGORY = "category",
-  PRICE = "price",
-  STOCK = "stock",
-  STATUS = "product_status",
-}
-export enum DropDownComp {
-  STATUS = "product_status",
-  PRODUCT_IMAGES = "product-images",
-}
+//   //Create Product
+//   PRODUCT_NAME = "product-name",
+//   PRODUCT_CODE = "product-code",
+//   CATEGORY = "category",
+//   PRICE = "price",
+//   STOCK = "stock",
+//   STATUS = "product_status",
+// }
+// export enum DropDownComp {
+//   STATUS = "product_status",
+//   PRODUCT_IMAGES = "product-images",
+// }
 
-export enum UploadFileComp {
-  PRODUCT_IMAGES = "product-images",
-}
+// export enum UploadFileComp {
+//   PRODUCT_IMAGES = "product-images",
+// }
 
-export enum Buttons {
-  SIGN_IN = "sign-in",
-  SIGN_UP = "Sign-up",
-  SIGN_OUT = "sign-out",
-  FORGOT_PASSWORD = "Forgot-pwd",
-  PROFILE_DROPDOWN = "dropdown-profile",
-  CREATE_ACCOUNT = "create-account",
+// export enum Buttons {
+//   SIGN_IN = "sign-in",
+//   SIGN_UP = "Sign-up",
+//   SIGN_OUT = "sign-out",
+//   FORGOT_PASSWORD = "Forgot-pwd",
+//   PROFILE_DROPDOWN = "dropdown-profile",
+//   CREATE_ACCOUNT = "create-account",
 
-  //Create Product
-  CREATE_PRODUCT = "create-product",
-  REMOVE_IMAGE = "remove-image",
-}
+//   //Create Product
+//   CREATE_PRODUCT = "create-product",
+//   REMOVE_IMAGE = "remove-image",
+// }
 
-export enum ErrorField {
-  FULL_NAME = "fullName",
-  EMAIL_ADDRESS = "emailAddress",
-  COMPANY_NAME = "companyName",
-  PASSWORD = "password",
-  CONFIRM_PASSWORD = "confirmPassword",
-  LOGIN_ERROR = "invalid-email-or-password",
+// export enum ErrorField {
+//   FULL_NAME = "fullName",
+//   EMAIL_ADDRESS = "emailAddress",
+//   COMPANY_NAME = "companyName",
+//   PASSWORD = "password",
+//   CONFIRM_PASSWORD = "confirmPassword",
+//   LOGIN_ERROR = "invalid-email-or-password",
 
-  //Add Product Inline Error Messages
-  PRODUCT_NAME_REQUIRED = "product-name-required",
-  PRODUCT_NAME_MIN = "Product name must be at least 3 characters.",
-  PRODUCT_NAME_MAX = "product-name-should not exceed more than 100 characters.",
-  PRODUCT_NAME_CHAR = "product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens.",
+//   //Add Product Inline Error Messages
+//   PRODUCT_NAME_REQUIRED = "product-name-required",
+//   PRODUCT_NAME_MIN = "Product name must be at least 3 characters.",
+//   PRODUCT_NAME_MAX = "product-name-should not exceed more than 100 characters.",
+//   PRODUCT_NAME_CHAR = "product-name-may contain letters, numbers, spaces, &, apostrophes, or hyphens.",
 
-  PRODUCT_CODE_REQUIRED = "product-code-required",
-  PRODUCT_CODE_MAX = "Product code must be at most 20 characters",
-  PRODUCT_CODE_CHAR = "Product code may contain letters, numbers, and hyphens only",
+//   PRODUCT_CODE_REQUIRED = "product-code-required",
+//   PRODUCT_CODE_MAX = "Product code must be at most 20 characters",
+//   PRODUCT_CODE_CHAR = "Product code may contain letters, numbers, and hyphens only",
 
-  CATEGORY_REQUIRED = "category-required",
-  CATEGORY_MIN = "Category must be at least 2 characters",
-  CATEGORY_MAX = "Category must be at most 40 characters",
-  CATEGORY_CHAR = "Category may contain letters and spaces only",
+//   CATEGORY_REQUIRED = "category-required",
+//   CATEGORY_MIN = "Category must be at least 2 characters",
+//   CATEGORY_MAX = "Category must be at most 40 characters",
+//   CATEGORY_CHAR = "Category may contain letters and spaces only",
 
-  PRICE_REQUIRED = "price-required",
-  PRICE_MAX = "Price must be at most 7 characters",
-  PRICE_MIN = "price-must be at least 1",
-  PRICE_VALUE_MAX = "Price must be at most 99,999.",
+//   PRICE_REQUIRED = "price-required",
+//   PRICE_MAX = "Price must be at most 7 characters",
+//   PRICE_MIN = "price-must be at least 1",
+//   PRICE_VALUE_MAX = "Price must be at most 99,999.",
 
-  STOCK_REQUIRED = "stock-required",
-  STOCK_MAX = "stock at most 5 characters",
-  STOCK_INVALID = "stock-invalid",
-  STOCK_VALUE_MAX = "stock-value-max",
+//   STOCK_REQUIRED = "stock-required",
+//   STOCK_MAX = "stock at most 5 characters",
+//   STOCK_INVALID = "stock-invalid",
+//   STOCK_VALUE_MAX = "stock-value-max",
 
-  STATUS_REQUIRED = "status",
+//   STATUS_REQUIRED = "status",
 
-  PRODUCT_IMAGES_REQUIRED = "product-images-required",
-  PRODUCT_IMAGES_LIMIT = "product-images-limit",
-}
+//   PRODUCT_IMAGES_REQUIRED = "product-images-required",
+//   PRODUCT_IMAGES_LIMIT = "product-images-limit",
+// }

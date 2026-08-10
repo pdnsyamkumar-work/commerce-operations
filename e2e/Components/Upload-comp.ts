@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { UploadFileComp } from "../enums/component_enums/labes_enums";
+import { UploadFileComp } from "../enums/component_enums/Uploadfile_enum";
 
 export class UploadFileCompent {
   constructor(private readonly page: Page) { }

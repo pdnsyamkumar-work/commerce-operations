@@ -1,9 +1,10 @@
 import { Page, expect } from "@playwright/test";
 
-import { Signupdata } from "../utils/interfaces/signup.interface";
+import { SignupData } from "../utils/interfaces/signup.interface";
 import { BasePage } from "../Base/Base-page";
-import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
-import { TextFiled } from "../enums/component_enums/labes_enums";
+import { ErrorField } from "../enums/component_enums/Error_enums";
+import { Buttons} from "../enums/component_enums/Buttons_enum";
+import { TextFiled } from "../enums/component_enums/text_field_enums";
 
 export default class SignUp extends BasePage {
   constructor(page: Page) {
@@ -18,13 +19,13 @@ export default class SignUp extends BasePage {
 
   //signup using provided credentials.
 
-  async fillSignupDetails(data: Signupdata) {
+  async fillSignupDetails(data: SignupData) {
     await this.textfield
       .getInputFiled(TextFiled.FULL_NAME)
-      .fill(data.full_name);
+      .fill(data.fullName);
     await this.textfield
       .getInputFiled(TextFiled.WORK_EMAIL)
-      .fill(data.work_email);
+      .fill(data.workEmail);
     await this.textfield
       .getInputFiled(TextFiled.COMPANY_NAME)
       .fill(data.companyName);
@@ -41,12 +42,12 @@ export default class SignUp extends BasePage {
     await this.button.getButton(Buttons.CREATE_ACCOUNT).click();
   }
 
-  async getExpectedErrorLocator(data: Signupdata) {
-    if (data.full_name.trim() === "") {
+  async getExpectedErrorLocator(data: SignupData) {
+    if (data.fullName.trim() === "") {
       return this.errormessage.getErrorMessage(ErrorField.FULL_NAME);
     }
 
-    if (data.work_email.trim() === "") {
+    if (data.workEmail.trim() === "") {
       return this.errormessage.getErrorMessage(ErrorField.EMAIL_ADDRESS);
     }
 
@@ -65,7 +66,7 @@ export default class SignUp extends BasePage {
     return null;
   }
 
-  async multisignup(data: Signupdata[]) {
+  async multisignup(data: SignupData[]) {
     for (const user of data) {
       await this.navigate();
       await this.clickSignUpTab();
@@ -75,18 +76,18 @@ export default class SignUp extends BasePage {
       const errorLocator = await this.getExpectedErrorLocator(user);
 
       if (errorLocator) {
-        console.log(`Validation displayed for ${user.work_email}`);
+        console.log(`Validation displayed for ${user.workEmail}`);
         continue;
       }
       const userExistsLocator = this.page.getByText("User already exists.");
       if (await userExistsLocator.isVisible()) {
-        console.log(`User already exists: ${user.work_email}`);
+        console.log(`User already exists: ${user.workEmail}`);
         continue;
       }
       const profileDropdown = this.button.getButton(Buttons.PROFILE_DROPDOWN);
 
       if (await profileDropdown.isVisible()) {
-        console.log(`Account created successfully: ${user.work_email}`);
+        console.log(`Account created successfully: ${user.workEmail}`);
       }
     }
   }

@@ -544,8 +544,8 @@ function PasswordField({
   return (
     <div className="relative">
       <input
-        //data-testid={`input-field-${dataTestId}`}
-        data-testid="input-field-sign-password"
+        data-testid={`input-field-${dataTestId}`}
+        //data-testid="input-field-sign-password"
         className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-24 font-normal"
         type={showPassword ? "text" : "password"}
         value={value}

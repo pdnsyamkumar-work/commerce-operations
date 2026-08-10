@@ -2,13 +2,11 @@ import { Page, expect, Response } from "@playwright/test";
 import Sign_in from "./sign-in-page";
 import { ProductData } from "../utils/interfaces/product.interface";
 import { BasePage } from "../Base/Base-page";
-import {
-  ErrorField,
-  TextFiled,
-  UploadFileComp,
-  DropDownComp,
-} from "../enums/component_enums/labes_enums";
-import { Buttons } from "../enums/component_enums/labes_enums";
+import { DropDownComp } from "../enums/Drpdwn_enum";
+import { UploadFileComp } from "../enums/component_enums/Uploadfile_enum";
+import { TextFiled } from "../enums/component_enums/text_field_enums";
+import { ErrorField } from "../enums/component_enums/Error_enums";
+import { Buttons } from "../enums/component_enums/Buttons_enum";
 
 export default class Products extends BasePage {
   constructor(page: Page) {

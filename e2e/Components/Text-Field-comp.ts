@@ -1,5 +1,5 @@
 import { Page, Locator } from "@playwright/test";
-import { TextFiled } from "../enums/component_enums/labes_enums";
+import { TextFiled } from "../enums/component_enums/text_field_enums";
 
 export class TextFieldComponent {
   constructor(private readonly page: Page) { }

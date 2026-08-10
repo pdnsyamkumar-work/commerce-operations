@@ -3,7 +3,7 @@
 import { Page } from "@playwright/test";
 import { TextFieldComponent } from "../Components/Text-Field-comp";
 import { ButtonComponent } from "../Components/Button-comp";
-import { Buttons } from "../enums/component_enums/labes_enums";
+import { Buttons } from "../enums/component_enums/Buttons_enum";
 import { ErrorMessage } from "../Components/Error_message_comp";
 import { UploadFileCompent } from "../Components/Upload-comp";
 import { DropDownCompent } from "../Components/Dropdown-comp";

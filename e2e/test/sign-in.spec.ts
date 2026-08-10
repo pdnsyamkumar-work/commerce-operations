@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { testData } from "../testdata/sign-in-data";
 import SignInPage from "../Pages/sign-in-page";
-import { Buttons, ErrorField } from "../enums/component_enums/labes_enums";
+import { ErrorField } from "../enums/component_enums/Error_enums";
+import { Buttons } from "../enums/component_enums/Buttons_enum";
 import { ErrorMessage } from "../Components/Error_message_comp";
 
 test.describe("Sign In Module", () => {

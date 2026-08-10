@@ -1,5 +1,5 @@
 import { Page, Locator } from "@playwright/test";
-import { ErrorField } from "../enums/component_enums/labes_enums";
+import { ErrorField } from "../enums/component_enums/Error_enums";
 
 export class ErrorMessage {
   constructor(private readonly page: Page) { }

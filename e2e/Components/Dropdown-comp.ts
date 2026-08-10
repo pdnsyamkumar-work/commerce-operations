@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import{DropDownComp} from "../enums/component_enums/labes_enums";
+import { DropDownComp } from "../enums/Drpdwn_enum";
 
 export class DropDownCompent {
   constructor(private readonly page: Page) { }

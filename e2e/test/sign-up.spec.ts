@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import sign_up from "../Pages/Sign_up_page";
 import { testData } from "../testdata/sign-up-data";
-import { Buttons } from "../enums/component_enums/labes_enums";
+import { Buttons } from "../enums/component_enums/Buttons_enum";
 
 test.describe("Sign Up Module", () => {
   let signup: sign_up;
