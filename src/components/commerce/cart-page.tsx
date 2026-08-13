@@ -51,11 +51,15 @@ export function CartPage({
           <button
             className="cursor-pointer rounded-full bg-slate-900 px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg"
             type="button"
+            data-testid="add-product-btn"
             onClick={onAddToCart}
           >
             Add Selected Product
           </button>
-          <p className="text-sm text-[color:var(--muted)]">
+          <p
+            data-testid="cart-total"
+            className="text-sm text-[color:var(--muted)]"
+          >
             Cart total: ${cartTotal}
           </p>
         </div>
@@ -75,13 +79,19 @@ export function CartPage({
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <h3 className="font-semibold">{item.name}</h3>
+                    <h3
+                      className="font-semibold"
+                      data-testid={`cart-item-${item.id}`}
+                    >
+                      {item.name}
+                    </h3>
                     <p className="text-sm text-[color:var(--muted)]">
                       ${item.unitPrice} each &middot; {item.id}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
+                      data-testid={`view-btn-${item.id}`}
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-slate-700 transition duration-200 hover:bg-slate-100 hover:text-slate-950"
                       type="button"
                       onClick={() => setViewedItem(item)}
@@ -89,6 +99,7 @@ export function CartPage({
                       View
                     </button>
                     <button
+                      data-testid={`remove-btn-${item.id}`}
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-rose-700 transition duration-200 hover:bg-rose-50 hover:text-rose-800"
                       type="button"
                       onClick={() => onRemoveCartItem(item.id)}
@@ -99,6 +110,7 @@ export function CartPage({
                 </div>
                 <div className="mt-4 flex gap-3">
                   <button
+                    data-testid={`decrease-btn-${item.id}`}
                     className="cursor-pointer rounded-full border border-[color:var(--border)] px-4 py-2 text-sm transition duration-200 hover:border-slate-400 hover:bg-slate-900 hover:text-white"
                     type="button"
                     onClick={() =>
@@ -107,10 +119,14 @@ export function CartPage({
                   >
                     -
                   </button>
-                  <span className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold">
+                  <span
+                    className="flex min-w-14 items-center justify-center rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold"
+                    data-testid={`quantity-${item.id}`}
+                  >
                     {item.quantity}
                   </span>
                   <button
+                    data-testid={`increase-btn-${item.id}`}
                     className="cursor-pointer rounded-full border border-[color:var(--border)] px-4 py-2 text-sm transition duration-200 hover:border-slate-400 hover:bg-slate-900 hover:text-white"
                     type="button"
                     onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
@@ -150,6 +166,7 @@ function ProductDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <button
+        data-testid="product-dropdown"
         className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left transition duration-200 hover:bg-slate-50"
         type="button"
         aria-expanded={open}
@@ -162,6 +179,7 @@ function ProductDropdown({
         <div className="absolute left-0 z-40 mt-2 max-h-80 w-full overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl">
           {products.map((product) => (
             <button
+              data-testid={`product-option-${product.id}`}
               key={product.id}
               className="w-full rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-slate-100"
               type="button"
@@ -216,6 +234,7 @@ function CartItemDialog({
           <button
             className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 text-white transition duration-200 hover:bg-rose-700"
             type="button"
+            data-testid="close-cart-dialog"
             aria-label="Close cart item details"
             onClick={onClose}
           >
@@ -231,25 +250,30 @@ function CartItemDialog({
         )}
         <div className="mt-5 grid gap-3 rounded-[1.25rem] bg-[color:var(--surface-strong)] p-4 text-sm">
           <p>
-            <strong>Product code:</strong> {product?.productCode ?? item.productId}
+            <strong>Product code:</strong>{" "}
+            {product?.productCode ?? item.productId}
           </p>
           <p>
             <strong>Category:</strong> {product?.category ?? "Unavailable"}
           </p>
-          <p>
-            <strong>Quantity:</strong> {item.quantity}
+          <p data-testid="popup-quantity">
+            <strong>Quantity:</strong>
+            {item.quantity}
           </p>
-          <p>
-            <strong>Unit price:</strong> ${item.unitPrice}
+
+          <p data-testid="popup-unit-price">
+            <strong>Unit price:</strong>${item.unitPrice}
           </p>
-          <p>
-            <strong>Subtotal:</strong> ${subtotal}
+
+          <p data-testid="popup-subtotal">
+            <strong>Subtotal:</strong>${subtotal}
           </p>
         </div>
         <div className="mt-6 flex justify-end">
           <button
             className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg"
             type="button"
+            data-testid="popup-close-btn"
             onClick={onClose}
           >
             Close

@@ -43,6 +43,7 @@ export function ConfirmDialog({
           <button
             className="rounded-full border border-[color:var(--border)] px-5 py-3 text-sm font-semibold transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
             type="button"
+            data-testid="cancel-button"
             onClick={onCancel}
           >
             Cancel
@@ -50,6 +51,7 @@ export function ConfirmDialog({
           <button
             className="rounded-full bg-rose-700 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-rose-800 hover:shadow-lg"
             type="button"
+            data-testid="remove"
             onClick={onConfirm}
           >
             {confirmLabel}

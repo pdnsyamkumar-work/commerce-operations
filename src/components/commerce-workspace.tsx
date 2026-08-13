@@ -525,9 +525,7 @@ export function CommerceWorkspace() {
       return nextBoard;
     });
     setDraggedTask(null);
-    notify(
-      `Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`,
-    );
+    notify(`Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`);
   }
 
   function submitPracticeReview() {
@@ -581,9 +579,7 @@ export function CommerceWorkspace() {
     setDraft(emptyDraft);
     setEditingProductId(null);
     setProductErrors({});
-    notify(
-      `${editingProductId ? "Updated" : "Created"} ${data.product.name}.`,
-    );
+    notify(`${editingProductId ? "Updated" : "Created"} ${data.product.name}.`);
     await refresh();
   }
 
@@ -1268,4 +1264,3 @@ function navIcon(item: CommerceNavItem) {
     </svg>
   );
 }
-

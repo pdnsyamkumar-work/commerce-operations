@@ -11,9 +11,7 @@ const maxStockLength = 5;
 
 export type ProductFieldName = keyof ProductDraft;
 
-export function validateProductDraft(
-  draft: ProductDraft,
-): ProductFormErrors {
+export function validateProductDraft(draft: ProductDraft): ProductFormErrors {
   const errors: ProductFormErrors = {};
   const productCode = draft.productCode?.trim() ?? "";
   const name = draft.name?.trim() ?? "";
@@ -90,4 +88,3 @@ export function validateProductField(
 ): string | undefined {
   return validateProductDraft(draft)[field];
 }
-
