@@ -1,10 +1,13 @@
 import { test as base, expect } from "@playwright/test";
 import { SigninPage } from "../pages/signinPage";
 import { createProduct } from "../pages/createProduct";
-import { userSigninData } from "../testdata/userData";
 import { CartPage } from "../pages/CartPage";
 import { ForgotPage } from "../pages/forgotPage";
 import { SignupPage } from "../pages/signupPage";
+import { createProductData } from "../testdata/create-product.testdata";
+import { createSignupTestdata } from "../testdata/signup.testdata";
+import { createSigninTestdata } from "../testdata/signin.testdata";
+import { createForgotPasswordTestdata } from "../testdata/forgot.testdata";
 type MyFixtures = {
   signinPage: SigninPage;
   signedInPage: SigninPage;
@@ -12,6 +15,10 @@ type MyFixtures = {
   cart: CartPage;
   forgot: ForgotPage;
   signup: SignupPage;
+  createProductData: typeof createProductData;
+  createSignupTestdata: typeof createSignupTestdata;
+  createSigninTestdata: typeof createSigninTestdata;
+  createForgotTestdata: typeof createForgotPasswordTestdata;
 };
 export const test = base.extend<MyFixtures>({
   signinPage: async ({ page }, use) => {
@@ -24,7 +31,7 @@ export const test = base.extend<MyFixtures>({
     const signedInPage = new SigninPage(page);
     await signedInPage.goto("http://localhost:3000/");
     await signedInPage.gotosignin();
-    await signedInPage.signin(userSigninData.validData);
+    await signedInPage.signin(createSigninTestdata());
     await signedInPage.clicksignIn();
     await expect(signedInPage.getDashboardHeading()).toBeVisible();
     await use(signedInPage);
@@ -49,6 +56,18 @@ export const test = base.extend<MyFixtures>({
     await signup.goto("http://localhost:3000/");
     await signup.gotosignup();
     await use(signup);
+  },
+  createProductData: async ({}, use) => {
+    await use(createProductData);
+  },
+  createSignupTestdata: async ({}, use) => {
+    await use(createSignupTestdata);
+  },
+  createSigninTestdata: async ({}, use) => {
+    await use(createSigninTestdata);
+  },
+  createForgotTestdata: async ({}, use) => {
+    await use(createForgotPasswordTestdata);
   },
 });
 

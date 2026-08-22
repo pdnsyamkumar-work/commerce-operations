@@ -531,9 +531,11 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
             </form>
           )}
 
-          <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]"   data-testid="form-error">
+          <p
+            className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]"
+            data-testid="form-error"
+          >
             {message}
-          
           </p>
         </div>
       </section>

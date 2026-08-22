@@ -26,9 +26,9 @@ export class BasePage {
   async goto(url: string) {
     await this.page.goto(url);
   }
-async launchWeb(){
-  await this.page.goto("http://localhost:3000/");
-}
+  async launchWeb() {
+    await this.page.goto("http://localhost:3000/");
+  }
   async clickElement(locator: Locator) {
     await locator.click();
   }

@@ -3,12 +3,10 @@ import { signinData } from "../interfaces/userData";
 import { BasePage } from "./basePage";
 import { Buttons, MenuItems } from "../enums/component-enum/buttons.enums";
 import { TextField } from "../enums/component-enum/text-field.enum";
-import { ErrorField } from "../enums/component-enum/error.enum";
+
 export class SigninPage extends BasePage {
- 
   constructor(page: Page) {
     super(page);
-  
   }
   getInvalidCredentialsError(): Locator {
     return this.page.getByTestId("form-error");

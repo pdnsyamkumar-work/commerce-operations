@@ -8,19 +8,16 @@ export interface signupData {
   password: string;
 
   confirmPassword: string;
-  expected: string;
 }
 
 export interface signinData {
   email: string;
 
   password: string;
-  expected: string;
 }
 
 export interface forgotPassword {
   email: string;
-  expected: string;
 }
 export interface ProductData {
   productName: string;
@@ -30,5 +27,4 @@ export interface ProductData {
   stock: string;
   status: string;
   images: string[];
-  expected: string;
 }
