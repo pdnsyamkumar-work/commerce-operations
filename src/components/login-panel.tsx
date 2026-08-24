@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useEffect, useState } from "react";
 import { AppToast } from "@/components/commerce/app-toast";
@@ -229,6 +229,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
         message={toastMessage}
         isVisible={isToastVisible}
         onClose={() => setIsToastVisible(false)}
+        type="success"
       />
       <section className="grid w-full overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--surface)] shadow-[0_24px_80px_rgba(78,52,35,0.14)] lg:grid-cols-[1.1fr_0.9fr]">
         <div className="flex flex-col justify-center gap-10 bg-slate-950 p-8 text-white lg:p-10">

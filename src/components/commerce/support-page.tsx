@@ -3,7 +3,7 @@ import { useClickOutside } from "./shared";
 
 const priorityOptions = ["Low", "Medium", "High"];
 
-export function SupportPage() {
+export function SupportPage({ onSubmit }: { onSubmit?: () => void }) {
   const [priority, setPriority] = useState("Medium");
 
   return (
@@ -27,8 +27,9 @@ export function SupportPage() {
           <button
             className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg"
             type="button"
+            onClick={onSubmit}
           >
-            Submit Support Request
+            Submit
           </button>
         </form>
       </article>

@@ -236,6 +236,7 @@ export function CommerceWorkspace() {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [message, setMessage] = useState<string>("Loading dashboard data...");
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [toastType, setToastType] = useState<"success" | "error" | "default">("default");
   const [selectedProductId, setSelectedProductId] = useState<string>("");
   const [uploadSummary, setUploadSummary] =
     useState<string>(defaultUploadSummary);
@@ -268,8 +269,37 @@ export function CommerceWorkspace() {
   const [profileDetails, setProfileDetails] = useState(defaultProfileDetails);
   useClickOutside(profileDropdownRef, () => setIsProfileOpen(false));
 
-  function notify(nextMessage: string) {
+  function notify(nextMessage: string, type: "success" | "error" | "default" = "default") {
+    let finalType = type;
+    if (finalType === "default") {
+      const lower = nextMessage.toLowerCase();
+      if (
+        lower.includes("could not") ||
+        lower.includes("fix the") ||
+        lower.includes("unsupported") ||
+        lower.includes("too large") ||
+        lower.includes("invalid") ||
+        lower.includes("missing")
+      ) {
+        finalType = "error";
+      } else if (
+        lower.includes("successfully") ||
+        lower.includes("added") ||
+        lower.includes("updated") ||
+        lower.includes("deleted") ||
+        lower.includes("removed") ||
+        lower.includes("created") ||
+        lower.includes("loaded") ||
+        lower.includes("imported") ||
+        lower.includes("submitted") ||
+        lower.includes("signed out")
+      ) {
+        finalType = "success";
+      }
+    }
+    
     setMessage(nextMessage);
+    setToastType(finalType);
     setIsToastVisible(true);
 
     if (toastTimerRef.current) {
@@ -1059,7 +1089,7 @@ export function CommerceWorkspace() {
             onBulkAddToCart={bulkAddToCart}
           />
         )}
-        {activeView === "Support" && <SupportPage />}
+        {activeView === "Support" && <SupportPage onSubmit={() => notify("Support request submitted successfully.")} />}
         {activeView === "Profile" && (
           <ProfilePage
             user={user}
@@ -1141,11 +1171,11 @@ export function CommerceWorkspace() {
             </div>
           </div>
         )}
-
         <AppToast
           message={message}
           isVisible={isToastVisible}
           onClose={() => setIsToastVisible(false)}
+          type={toastType}
         />
       </section>
     </main>
