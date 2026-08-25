@@ -8,32 +8,40 @@
 
 import { Page } from "@playwright/test";
 import { BasePage } from "./base-page";
+import { HeaderComponent} from "../components/header-component";
+import { CartItemComponent } from "../components/cart-item-component";
 
 export class CartPage extends BasePage {
+  readonly header: HeaderComponent;
   readonly page: Page;
 
   constructor(page: Page) {
     super(page);
     this.page = page;
+    this.header=new HeaderComponent(page);
   }
+    getCartItem(productName: string, productId: string) {
+  return new CartItemComponent(this.page, productName, productId);
+}
+
   cartbtn = () => this.page.locator("//button[@title='Cart']");
   carttab = () => this.page.getByRole("button", { name: "Cart" });
   ProductDropdown = () => this.page.getByTestId("product-dropdown");
   selectproduct_btn = () => this.page.getByTestId("add-product-btn");
   decrease_btn = (cartItemId: string) =>
-  this.page.getByTestId(`decrease-btn-${cartItemId}`);
+    this.page.getByTestId(`decrease-btn-${cartItemId}`);
   increase_btn = (cartItemId: string) =>
-  this.page.getByTestId(`increase-btn-${cartItemId}`);
- view_btn = (cartItemId: string) =>
-  this.page.getByTestId(`view-btn-${cartItemId}`);
+    this.page.getByTestId(`increase-btn-${cartItemId}`);
+  view_btn = (cartItemId: string) =>
+    this.page.getByTestId(`view-btn-${cartItemId}`);
   unit_price = () => this.page.getByTestId("popup-unit-price");
   quantity = () => this.page.getByTestId("popup-quantity");
   sub_total = () => this.page.getByTestId("popup-subtotal");
   close_btn = () => this.page.getByTestId("popup-close-btn");
   remove_btn = (cartItemId: string) =>
-  this.page.getByTestId(`remove-btn-${cartItemId}`);
-  cancel_btn = () => this.page.getByTestId("cancel-button")
-  remove_item_btn = () =>this.page.getByTestId("remove");
+    this.page.getByTestId(`remove-btn-${cartItemId}`);
+  cancel_btn = () => this.page.getByTestId("cancel-button");
+  remove_item_btn = () => this.page.getByTestId("remove");
   async opencart() {
     await this.cartbtn().click();
   }
@@ -46,11 +54,11 @@ export class CartPage extends BasePage {
 
   private cartItem(productName: string) {
     return this.page
-        .getByRole("heading", { name: productName })
-        .locator("xpath=ancestor::div[contains(@class,'rounded-[1.4rem]')]");
-}
+      .getByRole("heading", { name: productName })
+      .locator("xpath=ancestor::div[contains(@class,'rounded-[1.4rem]')]");
+  }
   // to increase quantity
-  async updateQtyincrease(productName: string) { 
+  async updateQtyincrease(productName: string) {
     await this.increase_btn(productName).click();
   }
   //to decrease quantity
