@@ -33,7 +33,7 @@ export const test = base.extend<MyFixtures>({
     await signedInPage.gotosignin();
     await signedInPage.signin(createSigninTestdata());
     await signedInPage.clicksignIn();
-    await expect(signedInPage.getDashboardHeading()).toBeVisible();
+    await expect(signedInPage.getDashboardHeading()).toBeVisible();   // FEEDBACK: Do not use expect here instead use waitFor({state:'visible'})
     await use(signedInPage);
   },
   products: async ({ signedInPage }, use) => {
