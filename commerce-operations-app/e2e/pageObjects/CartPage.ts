@@ -1,36 +1,15 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
+import { Buttons } from "../enums/buttons";
+import { dropdowns } from "../enums/dropdowns";
 
 export class cartPage extends BasePage {
   constructor(page: Page) {
     super(page);
   }
-  readonly getCart = () => this.page.getByTitle("Cart");
-  readonly getProductsDropDown = () =>
-    this.page.getByTestId("products-dropdown");
-  readonly getAddSelectedProductButton = () =>
-    this.page.getByTestId("add-selected-product-button");
-  readonly getRemoveButton = (itemName: string) =>
-    this.page.getByTestId(`product-remove-${itemName}`);
-  readonly getViewButton = (itemName: string) =>
-    this.page.getByTestId(`product-view-button-${itemName}`);
-  readonly getRemoveButtonConfirm = () =>
-    this.page.getByTestId("remove-button-confirm");
-  readonly getProductIncrementOperator = (itemName: string) =>
-    this.page.getByTestId(`productQunatity-increase-button-${itemName}`);
-  readonly getProductDecrementOperator = (itemName: string) =>
-    this.page.getByTestId(`productQunatity-decrease-button-${itemName}`);
-  readonly getEmptyCartMessage = () =>
-    this.page.locator(
-      "//span[text()='Cart is empty. Add a product to begin checkout preparation.']",
-    );
-  readonly getAllTheAddedroducts = () =>
-    this.page.locator("//div[@class='mt-5 grid gap-3']//div//h3");
-  readonly getCartTitle = () => this.page.getByTestId("cart-item-title");
-  readonly getCloseButtonInPopUp = () => this.page.getByTestId("close-button");
 
   async navigateToCartPage() {
-    await this.getCart().click();
+    await this.button.getButton(Buttons.CART_NAV).click();
   }
   getProductOption(productName: string) {
     return this.page.locator("button").filter({
@@ -38,33 +17,33 @@ export class cartPage extends BasePage {
     });
   }
   async openProductsDropdown() {
-    await this.getProductsDropDown().click();
+    await this.dropdown.getDropdown(dropdowns.PRODUCTS_DROPDOWN).click();
   }
   async selectProduct(productName: string) {
-    await this.getProductOption(productName).click();
+    await this.dropdown.getDropdown(dropdowns.PRODUCTS_DROPDOWN_LIST).click();
   }
   async increaseProductQuantity(productName: string) {
-    await this.getProductIncrementOperator(productName).click();
+    await this.button.getProductButton(Buttons.PRODUCT_INCREMENT,productName).click();
   }
   async decreaseProductQuantity(productName: string) {
-    await this.getProductDecrementOperator(productName).click();
+    await this.button.getProductButton(Buttons.PRODUCT_DECREMENT,productName).click();
   }
   async clickOnViewProductDetails(item: string) {
-    await this.getViewButton(item).click();
+    await this.button.getProductButton(Buttons.PRODUCT_VIEW, item).click();
+  }
+  async clickOnCloseCartItemDialog() {
+    await this.button.getButton(Buttons.CANCEL_CLOSE_CART_ITEM_DIALOG).click();
   }
   async clickOnDeleteTheProduct(item: string) {
-    await this.getRemoveButton(item).click();
+    await this.button.getProductButton(Buttons.PRODUCT_REMOVE, item).click();
   }
   async clickOnAddProductButton() {
-    await this.getAddSelectedProductButton().click();
-  }
-  async alltheAddedProducts() {
-    await this.getAllTheAddedroducts().allTextContents();
+    await this.button.getButton(Buttons.ADD_SELECTED_PRODUCT).click();
   }
   async clickOnRemoveConfirmButton() {
-    await this.getRemoveButtonConfirm().click();
+    await this.button.getButton(Buttons.REMOVE_ITEM).click();
   }
   async clickOnCloseButton() {
-    await this.getCloseButtonInPopUp().click();
+    await this.button.getButton(Buttons.CANCEL_REMOVE_ITEM).click();
   }
 }

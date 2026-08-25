@@ -1,25 +1,25 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
+import { Buttons } from "../enums/buttons";
+import { Labels } from "../enums/labels";
 
 export class forgetPassword extends BasePage {
   constructor(page: Page) {
     super(page);
   }
-  readonly getForgetPassbutton = () =>
-    this.page.getByRole("button", { name: "Forgot password" });
-  readonly getWorkEmail = () => this.page.getByTestId("input-field-email");
-  readonly getSendResetLink = () =>
-    this.page.getByTestId("button-send-reset-link");
+  
+ 
   readonly getSuccessMsg = () =>
     this.page.getByText(
       "Password reset instructions were sent to admin@commerce.test.",
     ).first();
-  readonly getErrorMsg = () => this.page.getByText("Work email is required.");
-
+  async enterEmail(email: string): Promise<void> {
+    await this.textField.getInputField(Labels.FORGET_PASSWORD_EMAIL).fill(email);
+  }
   async clickOnForgetPassword() {
-    await this.getForgetPassbutton().click();
+    await this.button.getButton(Buttons.FORGET_PASSWORD_NAV).click();
   }
   async clickOnSendResetLink() {
-    await this.getSendResetLink().click();
+    await this.button.getButton(Buttons.RESENT_LINK).click();
   }
 }

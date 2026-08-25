@@ -49,6 +49,7 @@ export function CartPage({
             onSelect={onSelectedProductChange}
           />
           <button
+            data-testid="button-Add-Selected-Product"
             className="cursor-pointer rounded-full bg-slate-900 px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg"
             type="button"
             onClick={onAddToCart}
@@ -82,6 +83,7 @@ export function CartPage({
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
+                      data-testid={`button-product-view-${item.name}`}
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-slate-700 transition duration-200 hover:bg-slate-100 hover:text-slate-950"
                       type="button"
                       onClick={() => setViewedItem(item)}
@@ -89,6 +91,7 @@ export function CartPage({
                       View
                     </button>
                     <button
+                      data-testid={`button-product-remove-${item.name}`}
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-rose-700 transition duration-200 hover:bg-rose-50 hover:text-rose-800"
                       type="button"
                       onClick={() => onRemoveCartItem(item.id)}
@@ -99,6 +102,7 @@ export function CartPage({
                 </div>
                 <div className="mt-4 flex gap-3">
                   <button
+                   data-testid={`button-product-quantity-decrease-${item.name}`}
                     className="cursor-pointer rounded-full border border-[color:var(--border)] px-4 py-2 text-sm transition duration-200 hover:border-slate-400 hover:bg-slate-900 hover:text-white"
                     type="button"
                     onClick={() =>
@@ -111,6 +115,7 @@ export function CartPage({
                     {item.quantity}
                   </span>
                   <button
+                   data-testid={`button-product-quantity-increase-${item.name}`}
                     className="cursor-pointer rounded-full border border-[color:var(--border)] px-4 py-2 text-sm transition duration-200 hover:border-slate-400 hover:bg-slate-900 hover:text-white"
                     type="button"
                     onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
@@ -150,6 +155,7 @@ function ProductDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <button
+        data-testid="dropdown-products"
         className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left transition duration-200 hover:bg-slate-50"
         type="button"
         aria-expanded={open}
@@ -159,10 +165,14 @@ function ProductDropdown({
         <span>v</span>
       </button>
       {open && (
-        <div className="absolute left-0 z-40 mt-2 max-h-80 w-full overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl">
+        <div 
+        data-testid="dropdown-products-list"
+        ref={dropdownRef}
+        className="absolute left-0 z-40 mt-2 max-h-80 w-full overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl">
           {products.map((product) => (
             <button
               key={product.id}
+              data-testid={`product-option-${product.productCode}`}
               className="w-full rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-slate-100"
               type="button"
               onClick={() => {
@@ -248,6 +258,7 @@ function CartItemDialog({
         </div>
         <div className="mt-6 flex justify-end">
           <button
+            data-testid="button-close-cart-item-dialog"
             className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg"
             type="button"
             onClick={onClose}

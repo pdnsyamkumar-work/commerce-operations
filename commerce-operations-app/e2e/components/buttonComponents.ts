@@ -5,4 +5,7 @@ export class Button{
      getButton(buttonName:String){
         return this.page.getByTestId(`button-${buttonName}`);
      }
+     getProductButton(buttonName: string, itemName: string) {
+          return this.page.getByTestId(`button-${buttonName}-${itemName}`);
+    }
 }

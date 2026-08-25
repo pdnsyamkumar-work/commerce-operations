@@ -895,7 +895,7 @@ export function CommerceWorkspace() {
                 onClick={() => navigateToView(item)}
               >
                 <span className="text-lg">{navIcon(item)}</span>
-                {!isSideNavCollapsed && <span>{item}</span>}
+                {!isSideNavCollapsed && <span data-testid={`button-side-nav-title-${item.toLowerCase().replace(/\s+/g, "-")}`}>{item}</span>}
               </button>
             );
           })}

@@ -1,26 +1,19 @@
-import { test, expect } from "@playwright/test";
-import { createProduct } from "../pageObjects/createProduct";
+import { expect } from "@playwright/test";
 import { createProductAllScenarios } from "./test-data/createProductScenarios";
-import { SignInPage } from "../pageObjects/signInPage";
+import { test } from "../Fixtures/fixtures";
+import { Buttons } from "../enums/buttons";
+import { ErrorFields } from "../enums/inLineErrors";
 import { loginScenarios } from "./test-data/signInScenarios";
 
 test.describe("Create product scenarios", async () => {
-  let createproduct: createProduct;
-  let signin: SignInPage;
-  const user = loginScenarios.success;
-  test.beforeEach("Login URL", async ({ page }) => {
-    createproduct = new createProduct(page);
-    signin = new SignInPage(page);
-    await page.goto("http://localhost:3000/");
-    await signin.enterEmail(user.email);
-    await signin.enterPassword(user.password);
-    await signin.clickOnSignIn();
-  });
-
-  test("Successfull product creation", async () => {
+ 
+  test.only("Successfull product creation", async ({signinPage, createProductPage}) => {
     const product = createProductAllScenarios.Succssfull_Product_Creation;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email,user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -29,21 +22,23 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getCreateProductButton()).toBeVisible();
-    const responsePromise = createproduct.waitForCreateProductApi();
-    await createproduct.clickOnCreateProductButton();
+    await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeVisible();
+    const responsePromise = createProductPage.waitForCreateProductApi();
+    await createProductPage.clickOnCreateProductButton();
     const response = await responsePromise;
     expect(response.status()).toBe(201);
     await expect(
-      createproduct.verifyProductAdded(product.productCode),
+      createProductPage.verifyProductAdded(product.productCode),
     ).toBeVisible();
   });
 
-  test("Product_Creation_With_Duplicate_ProductCode", async () => {
-    const product =
-      createProductAllScenarios.Product_Creation_With_Duplicate_ProductCode;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+  test("Product_Creation_With_Duplicate_ProductCode", async ({signinPage,createProductPage}) => {
+    const product = createProductAllScenarios.Product_Creation_With_Duplicate_ProductCode;
+    const user = loginScenarios.success
+    await signinPage.fillLoginCredentials(user.email,user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -52,18 +47,21 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    const responsePromise = createproduct.waitForCreateProductApi();
-    await createproduct.clickOnCreateProductButton();
+    const responsePromise = createProductPage.waitForCreateProductApi();
+    await createProductPage.clickOnCreateProductButton();
     const response = await responsePromise;
     expect(response.status()).toBe(409);
-    await expect(createproduct.getDuplicateProductCodeError()).toBeVisible();
+    await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_CODE)).toBeVisible();
   });
 
-  test("Product_Creation_Without_ProductName", async () => {
+  test("Product_Creation_Without_ProductName", async ({signinPage,createProductPage}) => {
     const product =
       createProductAllScenarios.Product_Creation_Without_ProductName;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -72,15 +70,18 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getProductNameError()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+   await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_NAME)).toBeVisible();
+    await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_Without_ProductCode", async () => {
+  test("Product_Creation_Without_ProductCode", async ({signinPage, createProductPage}) => {
     const product =
       createProductAllScenarios.Product_Creation_Without_ProductCode;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -89,14 +90,17 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getProductCodeError()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+   await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_CODE)).toBeVisible();
+    await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_Without_Category", async () => {
+  test("Product_Creation_Without_Category", async ({signinPage,createProductPage}) => {
     const product = createProductAllScenarios.Product_Creation_Without_Category;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -105,14 +109,17 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getCategoryError()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+   await expect(createProductPage.errorField.getErrorMessage(ErrorFields.CATEGORY)).toBeVisible();
+   await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_Without_Price", async () => {
+  test("Product_Creation_Without_Price", async ({signinPage,createProductPage}) => {
     const product = createProductAllScenarios.Product_Creation_Without_Price;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -121,15 +128,18 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getPriceError()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+    await expect(createProductPage .errorField.getErrorMessage(ErrorFields.PRICE)).toBeVisible();
+    await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_With_ProductName_lessthan3Char", async () => {
+  test("Product_Creation_With_ProductName_lessthan3Char", async ({signinPage,createProductPage}) => {
     const product =
       createProductAllScenarios.Product_Creation_With_ProductName_lessthan3Char;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -138,15 +148,18 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getProductNameErrorMsgLen()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+   await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_NAME)).toBeVisible();
+   await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_With_SpecialChars_InProductCode", async () => {
+  test("Product_Creation_With_SpecialChars_InProductCode", async ({signinPage, createProductPage}) => {
     const product =
       createProductAllScenarios.Product_Creation_With_SpecialChars_InProductCode;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -155,17 +168,18 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(
-      createproduct.getProductCodeErrorForSpecialChar(),
-    ).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+   await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_CODE)).toBeVisible();
+   await expect(createProductPage.button.getButton(Buttons.CREATE_PRODUCT)).toBeDisabled();
   });
 
-  test("Product_Creation_With_MoreThan_6Images", async () => {
+  test("Product_Creation_With_MoreThan_6Images", async ({signinPage, createProductPage}) => {
     const product =
       createProductAllScenarios.Product_Creation_With_MoreThan_6Images;
-    await createproduct.navigateToProductPage();
-    await createproduct.enterProductDetails(
+    const user = loginScenarios.success;
+    await signinPage.fillLoginCredentials(user.email, user.password);
+    await signinPage.clickOnSignInButton();
+    await createProductPage.navigateToProductPage();
+    await createProductPage.enterProductDetails(
       product.productName,
       product.productCode,
       product.category,
@@ -174,7 +188,6 @@ test.describe("Create product scenarios", async () => {
       product.status,
       product.imagePaths,
     );
-    await expect(createproduct.getImagesError()).toBeVisible();
-    await expect(createproduct.getCreateProductButton()).toBeDisabled();
+    await expect(createProductPage.errorField.getErrorMessage(ErrorFields.PRODUCT_IMAGES)).toBeVisible();
   });
 });

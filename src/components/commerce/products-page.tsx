@@ -244,6 +244,7 @@ export function ProductsPage({
               Product name <span className="text-rose-600">*</span>
             </span>
             <input
+              data-testid="input-field-product-name"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
               value={draft.name}
@@ -252,13 +253,16 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("name")}
             />
-            <InlineError id="product-name" message={errors.name} />
+            <InlineError 
+            data-testid="error-field-product-name"
+            id="product-name" message={errors.name} />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
               Product code <span className="text-rose-600">*</span>
             </span>
             <input
+              data-testid="input-field-product-code"
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
               value={draft.productCode}
@@ -271,7 +275,9 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("productCode")}
             />
-            <InlineError id="product-code" message={errors.productCode} />
+            <InlineError
+             data-testid="error-field-product-code"
+             id="product-code" message={errors.productCode} />
             {isEditing && (
               <p className="text-xs font-normal text-[color:var(--muted)]">
                 Product code is locked after creation.
@@ -283,6 +289,7 @@ export function ProductsPage({
               Category <span className="text-rose-600">*</span>
             </span>
             <input
+              data-testid="input-field-category"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Travel"
               value={draft.category}
@@ -291,7 +298,9 @@ export function ProductsPage({
               }
               onBlur={() => onDraftFieldBlur("category")}
             />
-            <InlineError id="category" message={errors.category} />
+            <InlineError 
+             data-testid="error-field-category"
+             id="category" message={errors.category} />
           </label>
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start">
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
@@ -299,6 +308,7 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
+              data-testid="input-field-price"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               type="text"
               inputMode="decimal"
@@ -312,13 +322,16 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("price")}
               />
-              <InlineError id="price" message={errors.price} />
+              <InlineError
+                data-testid="error-field-price"
+               id="price" message={errors.price} />
             </label>
             <label className="grid min-w-0 gap-2 text-sm font-semibold">
               <span>
                 Stock <span className="text-rose-600">*</span>
               </span>
               <input
+                data-testid="input-field-stock"
                 className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                 type="text"
                 inputMode="numeric"
@@ -332,7 +345,9 @@ export function ProductsPage({
                 }
                 onBlur={() => onDraftFieldBlur("stock")}
               />
-              <InlineError id="stock" message={errors.stock} />
+              <InlineError 
+              data-testid="error-field-stock"
+              id="stock" message={errors.stock} />
             </label>
           </div>
           <label className="grid gap-2 text-sm font-semibold">
@@ -340,6 +355,7 @@ export function ProductsPage({
               Status <span className="text-rose-600">*</span>
             </span>
             <select
+              data-testid="dropdown-status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>
@@ -352,13 +368,16 @@ export function ProductsPage({
               <option value="Active">Active</option>
               <option value="Draft">Draft</option>
             </select>
-            <InlineError id="product-status" message={errors.status} />
+            <InlineError
+             data-testid="error-field-status"
+             id="product-status" message={errors.status} />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
             <span>
               Product images <span className="text-rose-600">*</span>
             </span>
             <span
+              data-testid="dropdown-upload-images"
               className={`inline-flex items-center justify-center rounded-2xl border border-dashed px-4 py-3 font-semibold transition duration-200 ${isImageUploadDisabled ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400" : "cursor-pointer border-[color:var(--border)] bg-white text-slate-900 hover:bg-slate-100"}`}
             >
               {isImageUploadDisabled
@@ -374,6 +393,7 @@ export function ProductsPage({
               onChange={handleImageAttachment}
             />
             <InlineError
+              data-testid="error-field-product-images"
               id="product-images"
               message={imageLimitError || errors.images}
             />
@@ -391,6 +411,7 @@ export function ProductsPage({
 
           <div className="flex flex-wrap gap-3">
             <button
+              data-testid="button-create-product"
               className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-[color:var(--accent)] disabled:hover:shadow-sm"
               type="submit"
               disabled={isSubmitDisabled}

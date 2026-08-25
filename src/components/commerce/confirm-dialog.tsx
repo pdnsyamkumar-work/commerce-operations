@@ -41,6 +41,7 @@ export function ConfirmDialog({
         </p>
         <div className="mt-6 flex flex-wrap justify-end gap-3">
           <button
+            data-testid="button-cancel-remove-item"
             className="rounded-full border border-[color:var(--border)] px-5 py-3 text-sm font-semibold transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
             type="button"
             onClick={onCancel}
@@ -48,6 +49,7 @@ export function ConfirmDialog({
             Cancel
           </button>
           <button
+            data-testid="button-remove-item"
             className="rounded-full bg-rose-700 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-rose-800 hover:shadow-lg"
             type="button"
             onClick={onConfirm}

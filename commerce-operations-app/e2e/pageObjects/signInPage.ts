@@ -1,17 +1,13 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
-
+import { Labels } from "../enums/labels";
+import { Buttons } from "../enums/buttons";
 
 export class SignInPage extends BasePage {
-  
   constructor(page: Page) {
     super(page);
   }
   readonly getTitle = () => this.page.getByTestId("Commerce Admin Title");
-  readonly getInvalidEmailPasswordError = () => this.page.getByText("Invalid email or password.");
-  readonly getEmailRequiredError = () => this.page.getByTestId("Email-Error");
-  readonly getCredentialsError = () => this.page.getByText("Fix the highlighted email field before signing in.");
-
   async waitForLoginApi() {
     return await this.page.waitForResponse(
       (response) =>
@@ -19,5 +15,12 @@ export class SignInPage extends BasePage {
         response.request().method() === "POST",
     );
   }
-  
+
+  async fillLoginCredentials(email:string,password:string){
+     await this.textField.getInputField(Labels.EMAIL_ADDRESS).fill(email);
+     await this.textField.getInputField(Labels.SIGN_IN_PASSWORD).fill(password);
+  }
+  async clickOnSignInButton() {
+    await this.button.getButton(Buttons.SIGN_IN_BUTTON).click();
+  }
 }

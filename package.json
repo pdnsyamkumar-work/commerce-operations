@@ -11,6 +11,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@faker-js/faker": "^10.5.0",
     "next": "16.2.4",
     "playwright": "^1.62.0",
     "prettier": "^3.8.4",

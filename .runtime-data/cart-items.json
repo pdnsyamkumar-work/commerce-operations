@@ -1,0 +1,23 @@
+[
+  {
+    "id": "cart-79hl7q",
+    "productId": "prd-102",
+    "name": "Cloud Brew Mug",
+    "quantity": 4,
+    "unitPrice": 22
+  },
+  {
+    "id": "cart-ktbh9z",
+    "productId": "prd-103",
+    "name": "Signal Desk Lamp",
+    "quantity": 1,
+    "unitPrice": 58
+  },
+  {
+    "id": "cart-301",
+    "productId": "prd-101",
+    "name": "Canvas Weekender Bag",
+    "quantity": 1,
+    "unitPrice": 84
+  }
+]

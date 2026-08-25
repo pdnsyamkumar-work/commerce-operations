@@ -1,26 +1,12 @@
 import { Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
+import { Buttons } from "../enums/buttons";
+import { Labels } from "../enums/labels";
 
 export class SignUpPage extends BasePage {
   constructor(page: Page) {
     super(page);
   }
-  readonly getSignUpButton = () =>
-    this.page.getByRole("button", { name: "Sign up" });
-  readonly getFullNameFiled = () =>
-    this.page.getByTestId("input-field-FullName");
-  readonly getWorkEmail = () =>
-    this.page.getByRole("textbox", { name: "email" });
-  readonly getCompanyName = () =>
-    this.page.locator("//form[@class='grid gap-4']/label[3]/input");
-  readonly getPassword = () =>
-    this.page.getByRole("textbox", { name: "password" }).first();
-  readonly getConfirmPassword = () =>
-    this.page.getByRole("textbox", { name: "Confirm password" }).last();
-  readonly getCreateAccount = () =>
-    this.page.getByRole("button", { name: "Create Account" });
-  readonly getSignOutButton = () =>
-    this.page.getByRole("button", { name: "Sign Out" });
   readonly getCommerceTitle = () => this.page.getByTestId("Commerce Admin Title");
 
   async waitForsignUpAPI() {
@@ -31,7 +17,7 @@ export class SignUpPage extends BasePage {
     );
   }
   async signUpClick() {
-    await this.getSignUpButton().click();
+    await this.button.getButton(Buttons.SIGN_UP_NAV).click();
   }
   async fillTheForm(
     name: string,
@@ -40,16 +26,15 @@ export class SignUpPage extends BasePage {
     password: string,
     confirmPassword: string,
   ) {
-    await this.getFullNameFiled().fill(name);
-    await this.getWorkEmail().fill(email);
-    await this.getCompanyName().fill(companyName);
-    await this.getPassword().fill(password);
-    await this.getConfirmPassword().fill(confirmPassword);
+    await this.textField.getInputField(Labels.FULL_NAME).fill(name);
+    await this.textField.getInputField(Labels.WORK_EMAIL).fill(email);
+    await this.textField.getInputField(Labels.COMPANY_NAME).fill(companyName);
+    await this.textField.getInputField(Labels.SIGN_UP_PASSWORD).fill(password);
+    await this.textField.getInputField(Labels.CONFIRM_PASSWORD).fill(confirmPassword);
   }
+  
   async clickOnCreateAccount() {
-    await this.getCreateAccount().click();
+    await this.button.getButton(Buttons.CREATE_ACCOUNT).click();
   }
-  async clickOnSignOutButton() {
-    await this.getSignOutButton().click();
-  }
+ 
 }
