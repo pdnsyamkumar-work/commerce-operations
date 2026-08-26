@@ -10,7 +10,6 @@ type Fixtures = {
 export const test = base.extend<Fixtures>({
   cart: async ({ page }, use) => {
     const cart = new CartPage(page);
-
     await use(cart);
   },
 
@@ -19,4 +18,3 @@ export const test = base.extend<Fixtures>({
   },
 });
 
-export { expect } from "@playwright/test";

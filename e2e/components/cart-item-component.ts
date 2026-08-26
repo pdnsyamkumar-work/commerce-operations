@@ -25,19 +25,19 @@ export class CartItemComponent {
   }
 
   increaseButton() {
-    return this.page.getByTestId(`increase-btn-${this.productName}`);
+    return this.page.getByTestId(`increase-btn-${this.productId}`);
   }
 
   decreaseButton() {
-    return this.page.getByTestId(`decrease-btn-${this.productName}`);
+    return this.page.getByTestId(`decrease-btn-${this.productId}`);
   }
 
   viewButton() {
-    return this.page.getByTestId(`view-btn-${this.productName}`);
+    return this.page.getByTestId(`view-btn-${this.productId}`);
   }
 
   removeButton() {
-    return this.page.getByTestId(`remove-btn-${this.productName}`);
+    return this.page.getByTestId(`remove-btn-${this.productId}`);
   }
 
   async increaseQuantity() {

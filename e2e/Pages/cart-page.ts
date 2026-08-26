@@ -8,7 +8,7 @@
 
 import { Page } from "@playwright/test";
 import { BasePage } from "./base-page";
-import { HeaderComponent} from "../components/header-component";
+import { HeaderComponent} from "../components/button-component";
 import { CartItemComponent } from "../components/cart-item-component";
 
 export class CartPage extends BasePage {
@@ -27,19 +27,11 @@ export class CartPage extends BasePage {
   cartbtn = () => this.page.locator("//button[@title='Cart']");
   carttab = () => this.page.getByRole("button", { name: "Cart" });
   ProductDropdown = () => this.page.getByTestId("product-dropdown");
-  selectproduct_btn = () => this.page.getByTestId("add-product-btn");
-  decrease_btn = (cartItemId: string) =>
-    this.page.getByTestId(`decrease-btn-${cartItemId}`);
-  increase_btn = (cartItemId: string) =>
-    this.page.getByTestId(`increase-btn-${cartItemId}`);
-  view_btn = (cartItemId: string) =>
-    this.page.getByTestId(`view-btn-${cartItemId}`);
+  selectproduct_btn = () => this.page.getByTestId("add-product-btn"); 
   unit_price = () => this.page.getByTestId("popup-unit-price");
   quantity = () => this.page.getByTestId("popup-quantity");
   sub_total = () => this.page.getByTestId("popup-subtotal");
   close_btn = () => this.page.getByTestId("popup-close-btn");
-  remove_btn = (cartItemId: string) =>
-    this.page.getByTestId(`remove-btn-${cartItemId}`);
   cancel_btn = () => this.page.getByTestId("cancel-button");
   remove_item_btn = () => this.page.getByTestId("remove");
   async opencart() {
@@ -57,26 +49,7 @@ export class CartPage extends BasePage {
       .getByRole("heading", { name: productName })
       .locator("xpath=ancestor::div[contains(@class,'rounded-[1.4rem]')]");
   }
-  // to increase quantity
-  async updateQtyincrease(productName: string) {
-    await this.increase_btn(productName).click();
-  }
-  //to decrease quantity
-  async updateQtydecrease(productName: string) {
-    await this.decrease_btn(productName).click();
-  }
-
-  async removeitem(productname: string) {
-    await this.remove_btn(productname).click();
-    await this.remove_item_btn().click();
-  }
-
-  async viewproduct(productName: string) {
-    await this.view_btn(productName).click();
-  }
-
   async validateCart(productId: string) {
-    await this.view_btn(productId).click();
     const quantity = await this.quantity().textContent();
     const unit_price = await this.unit_price().textContent();
     const sub_total = await this.sub_total().textContent();
