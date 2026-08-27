@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
 import { LoginPanel } from "@/components/login-panel";
 import { AppToast } from "@/components/commerce/app-toast";
 import { CartPage } from "@/components/commerce/cart-page";
@@ -894,6 +895,14 @@ export function CommerceWorkspace() {
         <div
           className={`mb-8 flex items-center ${isSideNavCollapsed ? "justify-center" : "justify-between gap-3"}`}
         >
+          <Image
+            src="/commerce-operations-logo.png"
+            alt="Commerce Operations"
+            width={40}
+            height={40}
+            className="h-10 w-10 shrink-0"
+            priority
+          />
           {!isSideNavCollapsed && (
             <div className="flex items-center gap-2 text-2xl font-semibold">
               <span className="text-[color:var(--accent)]">Commerce</span>
