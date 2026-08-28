@@ -1,5 +1,5 @@
 import { test, expect } from "../fixtures/base.fixtures";
-import { ForgotPage } from "../pages/forgotPage";
+
 import { InlineError } from "../enums/component-enum/InlineError.enum";
 test.describe("verify forgot password", () => {
   test("reset password with registered email", async ({
@@ -7,7 +7,7 @@ test.describe("verify forgot password", () => {
     createForgotTestdata,
   }) => {
     const data = createForgotTestdata();
-    await forgot.forgotPassword(data.email);
+    await forgot.forgotPassword(data);
     await forgot.clickresetBtn();
     await expect(
       forgot.getPasswordResetSuccessMessage(data.email),
@@ -22,7 +22,7 @@ test.describe("verify forgot password", () => {
     createForgotTestdata,
   }) => {
     const data = createForgotTestdata({ email: "bharathtest.com" });
-    await forgot.forgotPassword(data.email);
+    await forgot.forgotPassword(data);
     await forgot.clickresetBtn();
     //await
     await expect(forgot.getEmailError()).toHaveText(

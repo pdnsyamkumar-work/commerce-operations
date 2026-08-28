@@ -3,6 +3,8 @@ import { signupData } from "../interfaces/userData";
 
 export function createSignupTestdata(
   overrides: Partial<signupData> = {},
+  excludes: (keyof signupData)[] = [],
+  only: (keyof signupData)[] = [],
 ): signupData {
   const signup: signupData = {
     fullName: "Bharath",
@@ -11,7 +13,14 @@ export function createSignupTestdata(
     password: "Bharath@12",
     confirmPassword: "Bharath@12",
   };
-  return { ...signup, ...overrides };
-    // FEEDBACK: Missing Exclusions Logic
+  let data = { ...signup, ...overrides };
+  if (only.length > 0) {
+    Object.fromEntries(only.map((key) => [key, data[key]])) as typeof data;
+  }
+  for (const field of excludes) {
+    delete data[field];
+  }
 
+  return data;
+  // FEEDBACK: Missing Exclusions Logic
 }

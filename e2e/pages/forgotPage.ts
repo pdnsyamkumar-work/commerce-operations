@@ -26,8 +26,8 @@ export class ForgotPage extends BasePage {
     await this.button.getButton(Buttons.FORGOT_LINK).click();
     // await this.clickElement(this.getForgotPage());
   }
-  async forgotPassword(email: string) {
-    await this.field.getInputField(TextField.WORKEMAIL).fill(email);
+  async forgotPassword(data: forgotPassword) {
+    await this.field.getInputField(TextField.WORKEMAIL).fill(data.email);
     // await this.fillField(this.getForgotEmailTextbox(), email);
   }
   async clickresetBtn() {
