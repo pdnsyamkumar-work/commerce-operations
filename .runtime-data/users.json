@@ -20,5 +20,13 @@
     "password": "@Manjula123",
     "storeName": "CAW",
     "role": "operator"
+  },
+  {
+    "id": "usr-2hb0f9",
+    "name": "Elouise King",
+    "email": "Barbara_Schneider43@hotmail.com",
+    "password": "@Manjula123",
+    "storeName": "Schmitt and Sons",
+    "role": "operator"
   }
 ]

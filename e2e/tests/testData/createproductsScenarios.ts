@@ -1,53 +1,100 @@
-import path from 'path';
+import { faker } from "@faker-js/faker";
 import { createProductElements } from "../../utils/interfaces/createproductInterface";
 
+/*
+  Overrides are used to override the default test data.
+  Excludes are used to exclude fields from the default test data.
+*/
 
-const generateProductCode = (): string => {
-  return `PRD-${Date.now()}`;
-};
+export class CreateProductTestData {
+  createProductTestData({
+    overrides = {},
+    excludes = [],
+  }: {
+    overrides?: Partial<createProductElements>;
+    excludes?: (keyof createProductElements)[];
+  }): createProductElements {
 
-export const createProductAllScenarios: Record<
-  string,
-  createProductElements
-> = {
+    const newProductData: createProductElements = {
+      productName: excludes.includes("productName")
+        ? ""
+        : faker.commerce.productName(),
 
-  Successful_Product_Creation: {
-    productName: "Manjula Bag",
-    productCode: generateProductCode(),
-    category: "Home",
-    price: "212",
-    stock: "21",
-    status: "Active",
-    imagePaths: ["C:\\Users\\korra\\Downloads\\IMG_0370.png"],
-  },
+      productCode: excludes.includes("productCode")
+        ? ""
+        : `PRD-${faker.string.numeric(6)}`,
 
-  Product_Creation_With_Duplicate_ProductCode: {
-    productName: "Manjula Bag",
-    productCode: "PRD-106",
-    category: "Home",
-    price: "212",
-    stock: "21",
-    status: "Active",
-    imagePaths: ["C:\\Users\\korra\\Downloads\\IMG_0370.png"],
-  },
+      category: excludes.includes("category")
+        ? ""
+        : "Home",
 
-  Product_Creation_Without_ProductName: {
-    productName: "",
-    productCode: generateProductCode(),
-    category: "Home",
-    price: "212",
-    stock: "21",
-    status: "Active",
-    imagePaths: ["C:\\Users\\korra\\Downloads\\IMG_0370.png"],
-  },
+      price: excludes.includes("price")
+        ? ""
+        : faker.commerce.price({
+            min: 100,
+            max: 500,
+            dec: 0,
+          }),
 
-  Product_Creation_Without_ProductCode: {
-    productName: "Manjula Bag",
-    productCode: "",
-    category: "Home",
-    price: "212",
-    stock: "21",
-    status: "Active",
-    imagePaths: ["C:\\Users\\korra\\Downloads\\IMG_0370.png"],
-  },
+      stock: excludes.includes("stock")
+        ? ""
+        : faker.number.int({
+            min: 1,
+            max: 100,
+          }).toString(),
+
+      status: excludes.includes("status")
+        ? ""
+        : "Active",
+
+      imagePaths: excludes.includes("imagePaths")
+        ? []
+        : ["C:\\Users\\korra\\Downloads\\IMG_0370.png"],
+    };
+
+    return {
+      ...newProductData,
+      ...overrides,
+    };
+  }
+}
+
+export const createProductTestData = new CreateProductTestData();
+
+export const createProductAllScenarios = {
+
+  Successful_Product_Creation:
+    createProductTestData.createProductTestData({
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    }),
+
+  Product_Creation_With_Duplicate_ProductCode:
+    createProductTestData.createProductTestData({
+      overrides: {
+        productCode: "PRD-106",
+        category: "Home",
+        status: "Active",
+      },
+    }),
+
+  Product_Creation_Without_ProductName:
+    createProductTestData.createProductTestData({
+      excludes: ["productName"],
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    }),
+
+  Product_Creation_Without_ProductCode:
+    createProductTestData.createProductTestData({
+      excludes: ["productCode"],
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    }),
 };

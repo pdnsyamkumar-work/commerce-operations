@@ -1,87 +1,125 @@
 import type { SignUpData } from "../../utils/interfaces/signUpInterface";
+import { faker } from "@faker-js/faker";
 
-const generateWorkEmail = () => {
-  return `manjula${Date.now()}@gmail.com`;
-};
+/*
+  Overrides are used to override the default test data.
+  Excludes are used to exclude fields from the default test data.
+*/
 
-export const signUpScenarios: Record<string, SignUpData> = {
-  success: {
-    fullName: "Manjula",
-    workEmail: generateWorkEmail(),
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+export class SignUpTestData {
+  createSignUpTestData({
+    overrides = {},
+    excludes = [],
+  }: {
+    overrides?: Partial<SignUpData>;
+    excludes?: (keyof SignUpData)[];
+  }): SignUpData {
 
-  existingUser: {
-    fullName: "Manjula",
-    workEmail: "admin@commerce.test",
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+    const newSignUpData: SignUpData = {
+      fullName: excludes.includes("fullName")
+        ? ""
+        : faker.person.fullName(),
 
-  invalidEmail: {
-    fullName: "Manjula",
-    workEmail: "manjula.com",
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+      workEmail: excludes.includes("workEmail")
+        ? ""
+        : faker.internet.email(),
 
-  invalidPassword: {
-    fullName: "Manjula",
-    workEmail: generateWorkEmail(),
-    companyName: "CAW",
-    password: "123",
-    confirmPassword: "123",
-  },
+      companyName: excludes.includes("companyName")
+        ? ""
+        : faker.company.name(),
 
-  passwordMismatch: {
-    fullName: "Manjula",
-    workEmail: generateWorkEmail(),
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula456",
-  },
+      password: excludes.includes("password")
+        ? ""
+        : faker.internet.password({ length: 12 }),
 
-  emptyFullName: {
-    fullName: "",
-    workEmail: generateWorkEmail(),
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+      confirmPassword: excludes.includes("confirmPassword")
+        ? ""
+        : faker.internet.password({ length: 12 }),
+    };
 
-  emptyWorkEmail: {
-    fullName: "Manjula",
-    workEmail: "",
-    companyName: "CAW",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+    return {
+      ...newSignUpData,
+      ...overrides,
+    };
+  }
+}
 
-  emptyCompanyName: {
-    fullName: "Manjula",
-    workEmail: generateWorkEmail(),
-    companyName: "",
-    password: "@Manjula123",
-    confirmPassword: "@Manjula123",
-  },
+export const signUpTestData = new SignUpTestData();
 
-  emptyPassword: {
-    fullName: "Manjula",
-    workEmail: generateWorkEmail(),
-    companyName: "CAW",
-    password: "",
-    confirmPassword: "",
-  },
+export const signUpScenarios = {
 
-  emptyAllFields: {
-    fullName: "",
-    workEmail: "",
-    companyName: "",
-    password: "",
-    confirmPassword: "",
-  },
+  success: signUpTestData.createSignUpTestData({
+    overrides: {
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  existingUser: signUpTestData.createSignUpTestData({
+    overrides: {
+      workEmail: "admin@commerce.test",
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  invalidEmail: signUpTestData.createSignUpTestData({
+    overrides: {
+      workEmail: "manjula.com",
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  invalidPassword: signUpTestData.createSignUpTestData({
+    overrides: {
+      password: "123",
+      confirmPassword: "123",
+    },
+  }),
+
+  passwordMismatch: signUpTestData.createSignUpTestData({
+    overrides: {
+      password: "@Manjula123",
+      confirmPassword: "@Manjula456",
+    },
+  }),
+
+  emptyFullName: signUpTestData.createSignUpTestData({
+    excludes: ["fullName"],
+    overrides: {
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  emptyWorkEmail: signUpTestData.createSignUpTestData({
+    excludes: ["workEmail"],
+    overrides: {
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  emptyCompanyName: signUpTestData.createSignUpTestData({
+    excludes: ["companyName"],
+    overrides: {
+      password: "@Manjula123",
+      confirmPassword: "@Manjula123",
+    },
+  }),
+
+  emptyPassword: signUpTestData.createSignUpTestData({
+    excludes: ["password", "confirmPassword"],
+  }),
+
+  emptyAllFields: signUpTestData.createSignUpTestData({
+    excludes: [
+      "fullName",
+      "workEmail",
+      "companyName",
+      "password",
+      "confirmPassword",
+    ],
+  }),
 };

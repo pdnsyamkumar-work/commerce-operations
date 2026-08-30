@@ -1,53 +1,105 @@
 import { invalidLoginCredentials } from "../../utils/interfaces/signinInterface";
+import { faker } from "@faker-js/faker";
 
-export const signinScenarios: Record<string, invalidLoginCredentials> = {
-  success: {
-    email: "admin@commerce.test",
-    password: "Commerce@123",
-  },
+/*
+  Overrides are used to override the default test data.
+  Excludes are used to exclude fields from the default test data.
+*/
 
-  Invalid_Email: {
-    email: "inva@lid@email.com",
-    password: "Commerce@123",
-  },
+export class LoginTestData {
+  createLoginTestData({
+    overrides = {},
+    excludes = [],
+  }: {
+    overrides?: Partial<invalidLoginCredentials>;
+    excludes?: (keyof invalidLoginCredentials)[];
+  }): invalidLoginCredentials {
 
-  Invalid_Password: {
-    email: "admin@commerce.test",
-    password: "asdfghj",
-  },
+    const newLoginData: invalidLoginCredentials = {
+      email: excludes.includes("email")
+        ? ""
+        : faker.internet.email(),
 
-  Invalid_Email_Password: {
-    email: "inva@lid@email.com",
-    password: "345673",
-  },
+      password: excludes.includes("password")
+        ? ""
+        : faker.internet.password(),
+    };
 
-  Empty_Email: {
-    email: "",
-    password: "Commerce@123",
-  },
+    return {
+      ...newLoginData,
+      ...overrides,
+    };
+  }
+}
 
-  Empty_Password: {
-    email: "admin@commerce.test",
-    password: "",
-  },
+export const loginTestData = new LoginTestData();
 
-  Empty_Email_Password: {
-    email: "",
-    password: "",
-  },
+export const signinScenarios = {
 
-  Invalid_Email_Format: {
-    email: "admincommerce.test",
-    password: "Commerce@123",
-  },
+  success: loginTestData.createLoginTestData({
+    overrides: {
+      email: "admin@commerce.test",
+      password: "Commerce@123",
+    },
+  }),
 
-  Email_With_Spaces: {
-    email: " admin@commerce.test ",
-    password: "Commerce@123",
-  },
+  Invalid_Email: loginTestData.createLoginTestData({
+    overrides: {
+      email: "inva@lid@email.com",
+      password: "Commerce@123",
+    },
+  }),
 
-  Password_With_Spaces: {
-    email: "admin@commerce.test",
-    password: " Commerce@123 ",
-  },
+  Invalid_Password: loginTestData.createLoginTestData({
+    overrides: {
+      email: "admin@commerce.test",
+      password: faker.internet.password(),
+    },
+  }),
+
+  Invalid_Email_Password: loginTestData.createLoginTestData({
+    overrides: {
+      email: "inva@lid@email.com",
+      password: faker.internet.password(),
+    },
+  }),
+
+  Empty_Email: loginTestData.createLoginTestData({
+    excludes: ["email"],
+    overrides: {
+      password: "Commerce@123",
+    },
+  }),
+
+  Empty_Password: loginTestData.createLoginTestData({
+    excludes: ["password"],
+    overrides: {
+      email: "admin@commerce.test",
+    },
+  }),
+
+  Empty_Email_Password: loginTestData.createLoginTestData({
+    excludes: ["email", "password"],
+  }),
+
+  Invalid_Email_Format: loginTestData.createLoginTestData({
+    overrides: {
+      email: faker.string.alpha(10),
+      password: "Commerce@123",
+    },
+  }),
+
+  Email_With_Spaces: loginTestData.createLoginTestData({
+    overrides: {
+      email: ` ${faker.internet.email()} `,
+      password: "Commerce@123",
+    },
+  }),
+
+  Password_With_Spaces: loginTestData.createLoginTestData({
+    overrides: {
+      email: "admin@commerce.test",
+      password: ` ${faker.internet.password()} `,
+    },
+  }),
 };

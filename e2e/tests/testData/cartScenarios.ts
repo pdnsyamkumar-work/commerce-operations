@@ -1,23 +1,68 @@
+import { faker } from "@faker-js/faker";
 import { addProductsToCart } from "../../utils/interfaces/cartsInterface";
 
-export const addProductScenarios: Record<string, addProductsToCart> = {
-  addedProductSuccessfully: {
-    productName: "Trail Packing Cube",
-  },
+/*
+  Overrides are used to override the default test data.
+  Excludes are used to exclude fields from the default test data.
+*/
 
-  addingProductWhichIsNotPresent: {
-    productName: "Manjula Shoes",
-  },
+export class CartTestData {
+  createCartTestData({
+    overrides = {},
+    excludes = [],
+  }: {
+    overrides?: Partial<addProductsToCart>;
+    excludes?: (keyof addProductsToCart)[];
 
-  addingProductWithEmptyName: {
-    productName: "",
-  },
+  }): addProductsToCart {
 
-  addingProductWithInvalidName: {
-    productName: "InvalidProduct123",
-  },
+    const newCartData: addProductsToCart = {
+      productName: excludes.includes("productName")
+        ? ""
+        : faker.commerce.productName(),
+    };
 
-  addingAlreadyAddedProduct: {
-    productName: "Manjula Bag",
-  },
+    return {
+      ...newCartData,
+      ...overrides,
+    };
+  }
+}
+
+export const cartTestData = new CartTestData();
+
+export const addProductScenarios = {
+
+  addedProductSuccessfully:
+    cartTestData.createCartTestData({
+      overrides: {
+        productName: "Trail Packing Cube",
+      },
+    }),
+
+  addingProductWhichIsNotPresent:
+    cartTestData.createCartTestData({
+      overrides: {
+        productName: faker.commerce.productName(),
+      },
+    }),
+
+  addingProductWithEmptyName:
+    cartTestData.createCartTestData({
+      excludes: ["productName"],
+    }),
+
+  addingProductWithInvalidName:
+    cartTestData.createCartTestData({
+      overrides: {
+        productName: `InvalidProduct${faker.string.numeric(6)}`,
+      },
+    }),
+
+  addingAlreadyAddedProduct:
+    cartTestData.createCartTestData({
+      overrides: {
+        productName: "Manjula Bag",
+      },
+    }),
 };

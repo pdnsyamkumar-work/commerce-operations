@@ -1,23 +1,62 @@
 import { forgetPasswordElements } from "../../utils/interfaces/forgetpasswordInterface";
+import { faker } from "@faker-js/faker";
 
-export const forgetPassword: Record<string, forgetPasswordElements> = {
-  success: {
-    email: "manjula@commerce.test",
-  },
+/*
+  Overrides are used to override the default test data.
+  Excludes are used to exclude fields from the default test data.
+*/
 
-  Invalid_Email: {
-    email: "invalid@email",
-  },
+export class ForgotPasswordTestData {
+  createForgotPasswordTestData({
+    overrides = {},
+    excludes = [],
+  }: {
+    overrides?: Partial<forgetPasswordElements>;
+    excludes?: (keyof forgetPasswordElements)[];
+  }): forgetPasswordElements {
 
-  Invalid_Email_Format: {
-    email: "manjula@email",
-  },
+    const newForgotPasswordData: forgetPasswordElements = {
+      email: excludes.includes("email")
+        ? ""
+        : faker.internet.email(),
+    };
 
-  Empty_Email: {
-    email: "",
-  },
+    return {
+      ...newForgotPasswordData,
+      ...overrides,
+    };
+  }
+}
 
-  Unregistered_Email: {
-    email: "unknown@commerce.test",
-  },
+export const forgotPasswordTestData = new ForgotPasswordTestData();
+
+export const forgetPassword = {
+
+  success: forgotPasswordTestData.createForgotPasswordTestData({
+    overrides: {
+      email: "manjula@commerce.test",
+    },
+  }),
+
+  Invalid_Email: forgotPasswordTestData.createForgotPasswordTestData({
+    overrides: {
+      email: "invalid@email",
+    },
+  }),
+
+  Invalid_Email_Format: forgotPasswordTestData.createForgotPasswordTestData({
+    overrides: {
+      email: "manjula@email",
+    },
+  }),
+
+  Empty_Email: forgotPasswordTestData.createForgotPasswordTestData({
+    excludes: ["email"],
+  }),
+
+  Unregistered_Email: forgotPasswordTestData.createForgotPasswordTestData({
+    overrides: {
+      email: `unknown${faker.string.numeric(6)}@commerce.test`,
+    },
+  }),
 };
