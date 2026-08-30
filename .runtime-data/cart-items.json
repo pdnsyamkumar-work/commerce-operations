@@ -1,0 +1,16 @@
+[
+  {
+    "id": "cart-ro20zh",
+    "productId": "prd-108",
+    "name": "Trail Packing Cube",
+    "quantity": 3,
+    "unitPrice": 26
+  },
+  {
+    "id": "cart-301",
+    "productId": "prd-101",
+    "name": "Canvas Weekender Bag",
+    "quantity": 1,
+    "unitPrice": 84
+  }
+]

@@ -215,7 +215,7 @@ export function ReportsPage(props: ReportsPageProps) {
                     props.onSelectedProductChange(event.target.value)
                   }
                 >
-                  <option value="">Choose product</option>
+                  <option value=""></option>
                   {props.filteredProducts.map((product) => (
                     <option key={product.id} value={product.id}>
                       {product.name} ({product.productCode})

@@ -49,6 +49,7 @@ export function CartPage({
             onSelect={onSelectedProductChange}
           />
           <button
+          data-testid="button-add selected product"
             className="cursor-pointer rounded-full bg-slate-900 px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg"
             type="button"
             onClick={onAddToCart}
@@ -82,6 +83,7 @@ export function CartPage({
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <button
+                    data-testid="button-view carted product"
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-slate-700 transition duration-200 hover:bg-slate-100 hover:text-slate-950"
                       type="button"
                       onClick={() => setViewedItem(item)}
@@ -89,6 +91,7 @@ export function CartPage({
                       View
                     </button>
                     <button
+                    data-testid="button-remove carted product"
                       className="cursor-pointer rounded-full px-3 py-1 text-sm font-medium text-rose-700 transition duration-200 hover:bg-rose-50 hover:text-rose-800"
                       type="button"
                       onClick={() => onRemoveCartItem(item.id)}
@@ -150,6 +153,7 @@ function ProductDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <button
+      data-testid="dropdown-select product-carts"
         className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left transition duration-200 hover:bg-slate-50"
         type="button"
         aria-expanded={open}

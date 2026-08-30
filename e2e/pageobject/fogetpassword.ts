@@ -1,7 +1,9 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from "./basepage";
+import { Buttons } from "../enums/button.enums";
+import { TextField } from "../enums/text-field.enums";
 
-export class ForgotPasswordPage {
-  readonly page: Page;
+export class ForgotPasswordPage extends BasePage {
 
   // Navigation
   readonly forgotPasswordBtn: Locator;
@@ -10,39 +12,34 @@ export class ForgotPasswordPage {
   readonly workEmailInput: Locator;
   readonly sendResetLinkBtn: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
+   constructor(page: BasePage["page"]) {
+    super(page);
 
-    this.forgotPasswordBtn = page.getByRole('button', {
-      name: 'Forgot password',
-    });
+    this.forgotPasswordBtn = page.getByTestId("tab-forgot password");
+    
 
-    this.workEmailInput = page.getByLabel('Work email');
+    this.workEmailInput = this.field.getInputField(TextField.WORKEMAIL);
 
-    this.sendResetLinkBtn = page.getByRole('button', {name: 'Send Reset Link',});
+this.sendResetLinkBtn = this.button.getButton(Buttons.SEND_RESET_LINK);
+  } 
+   async waitForForgotPasswordApi() {
+    return await this.waitForResponse("/forgot-password");
   }
-  async waitForForgotPasswordApi() {
-  return await this.page.waitForResponse(
-    (response) =>
-      response.url().includes('/forgot-password') &&
-      response.request().method() === 'POST'
-  );
-}
 
   async navigate(url: string) {
     await this.page.goto(url);
 }
 
-  async goToForgotPassword() {
-    await this.forgotPasswordBtn.click();
+   async goToForgotPassword() {
+    await this.clickElement(this.forgotPasswordBtn);
   }
 
   async enterWorkEmail(email: string) {
-    await this.workEmailInput.fill(email);
+    await this.fillField(this.workEmailInput,email);
   }
 
   async clickSendResetLink() {
-    await this.sendResetLinkBtn.click();
+    await this.clickElement(this.sendResetLinkBtn)
   }
 
   async forgotPassword(email: string) {

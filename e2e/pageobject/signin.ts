@@ -1,39 +1,37 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
+import { BasePage } from "./basepage";
+import { Buttons } from "../enums/button.enums";
+import { TextField } from "../enums/text-field.enums";
 
-export class SignInPage {
-  readonly page: Page;
+export class SignInPage extends BasePage {
   readonly emailAddress: Locator;
   readonly password: Locator;
   readonly signInBtn: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-    this.emailAddress = page.getByLabel("Email address");
-    this.password = page.locator('input[type="password"]');
-    this.signInBtn = page.locator('button[type="submit"]');
+  constructor(page:Page) {
+  super(page);
+       this.emailAddress = this.field.getInputField(TextField.EMAIL);
+this.password = this.field.getInputField(TextField.PASSWORD);
+this.signInBtn = this.button.getButton(Buttons.SIGN_IN);
   }
   async waitForLoginApi() {
-  return await this.page.waitForResponse(
-    (response) =>
-      response.url().includes('/login') &&
-      response.request().method() === 'POST'
-  );
+   return await this.waitForResponse("/login");
 }
 
-  async navigate(url: string) {
-    await this.page.goto(url);
+    async navigate(url: string) {
+    await this.goto(url);
   }
 
   async enterEmail(email: string) {
-    await this.emailAddress.fill(email);
+    await this.fillField(this.emailAddress,email);
   }
 
   async enterPassword(password: string) {
-    await this.password.fill(password);
+    await this.fillField(this.password,password);
   }
 
   async clickOnSignIn() {
-    await this.signInBtn.click();
+    await this.clickElement(this.signInBtn);
   }
 
   async login(email: string, password: string) {

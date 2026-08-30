@@ -1,55 +1,52 @@
-import { test, expect } from '@playwright/test';
-import { ForgotPasswordPage } from '../pageobject/fogetpassword';
+import { test, expect } from "../fixtures/fixtures";
 import { forgetPassword } from './testData/forgetpasswordScenarios';
+import { ErrorFields } from '../enums/inlineErrors.enums';
 
 test.describe("Forgot Password Page", () => {
 
-  test.beforeEach(async ({ page }) => {
-    const forgotPassword = new ForgotPasswordPage(page);
-    await forgotPassword.navigate("http://localhost:3000/");
+ 
+  test("User should be able to reset password successfully", async ({ forgotPasswordPage }) => {
+   
+
+    const user = forgetPassword.success;
+
+    await forgotPasswordPage.forgotPassword(user.email);
+
+    await expect(forgotPasswordPage.getSuccessMessage()).toContainText(
+      "Password reset instructions were sent to"
+    );
+
+    await expect(forgotPasswordPage.getSuccessMessage()).toContainText(
+      user.email
+    );
   });
-test("User should be able to reset password successfully", async ({ page }) => {
-  const forgotPassword = new ForgotPasswordPage(page);
 
-  const user = forgetPassword.success;
-
-  await forgotPassword.forgotPassword(user.email);
-
-  await expect(forgotPassword.getSuccessMessage()).toContainText(
-    "Password reset instructions were sent to"
-  );
-
-  await expect(forgotPassword.getSuccessMessage()).toContainText(
-    user.email
-  );
-});
-
-  test("User should see validation message for invalid email", async ({ page }) => {
-    const forgotPassword = new ForgotPasswordPage(page);
+  test("User should see validation message for invalid email", async ({ forgotPasswordPage }) => {
+    
 
     const user = forgetPassword.Invalid_Email;
 
-    await forgotPassword.forgotPassword(user.email);
+    await forgotPasswordPage.forgotPassword(user.email);
 
     await expect(
-      page.getByText("Enter a valid work email address.", { exact: true })
-    ).toBeVisible();
+      forgotPasswordPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_EMAIL
+      )
+    ).toHaveText("Enter a valid work email address.");
   });
 
-  
-
-  test("User should see validation message for empty email", async ({ page }) => {
-    const forgotPassword = new ForgotPasswordPage(page);
+  test("User should see validation message for empty email", async ({ forgotPasswordPage }) => {
+    
 
     const user = forgetPassword.Empty_Email;
 
-    await forgotPassword.forgotPassword(user.email);
+    await forgotPasswordPage.forgotPassword(user.email);
 
     await expect(
-      page.getByText("Work email is required.", { exact: true })
-    ).toBeVisible();
+      forgotPasswordPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_EMAIL
+      )
+    ).toHaveText("Work email is required.");
   });
-
-  
 
 });

@@ -1,28 +1,13 @@
-import { test, expect } from '@playwright/test';
-import { SignInPage } from '../pageobject/signin';
+import{test, expect}from '../fixtures/fixtures';
 import { CartPage } from '../pageobject/cart';
 import { addProductScenarios } from './testData/cartScenarios';
 
 test.describe('Cart Page', () => {
 
-  test.beforeEach(async ({ page }) => {
+ 
+  test('Verify user should be able to add product to cart successfully', async ({cartPage}) => {
 
-    const signinPage = new SignInPage(page);
-    const cartPage = new CartPage(page);
-
-    await signinPage.navigate('http://localhost:3000/');
-
-    await signinPage.login(
-      'admin@commerce.test',
-      'Commerce@123'
-    );
-
-    await cartPage.openCart();
-  });
-
-  test('Verify user should be able to add product to cart successfully', async ({ page }) => {
-
-    const cartPage = new CartPage(page);
+    
     const product = addProductScenarios.addedProductSuccessfully;
 
     await cartPage.selectProduct(product.productName);
@@ -35,13 +20,12 @@ test.describe('Cart Page', () => {
   });
 
     await expect(
-  page.getByRole('heading', { name: product.productName, exact: true })
+  cartPage.page.getByRole('heading', { name: product.productName, exact: true })
 ).toBeVisible();
   });
 
-  test('Verify user should be able to view product details', async ({ page }) => {
+  test('Verify user should be able to view product details', async ({cartPage}) => {
 
-    const cartPage = new CartPage(page);
     const product = addProductScenarios.addedProductSuccessfully;
 
     await cartPage.selectProduct(product.productName);
@@ -54,9 +38,8 @@ test.describe('Cart Page', () => {
     await cartPage.clickXButton();
   });
 
-  test('Verify user should be able to remove product from cart', async ({ page }) => {
+  test('Verify user should be able to remove product from cart', async ({cartPage}) => {
 
-    const cartPage = new CartPage(page);
     const product = addProductScenarios.addedProductSuccessfully;
 
     await cartPage.selectProduct(product.productName);

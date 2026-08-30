@@ -1,7 +1,11 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from "./basepage";
+import { Buttons } from "../enums/button.enums";
+import { TextField } from "../enums/text-field.enums";
+import { FileUpload } from "../enums/fileupload.enums";
 
-export class CreateProductPage {
-  readonly page: Page;
+
+export class CreateProductPage extends BasePage {
 
   readonly productsTab: Locator;
   readonly createProductHeading: Locator;
@@ -15,39 +19,41 @@ export class CreateProductPage {
   readonly createProductButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
 
     // Products
-    this.productsTab = page.getByTitle('Products');
+    this.productsTab = page.getByTestId("products-nav");
 
     // Create Product form
-    this.createProductHeading = page.getByRole('heading', { name: 'Create product',
-    });
+    this.createProductHeading = page.getByTestId("text-create product");
 
-    this.productName = page.getByLabel('Product name');
-    this.productCode = page.getByLabel('Product code');
-    this.category = page.getByLabel('Category');
-    this.price = page.getByLabel('Price');
-    this.stock = page.getByLabel('Stock');
-    this.status = page.locator('form label:has-text("Status") select');
+    this.productName = this.field.getInputField(TextField.PRODUCT_NAME);
+this.productCode = this.field.getInputField(TextField.PRODUCT_CODE);
+this.category = this.field.getInputField(TextField.CATEGORY);
+this.price = this.field.getInputField(TextField.PRICE);
+this.stock = this.field.getInputField(TextField.STOCK);
 
-    this.productImages = page.locator('input[type="file"]');
-    this.createProductButton = page.getByRole('button', {name: 'Create product',});
+    this.status = page.getByTestId("dropdown-product status");
+
+    this.productImages =
+  this.uploadfile.getUpload(FileUpload.PRODUCT_IMAGE);
+
+    // Button
+    this.createProductButton =
+  this.button.getButton(Buttons.CREATE_PRODUCT);
   }
-   async navigate(url: string) {
-    await this.page.goto(url);
+
+  async navigate(url: string) {
+    await this.goto(url);
   }
 
   async goToProducts() {
-    await this.productsTab.click();
+    await this.clickElement(this.productsTab);
   }
+
   async waitForCreateProductApi() {
-  return await this.page.waitForResponse(
-    (response) =>
-      response.url().includes('/api/products') &&
-      response.request().method() === 'POST'
-  );
-}
+    return await this.waitForResponse("/api/products");
+  }
 
   async createProduct(
     productName: string,
@@ -59,19 +65,20 @@ export class CreateProductPage {
     imagePath: string[],
     clickCreate: boolean = true
   ) {
-    await this.productName.fill(productName);
-    await this.productCode.fill(productCode);
-   await this.category.fill(category);
-    await this.price.fill(price);
-    await this.stock.fill(stock);
-   await this.status.selectOption({ label: status });
+    await this.fillField(this.productName, productName);
+    await this.fillField(this.productCode, productCode);
+    await this.fillField(this.category, category);
+    await this.fillField(this.price, price);
+    await this.fillField(this.stock, stock);
+
+    await this.status.selectOption("Active");
 
     if (imagePath.length > 0) {
       await this.productImages.setInputFiles(imagePath);
     }
-     if (clickCreate) {
-    await this.createProductButton.click();
-  }
-     
+
+    if (clickCreate) {
+      await this.clickElement(this.createProductButton);
+    }
   }
 }

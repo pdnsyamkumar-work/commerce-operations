@@ -1,7 +1,9 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator, expect } from "@playwright/test";
+import { BasePage } from "./basepage";
+import { Buttons } from "../enums/button.enums";
+import { Dropdown } from "../enums/dropdown.enums";
 
-export class CartPage {
-  readonly page: Page;
+export class CartPage extends BasePage {
 
   readonly cartTab: Locator;
   readonly productDropdown: Locator;
@@ -11,68 +13,63 @@ export class CartPage {
   readonly removeBtn: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
 
-    this.cartTab = page.getByTitle('Cart');
+    // Cart
+    this.cartTab = page.getByTestId("cart-nav");
 
-    this.productDropdown = page.locator('button[aria-expanded]').first();
+    // Product Dropdown
+    this.productDropdown =
+      this.dropdown.getSelectDropdown(Dropdown.PRODUCT_CARTS);
 
-    this.addSelectedProductBtn = page.getByRole('button', {
-      name: 'Add Selected Product',
-    });
+    // Buttons
+    this.addSelectedProductBtn =
+      this.button.getButton(Buttons.ADD_SELECTED_PRODUCT);
 
-    this.viewBtn = page.getByRole('button', { name: 'View' }).first();
+    this.viewBtn =
+      this.button.getButton(Buttons.VIEW_CARTED_PRODUCT).first();
 
     // X button inside View modal
-    this.xButton = page.getByRole('button', {
-      name: 'Close cart item details',
+    this.xButton = page.getByRole("button", {
+      name: "Close cart item details",
     });
 
-    // Remove button - choose the first one
-    this.removeBtn = page.getByRole('button', {
-      name: 'Remove',
-      exact: true,
-    }).first();
+    // Remove button
+    this.removeBtn =
+      this.button.getButton(Buttons.REMOVE_CARTED_PRODUCT).first();
   }
 
-
   async openCart() {
-    await this.cartTab.click();
-    await this.productDropdown.scrollIntoViewIfNeeded();
+    await this.clickElement(this.cartTab);
+    await this.scrollIntoView(this.productDropdown);
   }
 
   async selectProduct(product: string) {
     await this.productDropdown.click();
 
     await this.page
-      .getByRole('button', { name: new RegExp(product, 'i') })
+      .getByRole("button", { name: new RegExp(product, "i") })
       .click();
   }
 
-  
-
   async clickAddSelectedProduct() {
-    await this.addSelectedProductBtn.click();
+    await this.clickElement(this.addSelectedProductBtn);
   }
-   async waitForAddToCartApi() {
-    return await this.page.waitForResponse(
-      (response) =>
-        response.url().includes('/api/cart-items') &&
-        response.request().method() === 'POST'
-    );
+
+  async waitForAddToCartApi() {
+    return await this.waitForResponse("/api/cart-items");
   }
 
   async clickView() {
-    await this.viewBtn.click();
+    await this.clickElement(this.viewBtn);
   }
 
-  // NEW: close View modal using X
   async clickXButton() {
-    await this.xButton.click();
+    await this.clickElement(this.xButton);
   }
 
   async clickRemove() {
-    await this.removeBtn.click();
+    await this.clickElement(this.removeBtn);
   }
 
   async verifyCartPage() {

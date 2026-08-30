@@ -1,61 +1,51 @@
-import { test, expect } from '@playwright/test';
-import { SignupPage } from '../pageobject/signup';
+import { test, expect } from "../fixtures/fixtures";
 import { signUpScenarios } from './testData/signUpScenarios';
+import { ErrorFields } from "../enums/inlineErrors.enums";
 
 test.describe("Sign Up Page", () => {
 
-  test.beforeEach(async ({ page }) => {
-    const signup = new SignupPage(page);
-    await signup.navigate("http://localhost:3000/");
-  });
-
-  test("User should be able to create an account successfully", async ({ page }) => {
-    const signup = new SignupPage(page);
-
+  test("User should be able to create an account successfully", async ({ signUpPage }) => {
     const user = signUpScenarios.success;
 
-    await signup.clickSignUp();
-    await signup.enterFullName(user.fullName);
-    await signup.enterWorkEmail(user.workEmail);
-    await signup.enterCompanyName(user.companyName);
-    await signup.enterPassword(user.password);
-    await signup.enterConfirmPassword(user.password);
+    await signUpPage.clickSignUp();
+    await signUpPage.enterFullName(user.fullName);
+    await signUpPage.enterWorkEmail(user.workEmail);
+    await signUpPage.enterCompanyName(user.companyName);
+    await signUpPage.enterPassword(user.password);
+    await signUpPage.enterConfirmPassword(user.password);
 
-    const responsePromise = signup.waitForSignupApi();
+    const responsePromise = signUpPage.waitForSignupApi();
 
-    await signup.clickCreateAccount();
+    await signUpPage.clickCreateAccount();
 
     const response = await responsePromise;
 
     expect(response.status()).toBe(201);
   });
 
-  test("User should see error message for existing email", async ({ page }) => {
-    const signup = new SignupPage(page);
+  test("User should see error message for existing email", async ({ signUpPage }) => {
+    
 
     const user = signUpScenarios.existingUser;
 
-    await signup.createAccount(
+    await signUpPage.createAccount(
       user.fullName,
       user.workEmail,
       user.companyName,
       user.password
     );
 
-    await expect(
-      page.getByText(
-        "A user with this email already exists.",
-        { exact: true }
-      )
-    ).toBeVisible();
+   await expect(
+  signUpPage.errormessage.getErrorMessage(ErrorFields.SIGNIN_PASSWORD)
+).toHaveText("A user with this email already exists.");
   });
 
-  test("User should see validation message for invalid email", async ({ page }) => {
-    const signup = new SignupPage(page);
+  test("User should see validation message for invalid email", async ({ signUpPage }) => {
+    
 
     const user = signUpScenarios.invalidEmail;
 
-    await signup.createAccount(
+    await signUpPage.createAccount(
       user.fullName,
       user.workEmail,
       user.companyName,
@@ -63,11 +53,10 @@ test.describe("Sign Up Page", () => {
     );
 
     await expect(
-      page.getByText(
-        "Enter a valid work email address.",
-        { exact: true }
-      )
-    ).toBeVisible();
+    signUpPage.errormessage.getErrorMessage(
+      ErrorFields.SIGNIN_EMAIL
+    )
+  ).toHaveText("Enter a valid work email address.");
   });
 
 });

@@ -60,7 +60,7 @@ export function InlineError({ id, message }: { id: string; message?: string }) {
   }
 
   return (
-    <p className="text-sm font-medium text-rose-700" role="alert">
+    <p  data-testid="error message-products"className="text-sm font-medium text-rose-700" role="alert">
       {message}
     </p>
   );

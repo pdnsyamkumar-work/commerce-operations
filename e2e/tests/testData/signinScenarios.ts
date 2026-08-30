@@ -7,18 +7,18 @@ export const signinScenarios: Record<string, invalidLoginCredentials> = {
   },
 
   Invalid_Email: {
-    email: "invalid@email.com",
+    email: "inva@lid@email.com",
     password: "Commerce@123",
   },
 
   Invalid_Password: {
     email: "admin@commerce.test",
-    password: "WrongPassword@123",
+    password: "asdfghj",
   },
 
   Invalid_Email_Password: {
-    email: "invalid@email.com",
-    password: "WrongPassword@123",
+    email: "inva@lid@email.com",
+    password: "345673",
   },
 
   Empty_Email: {

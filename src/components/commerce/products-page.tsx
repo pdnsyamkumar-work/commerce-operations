@@ -229,7 +229,7 @@ export function ProductsPage({
     <section className="grid gap-6 xl:grid-cols-[0.9fr_1.8fr]">
       <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold">
+          <h2 data-testid="text-create product" className="text-2xl font-semibold">
             {isEditing ? "Edit product" : "Create product"}
           </h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
@@ -243,7 +243,8 @@ export function ProductsPage({
             <span>
               Product name <span className="text-rose-600">*</span>
             </span>
-            <input
+            <input 
+            data-testid="input-textfield-product name"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Canvas Weekender Bag"
               value={draft.name}
@@ -259,6 +260,7 @@ export function ProductsPage({
               Product code <span className="text-rose-600">*</span>
             </span>
             <input
+            data-testid="input-textfield-product code"
               className={`rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal ${isEditing ? "bg-slate-100 text-slate-500" : ""}`}
               placeholder="Example: PRD-111"
               value={draft.productCode}
@@ -283,6 +285,7 @@ export function ProductsPage({
               Category <span className="text-rose-600">*</span>
             </span>
             <input
+            data-testid="input-textfield-category"
               className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               placeholder="Example: Travel"
               value={draft.category}
@@ -299,6 +302,7 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
+              data-testid="input-textfield-price"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               type="text"
               inputMode="decimal"
@@ -319,6 +323,7 @@ export function ProductsPage({
                 Stock <span className="text-rose-600">*</span>
               </span>
               <input
+              data-testid="input-textfield-stock"
                 className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                 type="text"
                 inputMode="numeric"
@@ -339,7 +344,8 @@ export function ProductsPage({
             <span>
               Status <span className="text-rose-600">*</span>
             </span>
-            <select
+            <select 
+            data-testid="dropdown-product status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
               onChange={(event) =>
@@ -359,6 +365,7 @@ export function ProductsPage({
               Product images <span className="text-rose-600">*</span>
             </span>
             <span
+            data-testid="upload-image-product image"
               className={`inline-flex items-center justify-center rounded-2xl border border-dashed px-4 py-3 font-semibold transition duration-200 ${isImageUploadDisabled ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400" : "cursor-pointer border-[color:var(--border)] bg-white text-slate-900 hover:bg-slate-100"}`}
             >
               {isImageUploadDisabled
@@ -391,6 +398,7 @@ export function ProductsPage({
 
           <div className="flex flex-wrap gap-3">
             <button
+            data-testid="button-create product"
               className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:bg-[color:var(--accent)] disabled:hover:shadow-sm"
               type="submit"
               disabled={isSubmitDisabled}
@@ -662,6 +670,7 @@ function SortDropdown({
   return (
     <div ref={dropdownRef} className="relative">
       <button
+      data-testid="dropdown-products-cart"
         className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left text-sm font-semibold transition duration-200 hover:bg-slate-50"
         type="button"
         aria-expanded={open}

@@ -24,7 +24,7 @@ function InlineError({ id, message }: { id: string; message?: string }) {
   }
 
   return (
-    <p id={id} className="text-sm font-medium text-rose-700" role="alert">
+    <p  data-testid="error message-signin email" id={id} className="text-sm font-medium text-rose-700" role="alert">
       {message}
     </p>
   );
@@ -262,6 +262,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               Sign in
             </button>
             <button
+            data-testid ="tab-sign up"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-up" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("sign-up")}
@@ -269,6 +270,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               Sign up
             </button>
             <button
+            data-testid="tab-forgot password"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "forgot-password" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}
               type="button"
               onClick={() => switchMode("forgot-password")}
@@ -294,6 +296,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Email address <span className="text-rose-600">*</span>
                 </span>
                 <input
+                data-testid ="input-textfield-email"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -307,7 +310,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                     }
                   }}
                 />
-                <InlineError id="sign-in-email" message={signInErrors.email} />
+                <InlineError  id="sign-in-email" message={signInErrors.email} />
               </label>
 
               <label className="grid gap-2 text-sm font-semibold">
@@ -325,6 +328,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               </label>
 
               <button
+              data-testid ="button-sign in"
                 className="cursor-pointer rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
@@ -353,6 +357,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Full name <span className="text-rose-600">*</span>
                 </span>
                 <input
+                data-testid="input-textfield-fullname"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="name"
                   value={signUpName}
@@ -365,6 +370,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Work email <span className="text-rose-600">*</span>
                 </span>
                 <input
+                data-testid="input-textfield-work email"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -380,6 +386,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Store or company name <span className="text-rose-600">*</span>
                 </span>
                 <input
+                data-testid="input-textfield-companyname"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   autoComplete="organization"
                   value={storeName}
@@ -422,6 +429,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                 />
               </label>
               <button
+              data-testid="button-create account"
                 className="rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)] disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
@@ -448,6 +456,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
                   Work email <span className="text-rose-600">*</span>
                 </span>
                 <input
+                data-testid="input-textfield-workemail"
                   className="rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
                   type="text"
                   inputMode="email"
@@ -463,6 +472,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
               </label>
 
               <button
+              data-testid="button-send reset link"
                 className="rounded-full bg-[color:var(--accent)] px-5 py-3 font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[color:var(--accent-strong)]"
                 type="submit"
               >
@@ -471,7 +481,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
             </form>
           )}
 
-          <p className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
+          <p  data-testid="error message-password-duplicatemail"className="rounded-2xl bg-[color:var(--surface-strong)] px-4 py-3 text-sm text-[color:var(--muted)]">
             {message}
           </p>
         </div>
@@ -494,12 +504,14 @@ function PasswordField({
   return (
     <div className="relative">
       <input
+      data-testid ="input-textfield-password"
         className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-24 font-normal"
         type={showPassword ? "text" : "password"}
         value={value}
         onChange={(event) => onChange(event.target.value)}
       />
       <button
+      data-testid="button-view"
         className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full px-3 py-1 text-xs font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-slate-950"
         type="button"
         aria-label={showPassword ? "Hide password" : "Show password"}

@@ -1,69 +1,90 @@
-import { test, expect } from "@playwright/test";
-import { SignInPage } from "../pageobject/signin";
+import { test, expect } from "../fixtures/fixtures";
 import { signinScenarios } from "./testData/signinScenarios";
+import { ErrorFields } from "../enums/inlineErrors.enums";
 
 test.describe("Sign In Page", () => {
-  let signInPage: SignInPage;
 
-  test.beforeEach(async ({ page }) => {
-    signInPage = new SignInPage(page);
+  test("User should successfully sign in with valid credentials", async ({ signinPage, page }) => {
+    const user = signinScenarios.success;
 
-    await signInPage.navigate("http://localhost:3000/");
+    await signinPage.enterEmail(user.email);
+    await signinPage.enterPassword(user.password);
+
+    const responsePromise = signinPage.waitForLoginApi();
+
+    await signinPage.clickOnSignIn();
+
+    const response = await responsePromise;
+
+    expect(response.status()).toBe(200);
+
+    await expect(page).toHaveTitle("Commerce Operations");
   });
 
-  test("User should successfully sign in with valid credentials", async ({ page }) => {
-    await test.step("User should successfully sign in with valid credentials", async () => {
-      const user = signinScenarios.success;
-
-       await signInPage.enterEmail(user.email);
-  await signInPage.enterPassword(user.password);
-
-  const responsePromise = signInPage.waitForLoginApi();
-
-  await signInPage.clickOnSignIn();
-
-  const response = await responsePromise;
-
-  expect(response.status()).toBe(200);
-
-      await expect(page).toHaveTitle("Commerce Operations");
-    });
-  });
-
-  test("User should see error message for invalid email", async ({ page }) => {
+   test("User should see error message for invalid email", async ({ signinPage }) => {
     const user = signinScenarios.Invalid_Email;
 
-    await signInPage.login(user.email, user.password);
+    await signinPage.login(user.email, user.password);
 
-    await expect(
-        page.getByText("Invalid email or password.", { exact: true })
-    ).toBeVisible();
-});
+    const errorMessage =
+      signinPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_EMAIL
+      );
 
-test("User should see error message for invalid password", async ({ page }) => {
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(
+      "Enter a valid email address."
+    );
+  });
+
+   test("User should see error message for invalid password", async ({ signinPage }) => {
     const user = signinScenarios.Invalid_Password;
 
-    await signInPage.login(user.email, user.password);
+    await signinPage.enterEmail(user.email);
+    await signinPage.enterPassword(user.password);
 
-    await expect(
-        page.getByText("Invalid email or password.", { exact: true })
-    ).toBeVisible();
-});
+    await signinPage.clickOnSignIn();
 
-test("User should see validation message when email is empty", async ({ page }) => {
-   const user =signinScenarios.Empty_Email;
-   await signInPage.login(user.email, user.password);
-    await expect(
-        page.getByText("Fix the highlighted email field before signing in.", { exact: true })
-    ).toBeVisible();
-});
+    const errorMessage =
+      signinPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_PASSWORD
+      );
 
-/*test("User should see error message when password is empty", async ({ page }) => {
-  await signInPage.enterEmail(signinScenarios.success.email);
-  await signInPage.clickOnSignIn();
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(
+      "Invalid email or password."
+    );
+  });
 
-  await expect(
-    page.getByText("Invalid email or password.", { exact: true })
-  ).toBeVisible();
-});*/
+  test("User should see validation message when email is empty", async ({signinPage}) => {
+    const user = signinScenarios.Empty_Email;
+
+    await signinPage.login(user.email, user.password);
+
+    const errorMessage =
+      signinPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_EMAIL
+      );
+
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(
+      "Email address is required."
+    );
+  });
+
+  test("User should see error message when password is empty", async ({signinPage}) => {
+    const user = signinScenarios.Empty_Password;
+
+    await signinPage.login(user.email, user.password);
+
+    const errorMessage =
+      signinPage.errormessage.getErrorMessage(
+        ErrorFields.SIGNIN_PASSWORD
+      );
+
+    await expect(errorMessage).toBeVisible();
+    await expect(errorMessage).toHaveText(
+      "Invalid email or password."
+    );
+  });
 });

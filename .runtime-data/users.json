@@ -1,0 +1,24 @@
+[
+  {
+    "id": "usr-101",
+    "name": "Avery Stone",
+    "email": "admin@commerce.test",
+    "password": "Commerce@123",
+    "role": "admin"
+  },
+  {
+    "id": "usr-102",
+    "name": "Riley Brooks",
+    "email": "operator@commerce.test",
+    "password": "Operator@123",
+    "role": "operator"
+  },
+  {
+    "id": "usr-yn7bvc",
+    "name": "Manjula",
+    "email": "manjula1788097114294@gmail.com",
+    "password": "@Manjula123",
+    "storeName": "CAW",
+    "role": "operator"
+  }
+]

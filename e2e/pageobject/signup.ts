@@ -1,95 +1,96 @@
-import { Page, Locator } from '@playwright/test';
+  import { Page, Locator } from '@playwright/test';
+  import { BasePage } from './basepage';
+  import { Buttons } from "../enums/button.enums";
+  import { TextField } from "../enums/text-field.enums";
 
-export class SignupPage {
-  readonly page: Page;
-
-  // Tabs
-  readonly signUpTab: Locator;
-
-  // Form Fields
-  readonly fullName: Locator;
-  readonly workEmail: Locator;
-  readonly companyName: Locator;
-  readonly password: Locator;
-  readonly confirmPassword: Locator;
-
-  // Buttons
-  readonly passwordViewBtn: Locator;
-  readonly confirmPasswordViewBtn: Locator;
-  readonly createAccountBtn: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-
+  export class SignupPage extends BasePage {
     // Tabs
-    this.signUpTab = page.getByRole('button', { name: 'Sign up' });
+    readonly signUpTab: Locator;
 
-    // Input Fields
-    this.fullName = page.getByLabel('Full name');
-    this.workEmail = page.getByLabel('Work email');
-    this.companyName = page.getByLabel('Store or company name');
-    this.password = page.locator('input[type="password"]').nth(0);
-    this.confirmPassword = page.locator('input[type="password"]').nth(1);
+    // Form Fields
+    readonly fullName: Locator;
+    readonly workEmail: Locator;
+    readonly companyName: Locator;
+    readonly password: Locator;
+    readonly confirmPassword: Locator;
 
-    // View Buttons
-    this.passwordViewBtn = page.getByRole('button', { name: 'View' }).nth(0);
-    this.confirmPasswordViewBtn = page.getByRole('button', { name: 'View' }).nth(1);
+    // Buttons
+    readonly passwordViewBtn: Locator;
+    readonly confirmPasswordViewBtn: Locator;
+    readonly createAccountBtn: Locator;
 
-    // Submit Button
-    this.createAccountBtn = page.getByRole('button', {name: 'Create Account',});
-  }
+    constructor(page: BasePage["page"]) {
+      super(page);
+
+      // Tabs
+      this.signUpTab = page.getByTestId("tab-sign up")
+
+      // Input Fields
+      this.fullName = this.field.getInputField(TextField.FULLNAME);
+
+  this.workEmail = this.field.getInputField(TextField.WORK_EMAIL);
+
+  this.companyName = this.field.getInputField(TextField.COMPANY_NAME);
+
+  this.password = this.field.getInputField(TextField.PASSWORD).nth(0);
+
+  this.confirmPassword = this.field.getInputField(TextField.PASSWORD).nth(1);
+
+      // View Buttons
+      this.passwordViewBtn = this.button.getButton(Buttons.VIEW).nth(0);
+
+this.confirmPasswordViewBtn = this.button.getButton(Buttons.VIEW).nth(1);
+
+this.createAccountBtn = this.button.getButton(Buttons.CREATE_ACCOUNT);
+    }
   async waitForSignupApi() {
-  return await this.page.waitForResponse(
-    (response) =>
-      response.url().includes('/signup') &&
-      response.request().method() === 'POST'
-  );
-}
+      return await this.waitForResponse("/signup");
+    }
 
-async navigate(url: string) {
-    await this.page.goto(url);
-}
-
-  async clickSignUp() {
-    await this.signUpTab.click();
+  async navigate(url: string) {
+      await this.page.goto(url);
   }
 
-  async enterFullName(name: string) {
-    await this.fullName.fill(name);
-  }
+    async clickSignUp() {
+      await this.clickElement(this.signUpTab);
+    }
 
-  async enterWorkEmail(email: string) {
-    await this.workEmail.fill(email);
-  }
+    async enterFullName(name: string) {
+      await this.fillField(this.fullName, name);
+    }
 
-  async enterCompanyName(company: string) {
-    await this.companyName.fill(company);
-  }
+    async enterWorkEmail(email: string) {
+      await this.fillField(this.workEmail, email);
+    }
 
-  async enterPassword(password: string) {
-    await this.password.fill(password);
-  }
+    async enterCompanyName(company: string) {
+      await this.fillField(this.companyName, company);
+    }
 
-  async enterConfirmPassword(confirmPassword: string) {
-    await this.confirmPassword.fill(confirmPassword);
-  }
+    async enterPassword(password: string) {
+      await this.fillField(this.password, password);
+    }
+    async enterConfirmPassword(confirmPassword: string) {
+      await this.fillField(this.confirmPassword, confirmPassword);
+    }
 
-  async clickCreateAccount() {
-    await this.createAccountBtn.click();
-  }
+    async clickCreateAccount() {
+      await this.clickElement(this.createAccountBtn);
+    }
 
-  async createAccount(
-    name: string,
-    email: string,
-    company: string,
-    password: string
-  ) {
-    await this.clickSignUp();
-    await this.enterFullName(name);
-    await this.enterWorkEmail(email);
-    await this.enterCompanyName(company);
-    await this.enterPassword(password);
-    await this.enterConfirmPassword(password);
-    await this.clickCreateAccount();
+
+    async createAccount(
+      name: string,
+      email: string,
+      company: string,
+      password: string
+    )  {
+      await this.clickSignUp();
+      await this.enterFullName(name);
+      await this.enterWorkEmail(email);
+      await this.enterCompanyName(company);
+      await this.enterPassword(password);
+      await this.enterConfirmPassword(password);
+      await this.clickCreateAccount();
+    }
   }
-}

@@ -920,6 +920,13 @@ export function CommerceWorkspace() {
               <button
                 key={item}
                 title={item}
+                data-testid={
+  item === "Products"
+    ? "products-nav"
+    : item === "Cart"
+      ? "cart-nav"
+      : undefined
+}
                 className={`flex items-center rounded-full px-4 py-3 text-left text-sm font-semibold transition duration-200 ${isSideNavCollapsed ? "justify-center" : "gap-3"} ${active ? "bg-[color:var(--accent)] text-white shadow-sm" : "text-slate-600 hover:bg-[color:var(--surface-strong)]"}`}
                 type="button"
                 onClick={() => navigateToView(item)}
