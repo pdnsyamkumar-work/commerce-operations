@@ -12,6 +12,7 @@ export class ForgotPasswordPage extends BasePage {
   readonly workEmailInput: Locator;
   readonly sendResetLinkBtn: Locator;
 
+  // FEEDBACK: Constructor is not required since this feature class inherited from base page class
    constructor(page: BasePage["page"]) {
     super(page);
 

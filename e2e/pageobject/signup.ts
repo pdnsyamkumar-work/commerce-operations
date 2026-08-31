@@ -19,6 +19,7 @@
     readonly confirmPasswordViewBtn: Locator;
     readonly createAccountBtn: Locator;
 
+    // FEEDBACK: Constructor is not required since this feature class inherited from base page class
     constructor(page: BasePage["page"]) {
       super(page);
 

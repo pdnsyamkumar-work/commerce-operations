@@ -5,6 +5,7 @@ import { Dropdown } from "../enums/dropdown.enums";
 
 export class CartPage extends BasePage {
 
+  // FEEDBACK: Constructor is not required since we are inheriting all from base page class
   readonly cartTab: Locator;
   readonly productDropdown: Locator;
   readonly addSelectedProductBtn: Locator;

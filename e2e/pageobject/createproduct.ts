@@ -18,6 +18,7 @@ export class CreateProductPage extends BasePage {
   readonly productImages: Locator;
   readonly createProductButton: Locator;
 
+  // FEEDBACK: Constructor is not required since we are inheriting all from base page class
   constructor(page: Page) {
     super(page);
 

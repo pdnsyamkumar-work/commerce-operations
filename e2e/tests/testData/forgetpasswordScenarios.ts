@@ -28,6 +28,8 @@ export class ForgotPasswordTestData {
   }
 }
 
+// FEEDBACK: Keep all the overrides inside the function implenmented in above class and do the same for all other testdata classes
+
 export const forgotPasswordTestData = new ForgotPasswordTestData();
 
 export const forgetPassword = {
