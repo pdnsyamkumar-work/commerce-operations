@@ -19,7 +19,7 @@ export function DashboardPage({
 }: DashboardPageProps) {
   return (
     <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Operations snapshot</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <MetricCard
@@ -37,7 +37,7 @@ export function DashboardPage({
           <MetricCard label="Cart Value" value={`$${cartTotal}`} />
         </div>
       </article>
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Quick actions</h2>
         <div className="mt-5 grid gap-3">
           <button

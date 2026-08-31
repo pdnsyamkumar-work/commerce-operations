@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import type { Product } from "@/lib/store";
 import type { TaskLane } from "./types";
-import { MetricCard, SelectWrap, useClickOutside } from "./shared";
+import { MetricCard, useClickOutside } from "./shared";
 
 type ReportsPageProps = {
   products: Product[];
@@ -66,7 +66,7 @@ export function ReportsPage(props: ReportsPageProps) {
           value={props.draftProducts.length.toString()}
         />
         <MetricCard label="Cart Total" value={`$${props.cartTotal}`} />
-        <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm xl:col-span-4">
+        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6 xl:col-span-4">
           <h2 className="text-2xl font-semibold">Report details</h2>
           <p className="mt-3 text-sm leading-6 text-[color:var(--muted)]">
             Current cart contains {props.cartItemsCount} item records. Inventory
@@ -76,7 +76,7 @@ export function ReportsPage(props: ReportsPageProps) {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
-        <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
           <h2 className="text-2xl font-semibold">Operations review controls</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Capture product audit decisions, fulfillment channels, dispatch
@@ -179,7 +179,7 @@ export function ReportsPage(props: ReportsPageProps) {
           </div>
         </article>
 
-        <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
           <h2 className="text-2xl font-semibold">Report product drilldown</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Filter by category to preview the product details used in the
@@ -188,41 +188,29 @@ export function ReportsPage(props: ReportsPageProps) {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <label className="grid gap-2 text-sm font-semibold">
               Category
-              <SelectWrap>
-                <select
-                  className="w-full appearance-none rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-11"
-                  value={props.selectedCategory}
-                  onChange={(event) =>
-                    props.onCategoryChange(event.target.value)
-                  }
-                >
-                  <option value="">All categories</option>
-                  {props.productCategories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-              </SelectWrap>
+              <ReportDropdown
+                ariaLabel="Report category"
+                value={props.selectedCategory}
+                placeholder="All categories"
+                options={props.productCategories.map((category) => ({
+                  value: category,
+                  label: category,
+                }))}
+                onChange={props.onCategoryChange}
+              />
             </label>
             <label className="grid gap-2 text-sm font-semibold">
               Product
-              <SelectWrap>
-                <select
-                  className="w-full appearance-none rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 pr-11"
-                  value={props.selectedProductId}
-                  onChange={(event) =>
-                    props.onSelectedProductChange(event.target.value)
-                  }
-                >
-                  <option value="">Choose product</option>
-                  {props.filteredProducts.map((product) => (
-                    <option key={product.id} value={product.id}>
-                      {product.name} ({product.productCode})
-                    </option>
-                  ))}
-                </select>
-              </SelectWrap>
+              <ReportDropdown
+                ariaLabel="Report product"
+                value={props.selectedProductId}
+                placeholder="Choose product"
+                options={props.filteredProducts.map((product) => ({
+                  value: product.id,
+                  label: `${product.name} (${product.productCode})`,
+                }))}
+                onChange={props.onSelectedProductChange}
+              />
             </label>
           </div>
           <div
@@ -249,7 +237,7 @@ export function ReportsPage(props: ReportsPageProps) {
           </div>
         </article>
 
-        <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm xl:col-span-2">
+        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6 xl:col-span-2">
           <h2 className="text-2xl font-semibold">Review task board</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Move operational review tasks between columns as work is completed.
@@ -285,6 +273,76 @@ export function ReportsPage(props: ReportsPageProps) {
         </article>
       </section>
     </>
+  );
+}
+
+function ReportDropdown({
+  ariaLabel,
+  value,
+  placeholder,
+  options,
+  onChange,
+}: {
+  ariaLabel: string;
+  value: string;
+  placeholder: string;
+  options: Array<{ value: string; label: string }>;
+  onChange: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useClickOutside(dropdownRef, () => setOpen(false));
+  const selectedLabel = options.find((option) => option.value === value)?.label;
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        className="flex w-full items-center justify-between gap-3 rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left font-normal transition duration-200 hover:bg-slate-50"
+        type="button"
+        aria-label={ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span className="min-w-0 truncate">{selectedLabel ?? placeholder}</span>
+        <span className="shrink-0" aria-hidden="true">v</span>
+      </button>
+      {open && (
+        <div
+          className="absolute inset-x-0 z-40 mt-2 max-h-64 overflow-y-auto rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl"
+          role="listbox"
+          aria-label={`${ariaLabel} options`}
+        >
+          <button
+            className={`w-full rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-slate-100 ${!value ? "bg-slate-950 text-white hover:bg-slate-950" : ""}`}
+            type="button"
+            role="option"
+            aria-selected={!value}
+            onClick={() => {
+              onChange("");
+              setOpen(false);
+            }}
+          >
+            {placeholder}
+          </button>
+          {options.map((option) => (
+            <button
+              key={option.value}
+              className={`w-full rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-slate-100 ${option.value === value ? "bg-slate-950 text-white hover:bg-slate-950" : ""}`}
+              type="button"
+              role="option"
+              aria-selected={option.value === value}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 

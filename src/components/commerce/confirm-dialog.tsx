@@ -21,12 +21,12 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-5"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/50 px-4 py-4 sm:items-center sm:px-5"
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirmation-dialog-title"
     >
-      <div className="w-full max-w-md rounded-[1.75rem] bg-white p-6 shadow-2xl">
+      <div className="my-auto w-full max-w-md rounded-[1.5rem] bg-white p-4 shadow-2xl sm:rounded-[1.75rem] sm:p-6">
         <h2 id="confirmation-dialog-title" className="text-2xl font-semibold">
           {title}
         </h2>

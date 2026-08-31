@@ -1,5 +1,5 @@
 import type { Product } from "@/lib/store";
-import { useEffect, type ReactNode, type RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 
 export function useClickOutside<T extends HTMLElement>(
   ref: RefObject<T | null>,
@@ -31,7 +31,7 @@ export function useClickOutside<T extends HTMLElement>(
 
 export function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-sm">
+    <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
         {label}
       </p>
@@ -66,13 +66,3 @@ export function InlineError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function SelectWrap({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative block">
-      {children}
-      <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-500">
-        v
-      </span>
-    </span>
-  );
-}

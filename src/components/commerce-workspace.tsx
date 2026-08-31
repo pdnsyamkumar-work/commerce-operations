@@ -265,6 +265,7 @@ export function CommerceWorkspace() {
     useState<string>("");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const profileDropdownRef = useRef<HTMLDivElement>(null);
   const toastTimerRef = useRef<number | null>(null);
   const [profileDetails, setProfileDetails] = useState(defaultProfileDetails);
@@ -888,7 +889,7 @@ export function CommerceWorkspace() {
   }
 
   return (
-    <main className="flex min-h-screen w-full text-slate-900">
+    <main className="flex min-h-screen min-w-0 w-full text-slate-900">
       <aside
         className={`sticky top-0 hidden h-screen shrink-0 rounded-r-[2rem] bg-white p-5 shadow-[16px_0_60px_rgba(15,23,42,0.08)] transition-all duration-300 lg:block ${isSideNavCollapsed ? "w-24" : "w-72"}`}
       >
@@ -940,19 +941,32 @@ export function CommerceWorkspace() {
           })}
         </nav>
       </aside>
-      <section className="flex min-w-0 flex-1 flex-col gap-6 px-5 py-6 sm:px-8 lg:px-10">
-        <header className="relative z-40 flex flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-4 shadow-sm backdrop-blur lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
-              Commerce Admin
-            </p>
-            <p className="mt-1 text-sm text-[color:var(--muted)]">
-              Catalog, inventory, and cart operations for {user.name}
-            </p>
-          </div>
-          <div ref={profileDropdownRef} className="relative z-50">
+      <section className="flex min-w-0 flex-1 flex-col gap-4 px-4 py-4 sm:gap-6 sm:px-8 sm:py-6 lg:px-10">
+        <header className="relative z-40 flex min-w-0 flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-4 shadow-sm backdrop-blur sm:px-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex min-w-0 items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
+                Commerce Admin
+              </p>
+              <p className="mt-1 truncate text-sm text-[color:var(--muted)]">
+                Catalog, inventory, and cart operations for {user.name}
+              </p>
+            </div>
             <button
-              className="flex items-center gap-3 rounded-full border border-[color:var(--border)] bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
+              className="lg:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--border)] bg-white text-slate-700 transition duration-200 hover:bg-slate-100"
+              onClick={() => setIsMobileNavOpen((current) => !current)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+          <div
+            ref={profileDropdownRef}
+            className="relative z-50 w-full min-w-0 lg:w-auto"
+          >
+            <button
+              className="flex w-full min-w-0 items-center justify-between gap-3 rounded-full border border-[color:var(--border)] bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm lg:w-auto lg:justify-start"
               type="button"
               onClick={() => setIsProfileOpen((current) => !current)}
             >
@@ -967,11 +981,13 @@ export function CommerceWorkspace() {
                   user.name.slice(0, 1)
                 )}
               </span>
-              <span>{user.name}</span>
-              <span>v</span>
+              <span className="min-w-0 flex-1 truncate text-left lg:flex-none">
+                {user.name}
+              </span>
+              <span className="shrink-0">v</span>
             </button>
             {isProfileOpen && (
-              <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-2xl border border-[color:var(--border)] bg-white p-3 shadow-xl">
+              <div className="absolute inset-x-0 top-full z-50 mt-2 rounded-2xl border border-[color:var(--border)] bg-white p-3 shadow-xl lg:left-auto lg:w-64">
                 <p className="px-3 py-2 text-sm font-semibold">{user.name}</p>
                 <p className="px-3 pb-3 text-xs text-[color:var(--muted)]">
                   {user.email}
@@ -998,20 +1014,20 @@ export function CommerceWorkspace() {
           </div>
         </header>
 
-        <section className="rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-8 shadow-[0_24px_80px_rgba(78,52,35,0.12)] backdrop-blur lg:p-10">
+        <section className="min-w-0 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-[0_24px_80px_rgba(78,52,35,0.12)] backdrop-blur sm:rounded-[2rem] sm:p-8 lg:p-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-strong)]">
                 {content.eyebrow}
               </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">
                 {content.title}
               </h1>
-              <p className="mt-4 max-w-2xl text-lg leading-8 text-[color:var(--muted)]">
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[color:var(--muted)] sm:text-lg sm:leading-8">
                 {content.description}
               </p>
             </div>
-            <div className="grid min-w-[320px] gap-3 rounded-[1.5rem] bg-[color:var(--surface-strong)] p-5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <div className="grid w-full min-w-0 gap-3 rounded-[1.5rem] bg-[color:var(--surface-strong)] p-4 sm:grid-cols-3 sm:p-5 lg:w-auto lg:min-w-[320px] lg:grid-cols-1 xl:grid-cols-3">
               <SummaryTile
                 label="Products"
                 value={products.length.toString()}
@@ -1140,12 +1156,12 @@ export function CommerceWorkspace() {
 
         {isDialogOpen && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-5"
+            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/50 px-4 py-4 sm:items-center sm:px-5"
             role="dialog"
             aria-modal="true"
             aria-labelledby="review-dialog-title"
           >
-            <div className="w-full max-w-lg rounded-[1.75rem] bg-white p-6 shadow-2xl">
+            <div className="my-auto w-full max-w-lg rounded-[1.5rem] bg-white p-4 shadow-2xl sm:rounded-[1.75rem] sm:p-6">
               <h2 id="review-dialog-title" className="text-2xl font-semibold">
                 Submit product review?
               </h2>
@@ -1187,6 +1203,43 @@ export function CommerceWorkspace() {
           type={toastType}
         />
       </section>
+      {isMobileNavOpen && (
+        <div className="fixed inset-0 z-[60] lg:hidden">
+          <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-sm" onClick={() => setIsMobileNavOpen(false)} />
+          <div className="absolute left-0 top-0 flex h-full w-64 max-w-[85vw] flex-col overflow-y-auto bg-white p-5 shadow-2xl">
+            <div className="mb-8 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-xl font-semibold">
+                <span className="text-[color:var(--accent)]">Commerce</span>
+                <span className="text-emerald-600">Ops</span>
+              </div>
+              <button
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600"
+                onClick={() => setIsMobileNavOpen(false)}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <nav className="grid gap-2">
+              {commerceNavItems.map((item) => {
+                const active = item === activeView;
+                return (
+                  <button
+                    key={item}
+                    className={`flex items-center gap-3 rounded-full px-4 py-3 text-left text-sm font-semibold transition duration-200 ${active ? "bg-[color:var(--accent)] text-white shadow-sm" : "text-slate-600 hover:bg-[color:var(--surface-strong)]"}`}
+                    onClick={() => {
+                      navigateToView(item);
+                      setIsMobileNavOpen(false);
+                    }}
+                  >
+                    <span className="text-lg">{navIcon(item)}</span>
+                    <span>{item}</span>
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

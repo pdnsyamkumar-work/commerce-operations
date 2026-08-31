@@ -20,7 +20,7 @@ export function ProductDetailsPage({
 
   if (!product) {
     return (
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Product not found</h2>
         <p className="mt-2 text-sm text-[color:var(--muted)]">
           The selected product is no longer available.
@@ -38,7 +38,7 @@ export function ProductDetailsPage({
 
   return (
     <section className="grid gap-6 xl:grid-cols-[1fr_0.8fr]">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <button
           className="rounded-full border border-[color:var(--border)] bg-white px-4 py-2 text-sm font-semibold transition duration-200 hover:-translate-y-0.5 hover:bg-slate-100 hover:shadow-sm"
           type="button"
@@ -51,7 +51,7 @@ export function ProductDetailsPage({
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">
               {product.productCode}
             </p>
-            <h2 className="mt-2 text-4xl font-semibold">{product.name}</h2>
+            <h2 className="mt-2 break-words text-3xl font-semibold sm:text-4xl">{product.name}</h2>
             <p className="mt-3 text-lg text-[color:var(--muted)]">
               {product.category}
             </p>
@@ -64,7 +64,7 @@ export function ProductDetailsPage({
             src={detailImages[0]}
             alt={product.name}
           />
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {detailImages.map((image, index) => (
               <img
                 key={`${image}-${index}`}
@@ -100,7 +100,7 @@ export function ProductDetailsPage({
           </button>
         </div>
       </article>
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h3 className="text-2xl font-semibold">Product details</h3>
         <ul className="mt-4 grid gap-3 text-sm text-[color:var(--muted)]">
           <li>Single product details navigation</li>
