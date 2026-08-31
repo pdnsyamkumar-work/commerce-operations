@@ -6,6 +6,8 @@ import { TextFieldComponent } from "../components/text-field.component";
 import { TextField } from "../enums/component-enum/text-field.enum";
 
 export class SignupPage extends BasePage {
+    // FEEDBACK: Constructor is not required since this feature class inherited from base page class
+
   constructor(page: Page) {
     super(page);
   }

@@ -4,6 +4,8 @@ import { BasePage } from "./basePage";
 import { Buttons } from "../enums/component-enum/buttons.enums";
 import { TextField } from "../enums/component-enum/text-field.enum";
 export class ForgotPage extends BasePage {
+    // FEEDBACK: Constructor is not required since this feature class inherited from base page class
+
   constructor(page: Page) {
     super(page);
   }

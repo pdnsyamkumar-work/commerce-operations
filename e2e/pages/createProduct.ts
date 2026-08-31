@@ -7,6 +7,8 @@ import { Dropdown } from "../enums/component-enum/dropdown.enum";
 import { FileUploadComponent } from "../components/fileupload.component";
 import { FileUpload } from "../enums/component-enum/fileupload.enum";
 export class createProduct extends BasePage {
+    // FEEDBACK: Constructor is not required since this feature class inherited from base page class
+
   constructor(page: Page) {
     super(page);
   }

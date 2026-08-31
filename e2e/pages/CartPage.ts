@@ -3,6 +3,7 @@ import { BasePage } from "./basePage";
 import { Dropdown } from "../enums/component-enum/dropdown.enum";
 import { Buttons, MenuItems } from "../enums/component-enum/buttons.enums";
 export class CartPage extends BasePage {
+  // FEEDBACK: Constructor is not required since this feature class inherited from base page class
   constructor(page: Page) {
     super(page);
   }
