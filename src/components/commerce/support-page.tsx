@@ -8,7 +8,7 @@ export function SupportPage({ onSubmit }: { onSubmit?: () => void }) {
 
   return (
     <section className="grid gap-6 xl:grid-cols-[1fr_0.8fr]">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Support center</h2>
         <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
           Use this page to practice support workflows, documentation links, and
@@ -33,7 +33,7 @@ export function SupportPage({ onSubmit }: { onSubmit?: () => void }) {
           </button>
         </form>
       </article>
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h3 className="text-2xl font-semibold">Help topics</h3>
         <div className="mt-5 grid gap-3 text-sm">
           <div className="rounded-2xl bg-white p-4">

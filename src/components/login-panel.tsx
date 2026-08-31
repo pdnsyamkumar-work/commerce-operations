@@ -224,7 +224,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[1180px] items-center px-5 py-8 sm:px-8">
+    <main className="mx-auto flex min-h-screen min-w-0 w-full max-w-[1180px] items-center px-4 py-4 sm:px-8 sm:py-8">
       <AppToast
         message={toastMessage}
         isVisible={isToastVisible}
@@ -232,12 +232,12 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
         type="success"
       />
       <section className="grid w-full overflow-hidden rounded-[2rem] border border-[color:var(--border)] bg-[color:var(--surface)] shadow-[0_24px_80px_rgba(78,52,35,0.14)] lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="flex flex-col justify-center gap-10 bg-slate-950 p-8 text-white lg:p-10">
+        <div className="flex flex-col justify-center gap-8 bg-slate-950 p-5 text-white sm:p-8 lg:gap-10 lg:p-10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-orange-200">
               Commerce Operations
             </p>
-            <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
               Secure access for daily storefront operations.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-7 text-slate-300">
@@ -252,7 +252,7 @@ export function LoginPanel({ onAuthenticated }: LoginPanelProps) {
           </div>
         </div>
 
-        <div className="grid gap-5 p-8 lg:p-10">
+        <div className="grid gap-5 p-5 sm:p-8 lg:p-10">
           <div className="flex flex-wrap gap-2 rounded-full bg-[color:var(--surface-strong)] p-1">
             <button
               className={`rounded-full px-4 py-2 text-sm font-semibold transition duration-200 ${authMode === "sign-in" ? "bg-slate-950 text-white hover:bg-slate-800" : "text-[color:var(--muted)] hover:bg-slate-100 hover:text-slate-900"}`}

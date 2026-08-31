@@ -21,7 +21,7 @@ export function AppToast({ message, isVisible, onClose, type = "default" }: AppT
     <div
       role="status"
       aria-live="polite"
-      className={`fixed right-6 top-6 z-40 flex max-w-sm items-start gap-4 rounded-[1.25rem] ${bgClass} px-5 py-4 text-sm font-semibold text-white shadow-[0_18px_60px_rgba(15,23,42,0.3)]`}
+      className={`fixed left-4 right-4 top-4 z-40 flex max-w-none items-start gap-4 rounded-[1.25rem] ${bgClass} px-5 py-4 text-sm font-semibold text-white shadow-[0_18px_60px_rgba(15,23,42,0.3)] sm:left-auto sm:right-6 sm:top-6 sm:max-w-sm`}
     >
       <span>{message}</span>
       <button
