@@ -12,12 +12,15 @@ import { HeaderComponent} from "../components/button-component";
 import { CartItemComponent } from "../components/cart-item-component";
 
 export class CartPage extends BasePage {
+
+  // FEEDBACK: Inside Feature page class constructor is not required since we are inheriting all from base page class
   readonly header: HeaderComponent;
   readonly page: Page;
 
   constructor(page: Page) {
     super(page);
     this.page = page;
+    // FEEDBACK: This Header Component Should be initilized inside base page
     this.header=new HeaderComponent(page);
   }
     getCartItem(productName: string, productId: string) {

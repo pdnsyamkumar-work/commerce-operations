@@ -1,6 +1,8 @@
 import { Page } from "@playwright/test";
 import { signupdata } from "../utils/interfaces/signup.interface";
 export class SignupPage {
+  // FEEDBACK: Page classes should inherit from base page class
+  // FEEDBACK : Constructor is not required since we are inheriting all from base page class
   constructor(private page: Page) {}
 
   fullname = this.page.getByRole("textbox", { name: "Full name *" });

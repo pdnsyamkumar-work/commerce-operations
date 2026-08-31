@@ -2,6 +2,7 @@ import { Page, Locator } from "@playwright/test";
 import { signin } from "../utils/interfaces/signin.interface";
 
 export class SigninPage {
+  // FEEDBACK: Page classes should inherit from base page class
   page: Page;
   Emailaddress: Locator;
   Password: Locator;

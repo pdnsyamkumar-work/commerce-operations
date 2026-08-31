@@ -2,6 +2,7 @@ import { Page, Locator } from "@playwright/test";
 import { ProductData } from "../utils/interfaces/products.interface";
 
 export class Createproductpage {
+  // FEEDBACK: Page classes should inherit from base page class
   readonly page: Page;
   readonly productsMenu: Locator;
   readonly productname: Locator;
@@ -31,6 +32,7 @@ export class Createproductpage {
     });
   }
 
+  // FEEDBACK: Method name should be clickOnProductsMenu instead of navigateToProductsPage since the method is performing just the click action on the products menu
   async navigateToProductsPage() {
     await this.productsMenu.click();
   }
@@ -49,6 +51,8 @@ export class Createproductpage {
   async clickOnCreateProduct() {
     await this.createproductbutton.click();
   }
+
+  // FEEDBACK: This method is not required, instead we can call clickOnCreateProduct directly from the test file
   async createProduct() {
     await this.clickOnCreateProduct();
   }
