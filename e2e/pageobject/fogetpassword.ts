@@ -3,23 +3,12 @@ import { Buttons } from "../enums/button.enums";
 import { TextField } from "../enums/text-field.enums";
 
 export class ForgotPasswordPage extends BasePage {
-
   // Navigation
-  readonly forgotPasswordBtn =
-    this.page.getByTestId("tab-forgot password");
+  readonly forgotPasswordBtn = this.page.getByTestId("tab-forgot password");
 
   // Form
-  readonly workEmailInput =
-    this.field.getInputField(TextField.WORKEMAIL);
-
-<<<<<<< Updated upstream
-  // FEEDBACK: Constructor is not required since this feature class inherited from base page class
-   constructor(page: BasePage["page"]) {
-    super(page);
-=======
-  readonly sendResetLinkBtn =
-    this.button.getButton(Buttons.SEND_RESET_LINK);
->>>>>>> Stashed changes
+  readonly workEmailInput = this.field.getInputField(TextField.WORKEMAIL);
+  readonly sendResetLinkBtn = this.button.getButton(Buttons.SEND_RESET_LINK);
 
   async waitForForgotPasswordApi() {
     return await this.waitForResponse("/forgot-password");

@@ -1,42 +1,26 @@
-
 import { BasePage } from "./basepage";
 import { Buttons } from "../enums/button.enums";
 import { TextField } from "../enums/text-field.enums";
 
 export class SignInPage extends BasePage {
-<<<<<<< Updated upstream
-  readonly emailAddress: Locator;
-  readonly password: Locator;
-  readonly signInBtn: Locator;
-
-  // FEEDBACK: Constructor is not required since this feature class inherited from base page class
-  constructor(page:Page) {
-  super(page);
-       this.emailAddress = this.field.getInputField(TextField.EMAIL);
-this.password = this.field.getInputField(TextField.PASSWORD);
-this.signInBtn = this.button.getButton(Buttons.SIGN_IN);
-  }
-=======
-  
-     readonly emailAddress = this.field.getInputField(TextField.EMAIL);
+  readonly emailAddress = this.field.getInputField(TextField.EMAIL);
   readonly password = this.field.getInputField(TextField.PASSWORD);
   readonly signInBtn = this.button.getButton(Buttons.SIGN_IN);
-  
->>>>>>> Stashed changes
-  async waitForLoginApi() {
-   return await this.waitForResponse("/login");
-}
 
-    async navigate(url: string) {
+  async waitForLoginApi() {
+    return await this.waitForResponse("/api/auth/login");
+  }
+
+  async navigate(url: string) {
     await this.goto(url);
   }
 
   async enterEmail(email: string) {
-    await this.fillField(this.emailAddress,email);
+    await this.fillField(this.emailAddress, email);
   }
 
   async enterPassword(password: string) {
-    await this.fillField(this.password,password);
+    await this.fillField(this.password, password);
   }
 
   async clickOnSignIn() {

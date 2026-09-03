@@ -1,10 +1,8 @@
-import { Locator } from '@playwright/test';
-import { BasePage } from './basepage';
+import { BasePage } from "./basepage";
 import { Buttons } from "../enums/button.enums";
 import { TextField } from "../enums/text-field.enums";
 
 export class SignupPage extends BasePage {
-
   // Tabs
   readonly signUpTab = this.page.getByTestId("tab-sign up");
 
@@ -15,16 +13,10 @@ export class SignupPage extends BasePage {
   readonly password = this.field.getInputField(TextField.PASSWORD).nth(0);
   readonly confirmPassword = this.field.getInputField(TextField.PASSWORD).nth(1);
 
-<<<<<<< Updated upstream
-    // FEEDBACK: Constructor is not required since this feature class inherited from base page class
-    constructor(page: BasePage["page"]) {
-      super(page);
-=======
   // Buttons
   readonly passwordViewBtn = this.button.getButton(Buttons.VIEW).nth(0);
   readonly confirmPasswordViewBtn = this.button.getButton(Buttons.VIEW).nth(1);
   readonly createAccountBtn = this.button.getButton(Buttons.CREATE_ACCOUNT);
->>>>>>> Stashed changes
 
   async waitForSignupApi() {
     return await this.waitForResponse("/signup");

@@ -125,8 +125,6 @@ export class LoginTestData {
   }
 }
 
-// FEEDBACK: Keep all the overrides inside the function implenmented in above class and do the same for all other testdata classes
-
 export const loginTestData = new LoginTestData();
 
 export const signinScenarios = {

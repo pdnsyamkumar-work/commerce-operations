@@ -4,41 +4,32 @@ import { Buttons } from "../enums/button.enums";
 import { Dropdown } from "../enums/dropdown.enums";
 
 export class CartPage extends BasePage {
-
-<<<<<<< Updated upstream
-  // FEEDBACK: Constructor is not required since we are inheriting all from base page class
-  readonly cartTab: Locator;
-  readonly productDropdown: Locator;
-  readonly addSelectedProductBtn: Locator;
-  readonly viewBtn: Locator;
-  readonly xButton: Locator;
-  readonly removeBtn: Locator;
-=======
   // Cart
-  readonly cartTab =
-    this.page.getByTestId("cart-nav");
->>>>>>> Stashed changes
+  readonly cartTab = this.page.getByTestId("cart-nav");
 
   // Product Dropdown
-  readonly productDropdown =
-    this.dropdown.getSelectDropdown(Dropdown.PRODUCT_CARTS);
+  readonly productDropdown = this.dropdown.getSelectDropdown(
+    Dropdown.PRODUCT_CARTS
+  );
 
   // Buttons
-  readonly addSelectedProductBtn =
-    this.button.getButton(Buttons.ADD_SELECTED_PRODUCT);
+  readonly addSelectedProductBtn = this.button.getButton(
+    Buttons.ADD_SELECTED_PRODUCT
+  );
 
-  readonly viewBtn =
-    this.button.getButton(Buttons.VIEW_CARTED_PRODUCT).first();
+  readonly viewBtn = this.button
+    .getButton(Buttons.VIEW_CARTED_PRODUCT)
+    .first();
 
   // X button inside View modal
-  readonly xButton =
-    this.page.getByRole("button", {
-      name: "Close cart item details",
-    });
+  readonly xButton = this.page.getByRole("button", {
+    name: "Close cart item details",
+  });
 
   // Remove button
-  readonly removeBtn =
-    this.button.getButton(Buttons.REMOVE_CARTED_PRODUCT).first();
+  readonly removeBtn = this.button
+    .getButton(Buttons.REMOVE_CARTED_PRODUCT)
+    .first();
 
   async openCart() {
     await this.clickElement(this.cartTab);

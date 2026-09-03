@@ -4,45 +4,19 @@ import { TextField } from "../enums/text-field.enums";
 import { FileUpload } from "../enums/fileupload.enums";
 
 export class CreateProductPage extends BasePage {
+  readonly productsTab = this.page.getByTestId("products-nav");
+  readonly createProductHeading = this.page.getByTestId("text-create product");
 
-  // Products
-  readonly productsTab =
-    this.page.getByTestId("products-nav");
+  readonly productName = this.field.getInputField(TextField.PRODUCT_NAME);
+  readonly productCode = this.field.getInputField(TextField.PRODUCT_CODE);
+  readonly category = this.field.getInputField(TextField.CATEGORY);
+  readonly price = this.field.getInputField(TextField.PRICE);
+  readonly stock = this.field.getInputField(TextField.STOCK);
 
-<<<<<<< Updated upstream
-  // FEEDBACK: Constructor is not required since we are inheriting all from base page class
-  constructor(page: Page) {
-    super(page);
-=======
-  readonly createProductHeading =
-    this.page.getByTestId("text-create product");
->>>>>>> Stashed changes
+  readonly status = this.page.getByTestId("dropdown-product status");
+  readonly productImages = this.uploadfile.getUpload(FileUpload.PRODUCT_IMAGE);
 
-  // Create Product form
-  readonly productName =
-    this.field.getInputField(TextField.PRODUCT_NAME);
-
-  readonly productCode =
-    this.field.getInputField(TextField.PRODUCT_CODE);
-
-  readonly category =
-    this.field.getInputField(TextField.CATEGORY);
-
-  readonly price =
-    this.field.getInputField(TextField.PRICE);
-
-  readonly stock =
-    this.field.getInputField(TextField.STOCK);
-
-  readonly status =
-    this.page.getByTestId("dropdown-product status");
-
-  readonly productImages =
-    this.uploadfile.getUpload(FileUpload.PRODUCT_IMAGE);
-
-  // Button
-  readonly createProductButton =
-    this.button.getButton(Buttons.CREATE_PRODUCT);
+  readonly createProductButton = this.button.getButton(Buttons.CREATE_PRODUCT);
 
   async navigate(url: string) {
     await this.goto(url);
