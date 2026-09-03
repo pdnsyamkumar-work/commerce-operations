@@ -1,9 +1,10 @@
-import { Locator, Page } from "@playwright/test";
+
 import { BasePage } from "./basepage";
 import { Buttons } from "../enums/button.enums";
 import { TextField } from "../enums/text-field.enums";
 
 export class SignInPage extends BasePage {
+<<<<<<< Updated upstream
   readonly emailAddress: Locator;
   readonly password: Locator;
   readonly signInBtn: Locator;
@@ -15,6 +16,13 @@ export class SignInPage extends BasePage {
 this.password = this.field.getInputField(TextField.PASSWORD);
 this.signInBtn = this.button.getButton(Buttons.SIGN_IN);
   }
+=======
+  
+     readonly emailAddress = this.field.getInputField(TextField.EMAIL);
+  readonly password = this.field.getInputField(TextField.PASSWORD);
+  readonly signInBtn = this.button.getButton(Buttons.SIGN_IN);
+  
+>>>>>>> Stashed changes
   async waitForLoginApi() {
    return await this.waitForResponse("/login");
 }

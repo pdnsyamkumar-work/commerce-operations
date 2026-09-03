@@ -1,48 +1,48 @@
-import { Page, Locator } from '@playwright/test';
 import { BasePage } from "./basepage";
 import { Buttons } from "../enums/button.enums";
 import { TextField } from "../enums/text-field.enums";
 import { FileUpload } from "../enums/fileupload.enums";
 
-
 export class CreateProductPage extends BasePage {
 
-  readonly productsTab: Locator;
-  readonly createProductHeading: Locator;
-  readonly productName: Locator;
-  readonly productCode: Locator;
-  readonly category: Locator;
-  readonly price: Locator;
-  readonly stock: Locator;
-  readonly status: Locator;
-  readonly productImages: Locator;
-  readonly createProductButton: Locator;
+  // Products
+  readonly productsTab =
+    this.page.getByTestId("products-nav");
 
+<<<<<<< Updated upstream
   // FEEDBACK: Constructor is not required since we are inheriting all from base page class
   constructor(page: Page) {
     super(page);
+=======
+  readonly createProductHeading =
+    this.page.getByTestId("text-create product");
+>>>>>>> Stashed changes
 
-    // Products
-    this.productsTab = page.getByTestId("products-nav");
+  // Create Product form
+  readonly productName =
+    this.field.getInputField(TextField.PRODUCT_NAME);
 
-    // Create Product form
-    this.createProductHeading = page.getByTestId("text-create product");
+  readonly productCode =
+    this.field.getInputField(TextField.PRODUCT_CODE);
 
-    this.productName = this.field.getInputField(TextField.PRODUCT_NAME);
-this.productCode = this.field.getInputField(TextField.PRODUCT_CODE);
-this.category = this.field.getInputField(TextField.CATEGORY);
-this.price = this.field.getInputField(TextField.PRICE);
-this.stock = this.field.getInputField(TextField.STOCK);
+  readonly category =
+    this.field.getInputField(TextField.CATEGORY);
 
-    this.status = page.getByTestId("dropdown-product status");
+  readonly price =
+    this.field.getInputField(TextField.PRICE);
 
-    this.productImages =
-  this.uploadfile.getUpload(FileUpload.PRODUCT_IMAGE);
+  readonly stock =
+    this.field.getInputField(TextField.STOCK);
 
-    // Button
-    this.createProductButton =
-  this.button.getButton(Buttons.CREATE_PRODUCT);
-  }
+  readonly status =
+    this.page.getByTestId("dropdown-product status");
+
+  readonly productImages =
+    this.uploadfile.getUpload(FileUpload.PRODUCT_IMAGE);
+
+  // Button
+  readonly createProductButton =
+    this.button.getButton(Buttons.CREATE_PRODUCT);
 
   async navigate(url: string) {
     await this.goto(url);

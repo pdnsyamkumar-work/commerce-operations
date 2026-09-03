@@ -1,12 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { createProductElements } from "../../utils/interfaces/createproductInterface";
 
-/*
-  Overrides are used to override the default test data.
-  Excludes are used to exclude fields from the default test data.
-*/
-
 export class CreateProductTestData {
+
   createProductTestData({
     overrides = {},
     excludes = [],
@@ -57,6 +53,45 @@ export class CreateProductTestData {
       ...overrides,
     };
   }
+
+  successfulProductCreation() {
+    return this.createProductTestData({
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    });
+  }
+
+  duplicateProductCode() {
+    return this.createProductTestData({
+      overrides: {
+        productCode: "PRD-106",
+        category: "Home",
+        status: "Active",
+      },
+    });
+  }
+
+  productCreationWithoutProductName() {
+    return this.createProductTestData({
+      excludes: ["productName"],
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    });
+  }
+
+  productCreationWithoutProductCode() {
+    return this.createProductTestData({
+      excludes: ["productCode"],
+      overrides: {
+        category: "Home",
+        status: "Active",
+      },
+    });
+  }
 }
 
 export const createProductTestData = new CreateProductTestData();
@@ -64,37 +99,14 @@ export const createProductTestData = new CreateProductTestData();
 export const createProductAllScenarios = {
 
   Successful_Product_Creation:
-    createProductTestData.createProductTestData({
-      overrides: {
-        category: "Home",
-        status: "Active",
-      },
-    }),
+    createProductTestData.successfulProductCreation(),
 
   Product_Creation_With_Duplicate_ProductCode:
-    createProductTestData.createProductTestData({
-      overrides: {
-        productCode: "PRD-106",
-        category: "Home",
-        status: "Active",
-      },
-    }),
+    createProductTestData.duplicateProductCode(),
 
   Product_Creation_Without_ProductName:
-    createProductTestData.createProductTestData({
-      excludes: ["productName"],
-      overrides: {
-        category: "Home",
-        status: "Active",
-      },
-    }),
+    createProductTestData.productCreationWithoutProductName(),
 
   Product_Creation_Without_ProductCode:
-    createProductTestData.createProductTestData({
-      excludes: ["productCode"],
-      overrides: {
-        category: "Home",
-        status: "Active",
-      },
-    }),
+    createProductTestData.productCreationWithoutProductCode(),
 };

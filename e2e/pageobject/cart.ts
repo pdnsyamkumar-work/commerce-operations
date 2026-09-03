@@ -1,10 +1,11 @@
-import { Page, Locator, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
 import { BasePage } from "./basepage";
 import { Buttons } from "../enums/button.enums";
 import { Dropdown } from "../enums/dropdown.enums";
 
 export class CartPage extends BasePage {
 
+<<<<<<< Updated upstream
   // FEEDBACK: Constructor is not required since we are inheriting all from base page class
   readonly cartTab: Locator;
   readonly productDropdown: Locator;
@@ -12,33 +13,32 @@ export class CartPage extends BasePage {
   readonly viewBtn: Locator;
   readonly xButton: Locator;
   readonly removeBtn: Locator;
+=======
+  // Cart
+  readonly cartTab =
+    this.page.getByTestId("cart-nav");
+>>>>>>> Stashed changes
 
-  constructor(page: Page) {
-    super(page);
+  // Product Dropdown
+  readonly productDropdown =
+    this.dropdown.getSelectDropdown(Dropdown.PRODUCT_CARTS);
 
-    // Cart
-    this.cartTab = page.getByTestId("cart-nav");
+  // Buttons
+  readonly addSelectedProductBtn =
+    this.button.getButton(Buttons.ADD_SELECTED_PRODUCT);
 
-    // Product Dropdown
-    this.productDropdown =
-      this.dropdown.getSelectDropdown(Dropdown.PRODUCT_CARTS);
+  readonly viewBtn =
+    this.button.getButton(Buttons.VIEW_CARTED_PRODUCT).first();
 
-    // Buttons
-    this.addSelectedProductBtn =
-      this.button.getButton(Buttons.ADD_SELECTED_PRODUCT);
-
-    this.viewBtn =
-      this.button.getButton(Buttons.VIEW_CARTED_PRODUCT).first();
-
-    // X button inside View modal
-    this.xButton = page.getByRole("button", {
+  // X button inside View modal
+  readonly xButton =
+    this.page.getByRole("button", {
       name: "Close cart item details",
     });
 
-    // Remove button
-    this.removeBtn =
-      this.button.getButton(Buttons.REMOVE_CARTED_PRODUCT).first();
-  }
+  // Remove button
+  readonly removeBtn =
+    this.button.getButton(Buttons.REMOVE_CARTED_PRODUCT).first();
 
   async openCart() {
     await this.clickElement(this.cartTab);
