@@ -227,7 +227,7 @@ export function ProductsPage({
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.9fr_1.8fr]">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6">
           <h2 data-testid="text-create product" className="text-2xl font-semibold">
             {isEditing ? "Edit product" : "Create product"}
@@ -348,16 +348,13 @@ export function ProductsPage({
             data-testid="dropdown-product status"
               className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
               value={draft.status}
-              onChange={(event) =>
+              onChange={(status) =>
                 onDraftChange({
-                  status: event.target.value as Product["status"],
+                  status,
                 }, "status")
               }
               onBlur={() => onDraftFieldBlur("status")}
-            >
-              <option value="Active">Active</option>
-              <option value="Draft">Draft</option>
-            </select>
+            />
             <InlineError id="product-status" message={errors.status} />
           </label>
           <label className="grid gap-2 text-sm font-semibold">
@@ -418,7 +415,7 @@ export function ProductsPage({
         </form>
       </article>
 
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Products</h2>
@@ -632,11 +629,11 @@ function ImagePreviewDialog({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-5"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/70 px-4 py-4 sm:items-center sm:px-5"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-3xl rounded-[1.5rem] bg-white p-4 shadow-2xl">
+      <div className="relative my-auto w-full max-w-3xl rounded-[1.5rem] bg-white p-4 shadow-2xl">
         <button
           className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-slate-950 text-white transition hover:bg-rose-700"
           type="button"
@@ -700,6 +697,60 @@ function SortDropdown({
   );
 }
 
+function StatusDropdown({
+  value,
+  onChange,
+  onBlur,
+}: {
+  value: Product["status"];
+  onChange: (status: Product["status"]) => void;
+  onBlur: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useClickOutside(dropdownRef, () => setOpen(false));
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <button
+        className="flex w-full items-center justify-between rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 text-left font-normal transition duration-200 hover:bg-slate-50"
+        type="button"
+        aria-label="Product status"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onBlur={onBlur}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>{value}</span>
+        <span aria-hidden="true">v</span>
+      </button>
+      {open && (
+        <div
+          className="absolute inset-x-0 z-40 mt-2 rounded-2xl border border-[color:var(--border)] bg-white p-2 shadow-xl"
+          role="listbox"
+          aria-label="Product status options"
+        >
+          {(["Active", "Draft"] as Product["status"][]).map((status) => (
+            <button
+              key={status}
+              className={`w-full rounded-xl px-3 py-2 text-left text-sm transition duration-200 hover:bg-slate-100 ${status === value ? "bg-slate-950 text-white hover:bg-slate-950" : ""}`}
+              type="button"
+              role="option"
+              aria-selected={status === value}
+              onClick={() => {
+                onChange(status);
+                setOpen(false);
+              }}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BulkSelectDropdown({
   products,
   selectedIds,
@@ -738,7 +789,7 @@ function BulkSelectDropdown({
         <span>v</span>
       </button>
       {open && (
-        <div className="absolute left-0 z-40 mt-2 max-h-80 w-80 overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-3 shadow-xl">
+        <div className="absolute left-0 z-40 mt-2 max-h-80 w-full min-w-[14rem] max-w-[calc(100vw-2rem)] overflow-auto rounded-2xl border border-[color:var(--border)] bg-white p-3 shadow-xl sm:w-80">
           <div className="mb-2 flex gap-2">
             <button
               className="rounded-full bg-slate-950 px-3 py-1 text-xs font-semibold text-white transition duration-200 hover:bg-slate-800"
@@ -891,8 +942,8 @@ function TableView(
   },
 ) {
   return (
-    <div className="mb-6 overflow-hidden rounded-[1.4rem] border border-[color:var(--border)] bg-white">
-      <table className="w-full border-collapse text-left text-sm">
+    <div className="mb-6 overflow-x-auto rounded-[1.4rem] border border-[color:var(--border)] bg-white">
+      <table className="min-w-[800px] w-full border-collapse text-left text-sm">
         <thead className="bg-[color:var(--surface-strong)] text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
           <tr>
             <th className="px-4 py-3">Product</th>

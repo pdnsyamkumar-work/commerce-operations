@@ -33,7 +33,7 @@ export function CartPage({
 
   return (
     <section className="grid gap-6 xl:grid-cols-1">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6">
           <h2 className="text-2xl font-semibold">Cart</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
@@ -74,10 +74,10 @@ export function CartPage({
                 key={item.id}
                 className="rounded-[1.4rem] border border-[color:var(--border)] bg-white p-4"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <div className="min-w-0">
                     <h3 className="font-semibold">{item.name}</h3>
-                    <p className="text-sm text-[color:var(--muted)]">
+                    <p className="break-words text-sm text-[color:var(--muted)]">
                       ${item.unitPrice} each &middot; {item.id}
                     </p>
                   </div>
@@ -199,12 +199,12 @@ function CartItemDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 px-5"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-slate-950/50 px-4 py-4 sm:items-center sm:px-5"
       role="dialog"
       aria-modal="true"
       aria-labelledby="cart-item-dialog-title"
     >
-      <div className="w-full max-w-lg rounded-[1.75rem] bg-white p-6 shadow-2xl">
+      <div className="my-auto w-full max-w-lg rounded-[1.5rem] bg-white p-4 shadow-2xl sm:rounded-[1.75rem] sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">

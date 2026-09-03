@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Commerce Operations",
   description:
     "Commerce dashboard for managing products, inventory, and cart activity.",
+  icons: {
+    icon: "/commerce-operations-logo.png",
+  },
 };
 
 export default function RootLayout({

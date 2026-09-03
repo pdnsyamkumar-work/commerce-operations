@@ -1,4 +1,4 @@
-﻿import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "fs";
 import path from "path";
 
 export type Product = {
@@ -40,7 +40,10 @@ declare global {
   var __commerceRuntimeInitialized: boolean | undefined;
 }
 
-const runtimeDir = path.join(process.cwd(), ".runtime-data");
+const isVercel = process.env.VERCEL === "1";
+const runtimeDir = isVercel
+  ? path.join("/tmp", ".runtime-data")
+  : path.join(process.cwd(), ".runtime-data");
 const dataDir = path.join(process.cwd(), "src", "data");
 
 const runtimeProductsPath = path.join(runtimeDir, "products.json");

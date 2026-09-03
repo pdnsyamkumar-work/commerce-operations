@@ -21,9 +21,9 @@ export function InventoryPage({
 }: InventoryPageProps) {
   return (
     <section className="grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <div>
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+          <div className="min-w-0">
             <h2 className="text-2xl font-semibold">Inventory</h2>
             <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
               Stock data grouped by product status and risk.
@@ -33,8 +33,8 @@ export function InventoryPage({
             {lowStockProducts.length} low stock
           </span>
         </div>
-        <div className="overflow-hidden rounded-[1.4rem] border border-[color:var(--border)] bg-white">
-          <table className="w-full border-collapse text-left text-sm">
+        <div className="overflow-x-auto rounded-[1.4rem] border border-[color:var(--border)] bg-white">
+          <table className="min-w-[800px] w-full border-collapse text-left text-sm">
             <thead className="bg-[color:var(--surface-strong)] text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
               <tr>
                 <th className="px-4 py-3">Product</th>
@@ -70,7 +70,7 @@ export function InventoryPage({
           </table>
         </div>
       </article>
-      <article className="rounded-[1.75rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-sm">
+      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Stock alerts</h2>
         <div className="mt-5 grid gap-3">
           {lowStockProducts.length === 0 ? (
