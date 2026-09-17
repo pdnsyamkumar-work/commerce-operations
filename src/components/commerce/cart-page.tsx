@@ -33,7 +33,7 @@ export function CartPage({
 
   return (
     <section className="grid gap-6 xl:grid-cols-1">
-      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+      <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6">
           <h2 className="text-2xl font-semibold">Cart</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
@@ -231,7 +231,8 @@ function CartItemDialog({
         )}
         <div className="mt-5 grid gap-3 rounded-[1.25rem] bg-[color:var(--surface-strong)] p-4 text-sm">
           <p>
-            <strong>Product code:</strong> {product?.productCode ?? item.productId}
+            <strong>Product code:</strong>{" "}
+            {product?.productCode ?? item.productId}
           </p>
           <p>
             <strong>Category:</strong> {product?.category ?? "Unavailable"}

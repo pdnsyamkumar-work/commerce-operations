@@ -81,13 +81,15 @@ export function ProfilePage({ user, profile, onSave }: ProfilePageProps) {
           />
         </label>
         <h2 className="mt-5 text-2xl font-semibold">{name}</h2>
-        <p className="mt-1 break-all text-sm text-[color:var(--muted)]">{email}</p>
+        <p className="mt-1 break-all text-sm text-[color:var(--muted)]">
+          {email}
+        </p>
         <p className="mt-3 rounded-full bg-[color:var(--surface-strong)] px-4 py-2 text-sm font-semibold capitalize text-slate-700">
           {user.role}
         </p>
       </article>
 
-      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+      <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <h2 className="text-2xl font-semibold">Profile settings</h2>
         <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
           Update personal details and upload a profile picture for the commerce
@@ -174,7 +176,9 @@ function CountryCodeDropdown({
         onClick={() => setOpen((current) => !current)}
       >
         <span className="min-w-0 truncate">{selected?.label ?? value}</span>
-        <span className="shrink-0" aria-hidden="true">v</span>
+        <span className="shrink-0" aria-hidden="true">
+          v
+        </span>
       </button>
       {open && (
         <div

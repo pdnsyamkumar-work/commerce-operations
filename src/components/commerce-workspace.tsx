@@ -20,6 +20,7 @@ import { ProfilePage } from "@/components/commerce/profile-page";
 import { ProductsPage } from "@/components/commerce/products-page";
 import { ReportsPage } from "@/components/commerce/reports-page";
 import { SupportPage } from "@/components/commerce/support-page";
+import { TestCasesPage } from "@/components/commerce/test-cases-page";
 import {
   validateProductDraft,
   type ProductFieldName,
@@ -50,6 +51,7 @@ const commerceNavItems: CommerceNavItem[] = [
   "Cart",
   "Reports",
   "Support",
+  "Test Cases",
 ];
 const defaultUploadSummary = "No inventory file uploaded yet.";
 const defaultAuditChecks = ["pricing"];
@@ -115,6 +117,12 @@ const pageCopy: Record<
     title: "Review one catalog item in detail.",
     description:
       "Inspect pricing, stock, status, and available product actions.",
+  },
+  "Test Cases": {
+    eyebrow: "QA Automation Catalog",
+    title: "Explore automatable UI and API test cases at the feature level.",
+    description:
+      "Review test specifications, execution steps, expected assertions, endpoints, and automation guidance for every feature.",
   },
 };
 
@@ -228,7 +236,7 @@ function parseInventoryUpload(contents: string): {
 
 export function CommerceWorkspace() {
   const [user, setUser] = useState<User | null>(null);
-  const [isCheckingSession, setIsCheckingSession] = useState(false);
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
   const [activeView, setActiveView] = useState<CommerceNavItem>("Dashboard");
   const [products, setProducts] = useState<Product[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -237,7 +245,9 @@ export function CommerceWorkspace() {
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [message, setMessage] = useState<string>("Loading dashboard data...");
   const [isToastVisible, setIsToastVisible] = useState(false);
-  const [toastType, setToastType] = useState<"success" | "error" | "default">("default");
+  const [toastType, setToastType] = useState<"success" | "error" | "default">(
+    "default",
+  );
   const [selectedProductId, setSelectedProductId] = useState<string>("");
   const [uploadSummary, setUploadSummary] =
     useState<string>(defaultUploadSummary);
@@ -250,10 +260,12 @@ export function CommerceWorkspace() {
   const [selectedLabCategory, setSelectedLabCategory] = useState("");
   const [selectedLabProductId, setSelectedLabProductId] = useState("");
   const [draggedTask, setDraggedTask] = useState<string | null>(null);
-  const [taskBoard, setTaskBoard] = useState<Record<TaskLane, string[]>>({
+  const [taskBoard, setTaskBoard] =
+    useState<Record<TaskLane, string[]>>(defaultTaskBoard);
+  /*
     todo: ["Verify product price", "Review low-stock alert"],
     done: ["Confirm login access"],
-  });
+  */
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deliveryDate, setDeliveryDate] = useState("");
   const [riskScore, setRiskScore] = useState("45");
@@ -271,7 +283,21 @@ export function CommerceWorkspace() {
   const [profileDetails, setProfileDetails] = useState(defaultProfileDetails);
   useClickOutside(profileDropdownRef, () => setIsProfileOpen(false));
 
-  function notify(nextMessage: string, type: "success" | "error" | "default" = "default") {
+  useEffect(() => {
+    if (isMobileNavOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileNavOpen]);
+
+  function notify(
+    nextMessage: string,
+    type: "success" | "error" | "default" = "default",
+  ) {
     let finalType = type;
     if (finalType === "default") {
       const lower = nextMessage.toLowerCase();
@@ -299,7 +325,7 @@ export function CommerceWorkspace() {
         finalType = "success";
       }
     }
-    
+
     setMessage(nextMessage);
     setToastType(finalType);
     setIsToastVisible(true);
@@ -557,9 +583,7 @@ export function CommerceWorkspace() {
       return nextBoard;
     });
     setDraggedTask(null);
-    notify(
-      `Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`,
-    );
+    notify(`Moved "${task}" to ${targetLane === "done" ? "Done" : "To do"}.`);
   }
 
   function submitPracticeReview() {
@@ -613,9 +637,7 @@ export function CommerceWorkspace() {
     setDraft(emptyDraft);
     setEditingProductId(null);
     setProductErrors({});
-    notify(
-      `${editingProductId ? "Updated" : "Created"} ${data.product.name}.`,
-    );
+    notify(`${editingProductId ? "Updated" : "Created"} ${data.product.name}.`);
     await refresh();
   }
 
@@ -891,7 +913,7 @@ export function CommerceWorkspace() {
   return (
     <main className="flex min-h-screen min-w-0 w-full text-slate-900">
       <aside
-        className={`sticky top-0 hidden h-screen shrink-0 rounded-r-[2rem] bg-white p-5 shadow-[16px_0_60px_rgba(15,23,42,0.08)] transition-all duration-300 lg:block ${isSideNavCollapsed ? "w-24" : "w-72"}`}
+        className={`fixed inset-y-0 left-0 z-40 hidden h-screen flex-col overflow-y-auto rounded-r-[2rem] bg-white p-5 shadow-[16px_0_60px_rgba(15,23,42,0.08)] transition-all duration-300 lg:flex ${isSideNavCollapsed ? "w-24" : "w-72"}`}
       >
         <div
           className={`mb-8 flex items-center ${isSideNavCollapsed ? "justify-center" : "justify-between gap-3"}`}
@@ -941,8 +963,10 @@ export function CommerceWorkspace() {
           })}
         </nav>
       </aside>
-      <section className="flex min-w-0 flex-1 flex-col gap-4 px-4 py-4 sm:gap-6 sm:px-8 sm:py-6 lg:px-10">
-        <header className="relative z-40 flex min-w-0 flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-4 shadow-sm backdrop-blur sm:px-5 lg:flex-row lg:items-center lg:justify-between">
+      <section
+        className={`flex min-w-0 flex-1 flex-col gap-4 px-3 py-3 sm:gap-6 sm:px-8 sm:py-6 lg:px-10 transition-all duration-300 ${isSideNavCollapsed ? "lg:ml-24" : "lg:ml-72"}`}
+      >
+        <header className="sticky top-2 sm:top-3 z-40 flex min-w-0 w-full flex-col gap-4 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)]/95 px-4 py-4 shadow-sm backdrop-blur-md sm:px-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--accent-strong)]">
@@ -956,7 +980,16 @@ export function CommerceWorkspace() {
               className="lg:hidden flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[color:var(--border)] bg-white text-slate-700 transition duration-200 hover:bg-slate-100"
               onClick={() => setIsMobileNavOpen((current) => !current)}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
@@ -1014,7 +1047,7 @@ export function CommerceWorkspace() {
           </div>
         </header>
 
-        <section className="min-w-0 rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-[0_24px_80px_rgba(78,52,35,0.12)] backdrop-blur sm:rounded-[2rem] sm:p-8 lg:p-10">
+        <section className="min-w-0 w-full max-w-full overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-[0_24px_80px_rgba(78,52,35,0.12)] backdrop-blur sm:rounded-[2rem] sm:p-8 lg:p-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-4xl">
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[color:var(--accent-strong)]">
@@ -1114,7 +1147,11 @@ export function CommerceWorkspace() {
             onBulkAddToCart={bulkAddToCart}
           />
         )}
-        {activeView === "Support" && <SupportPage onSubmit={() => notify("Support request submitted successfully.")} />}
+        {activeView === "Support" && (
+          <SupportPage
+            onSubmit={() => notify("Support request submitted successfully.")}
+          />
+        )}
         {activeView === "Profile" && (
           <ProfilePage
             user={user}
@@ -1142,6 +1179,7 @@ export function CommerceWorkspace() {
             onUpdateQuantity={updateQuantity}
           />
         )}
+        {activeView === "Test Cases" && <TestCasesPage />}
 
         {confirmation && (
           <ConfirmDialog
@@ -1204,9 +1242,17 @@ export function CommerceWorkspace() {
         />
       </section>
       {isMobileNavOpen && (
-        <div className="fixed inset-0 z-[60] lg:hidden">
-          <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-sm" onClick={() => setIsMobileNavOpen(false)} />
-          <div className="absolute left-0 top-0 flex h-full w-64 max-w-[85vw] flex-col overflow-y-auto bg-white p-5 shadow-2xl">
+        <div
+          className="fixed inset-0 z-[70] lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+        >
+          <div
+            className="absolute inset-0 bg-slate-950/20 backdrop-blur-sm"
+            onClick={() => setIsMobileNavOpen(false)}
+          />
+          <div className="fixed inset-y-0 left-0 flex h-[100dvh] w-72 max-w-[85vw] flex-col overflow-y-auto bg-white p-5 pb-12 shadow-2xl">
             <div className="mb-8 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xl font-semibold">
                 <span className="text-[color:var(--accent)]">Commerce</span>
@@ -1216,7 +1262,18 @@ export function CommerceWorkspace() {
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600"
                 onClick={() => setIsMobileNavOpen(false)}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
             </div>
             <nav className="grid gap-2">
@@ -1352,6 +1409,14 @@ function navIcon(item: CommerceNavItem) {
         <path d="M12 17h.01" />
       </svg>
     );
+  if (item === "Test Cases")
+    return (
+      <svg {...common}>
+        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        <path d="m9 14 2 2 4-4" />
+      </svg>
+    );
   return (
     <svg {...common}>
       <path d="M4 6h16" />
@@ -1360,4 +1425,3 @@ function navIcon(item: CommerceNavItem) {
     </svg>
   );
 }
-

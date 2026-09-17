@@ -1,4 +1,4 @@
-﻿# Commerce Operations App Documentation
+# Commerce Operations App Documentation
 
 ## Overview
 
@@ -76,7 +76,7 @@ Operator password: Operator@123
 - Side navigation with icons.
 - User profile dropdown.
 - Sign out inside the profile dropdown.
-- Dashboard, Products, Inventory, Cart, Reports, and Support pages.
+- Dashboard, Products, Inventory, Cart, Reports, Support, and Test Cases pages.
 - Product Details page from product actions.
 
 ### Products
@@ -140,6 +140,15 @@ Operator password: Operator@123
 - Submit support request practice data.
 - Use a custom priority dropdown.
 - Review help topics.
+
+### Test Cases & QA Automation
+
+- Feature-level automatable test scenario catalog for both UI and API.
+- Coverage across Authentication, Products, Inventory, Cart, Reports, Support, and Profile.
+- Metric summary cards (Total Tests, UI Tests, API Tests, Feature Areas, P0 Coverage).
+- Multi-dimensional filters (Automation Type, Feature Area, Priority, and keyword search).
+- Step-by-step execution workflows, expected assertions, and target DOM selectors / API endpoints.
+- Export test cases to CSV and Excel (.xls) formats.
 
 ### Notifications
 

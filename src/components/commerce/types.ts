@@ -8,7 +8,8 @@ export type CommerceNavItem =
   | "Reports"
   | "Support"
   | "Profile"
-  | "Product Details";
+  | "Product Details"
+  | "Test Cases";
 export type TaskLane = "todo" | "done";
 
 export type ProductDraft = {
