@@ -7,19 +7,16 @@ import {
 } from "react";
 import type { Product } from "@/lib/store";
 import type { ProductDraft, ProductFormErrors } from "./types";
-import { validateProductDraft, type ProductFieldName } from "./product-validation";
+import {
+  validateProductDraft,
+  type ProductFieldName,
+} from "./product-validation";
 import { InlineError, StatusBadge, useClickOutside } from "./shared";
 
 const productsPerPage = 5;
 const maxProductImages = 6;
 type ProductViewMode =
-  | "table"
-  | "grid"
-  | "list"
-  | "kanban"
-  | "gallery"
-  | "detail"
-  | "bulk";
+  "table" | "grid" | "list" | "kanban" | "gallery" | "detail" | "bulk";
 type ProductSortKey =
   | "name-asc"
   | "name-desc"
@@ -54,7 +51,10 @@ type ProductsPageProps = {
   draft: ProductDraft;
   errors: ProductFormErrors;
   editingProductId: string | null;
-  onDraftChange: (patch: Partial<ProductDraft>, field?: ProductFieldName) => void;
+  onDraftChange: (
+    patch: Partial<ProductDraft>,
+    field?: ProductFieldName,
+  ) => void;
   onDraftFieldBlur: (field: ProductFieldName) => void;
   onSubmitProduct: (event: FormEvent<HTMLFormElement>) => void;
   onCancelEdit: () => void;
@@ -107,9 +107,7 @@ export function ProductsPage({
             product.category,
             product.productCode,
             product.status,
-          ].some(
-            (value) => value.toLowerCase().includes(query),
-          ),
+          ].some((value) => value.toLowerCase().includes(query)),
         )
       : products;
 
@@ -227,7 +225,7 @@ export function ProductsPage({
 
   return (
     <section className="grid gap-6 xl:grid-cols-[0.9fr_1.8fr]">
-      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+      <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6">
           <h2 className="text-2xl font-semibold">
             {isEditing ? "Edit product" : "Create product"}
@@ -299,14 +297,14 @@ export function ProductsPage({
                 Price <span className="text-rose-600">*</span>
               </span>
               <input
-              className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
-              type="text"
-              inputMode="decimal"
-              placeholder="Example: 84"
-              value={draft.price}
-              onChange={(event) =>
-                onDraftChange(
-                  { price: event.target.value.replace(/[^0-9.]/g, "") },
+                className="w-full rounded-2xl border border-[color:var(--border)] bg-white px-4 py-3 font-normal"
+                type="text"
+                inputMode="decimal"
+                placeholder="Example: 84"
+                value={draft.price}
+                onChange={(event) =>
+                  onDraftChange(
+                    { price: event.target.value.replace(/[^0-9.]/g, "") },
                     "price",
                   )
                 }
@@ -323,7 +321,7 @@ export function ProductsPage({
                 type="text"
                 inputMode="numeric"
                 placeholder="Example: 12"
-              value={draft.stock}
+                value={draft.stock}
                 onChange={(event) =>
                   onDraftChange(
                     { stock: event.target.value.replace(/[^0-9]/g, "") },
@@ -342,9 +340,12 @@ export function ProductsPage({
             <StatusDropdown
               value={draft.status}
               onChange={(status) =>
-                onDraftChange({
-                  status,
-                }, "status")
+                onDraftChange(
+                  {
+                    status,
+                  },
+                  "status",
+                )
               }
               onBlur={() => onDraftFieldBlur("status")}
             />
@@ -406,7 +407,7 @@ export function ProductsPage({
         </form>
       </article>
 
-      <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+      <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
         <div className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Products</h2>
@@ -440,7 +441,7 @@ export function ProductsPage({
             Download CSV
           </a>
         </div>
-        <div className="mb-5 flex max-w-full flex-wrap gap-1 rounded-[1.25rem] border border-[color:var(--border)] bg-white p-1">
+        <div className="mb-5 flex max-w-full overflow-x-auto no-scrollbar sm:flex-wrap gap-1 rounded-[1.25rem] border border-[color:var(--border)] bg-white p-1">
           {productViewModes.map((mode) => (
             <button
               key={mode.id}
@@ -932,7 +933,7 @@ function TableView(
   },
 ) {
   return (
-    <div className="mb-6 overflow-x-auto rounded-[1.4rem] border border-[color:var(--border)] bg-white">
+    <div className="mb-6 w-full max-w-full min-w-0 overflow-x-auto rounded-[1.4rem] border border-[color:var(--border)] bg-white">
       <table className="min-w-[800px] w-full border-collapse text-left text-sm">
         <thead className="bg-[color:var(--surface-strong)] text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
           <tr>
@@ -1220,6 +1221,7 @@ function IconButton({
 }) {
   return (
     <button
+      data-testid={testId}
       className={`inline-flex items-center justify-center rounded-full border transition duration-200 hover:-translate-y-0.5 hover:shadow-sm ${className} ${danger ? "border-rose-200 text-rose-700 hover:bg-rose-700 hover:text-white" : "border-[color:var(--border)] text-slate-700 hover:bg-slate-950 hover:text-white"}`}
       type="button"
       aria-label={label}
@@ -1340,4 +1342,3 @@ function readImageFile(file: File) {
     reader.readAsDataURL(file);
   });
 }
-

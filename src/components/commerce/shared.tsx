@@ -31,11 +31,19 @@ export function useClickOutside<T extends HTMLElement>(
 
 export function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:p-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--muted)]">
+    <article className="min-w-0 max-w-full overflow-hidden rounded-[1.25rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-3.5 sm:rounded-[1.5rem] sm:p-5 shadow-sm">
+      <p
+        className="truncate text-[11px] sm:text-xs font-semibold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[color:var(--muted)]"
+        title={label}
+      >
         {label}
       </p>
-      <p className="mt-3 text-3xl font-semibold">{value}</p>
+      <p
+        className="mt-2 sm:mt-3 truncate text-xl sm:text-3xl font-semibold"
+        title={value}
+      >
+        {value}
+      </p>
     </article>
   );
 }
@@ -60,9 +68,8 @@ export function InlineError({ id, message }: { id: string; message?: string }) {
   }
 
   return (
-    <p className="text-sm font-medium text-rose-700" role="alert">
+    <p id={id} className="text-sm font-medium text-rose-700" role="alert">
       {message}
     </p>
   );
 }
-

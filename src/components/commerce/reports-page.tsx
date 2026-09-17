@@ -76,7 +76,7 @@ export function ReportsPage(props: ReportsPageProps) {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
-        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+        <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
           <h2 className="text-2xl font-semibold">Operations review controls</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Capture product audit decisions, fulfillment channels, dispatch
@@ -179,7 +179,7 @@ export function ReportsPage(props: ReportsPageProps) {
           </div>
         </article>
 
-        <article className="rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
+        <article className="w-full max-w-full min-w-0 overflow-hidden rounded-[1.5rem] border border-[color:var(--border)] bg-[color:var(--surface)] p-4 shadow-sm sm:rounded-[1.75rem] sm:p-6">
           <h2 className="text-2xl font-semibold">Report product drilldown</h2>
           <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
             Filter by category to preview the product details used in the
@@ -305,7 +305,9 @@ function ReportDropdown({
         onClick={() => setOpen((current) => !current)}
       >
         <span className="min-w-0 truncate">{selectedLabel ?? placeholder}</span>
-        <span className="shrink-0" aria-hidden="true">v</span>
+        <span className="shrink-0" aria-hidden="true">
+          v
+        </span>
       </button>
       {open && (
         <div
