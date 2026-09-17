@@ -234,10 +234,43 @@ function parseInventoryUpload(contents: string): {
   return { rows };
 }
 
-export function CommerceWorkspace() {
+export type CommerceWorkspaceProps = {
+  initialView?: CommerceNavItem;
+};
+
+export const viewPaths: Record<CommerceNavItem, string> = {
+  Dashboard: "/",
+  Products: "/products",
+  Inventory: "/inventory",
+  Cart: "/cart",
+  Reports: "/reports",
+  Support: "/support",
+  Profile: "/profile",
+  "Product Details": "/product-details",
+  "Test Cases": "/test-cases",
+};
+
+export function getViewFromPath(pathname: string): CommerceNavItem {
+  const cleanPath = pathname.replace(/\/$/, "") || "/";
+  for (const [view, path] of Object.entries(viewPaths)) {
+    if (path === cleanPath) return view as CommerceNavItem;
+  }
+  if (cleanPath === "/dashboard") return "Dashboard";
+  return "Dashboard";
+}
+
+export function CommerceWorkspace({
+  initialView = "Dashboard",
+}: CommerceWorkspaceProps = {}) {
   const [user, setUser] = useState<User | null>(null);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
-  const [activeView, setActiveView] = useState<CommerceNavItem>("Dashboard");
+  const [prevInitialView, setPrevInitialView] = useState(initialView);
+  const [activeView, setActiveView] = useState<CommerceNavItem>(initialView);
+
+  if (initialView !== prevInitialView) {
+    setPrevInitialView(initialView);
+    setActiveView(initialView);
+  }
   const [products, setProducts] = useState<Product[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [draft, setDraft] = useState<ProductDraft>(emptyDraft);
@@ -293,6 +326,18 @@ export function CommerceWorkspace() {
       document.body.style.overflow = "";
     };
   }, [isMobileNavOpen]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const targetView = getViewFromPath(window.location.pathname);
+      setActiveView(targetView);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   function notify(
     nextMessage: string,
@@ -474,7 +519,9 @@ export function CommerceWorkspace() {
     [products, selectedLabProductId],
   );
   const selectedDetailProduct = useMemo(
-    () => products.find((product) => product.id === selectedDetailProductId),
+    () =>
+      products.find((product) => product.id === selectedDetailProductId) ??
+      products[0],
     [products, selectedDetailProductId],
   );
   const content = pageCopy[activeView];
@@ -491,6 +538,13 @@ export function CommerceWorkspace() {
     }
 
     setActiveView(nextView);
+
+    if (typeof window !== "undefined") {
+      const targetPath = viewPaths[nextView] ?? "/";
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ view: nextView }, "", targetPath);
+      }
+    }
   }
 
   function updateDraft(patch: Partial<ProductDraft>, field?: ProductFieldName) {
